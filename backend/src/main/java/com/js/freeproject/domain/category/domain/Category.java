@@ -28,5 +28,5 @@ public class Category {
 	private List<Problem> problems = new ArrayList<Problem>();
 	
 	@OneToMany(mappedBy = "category")
-	private List<ScoreHistory> scorehistorys;
+	private List<ScoreHistory> scoreHistoryList;
 }
