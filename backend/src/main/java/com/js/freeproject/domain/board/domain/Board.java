@@ -3,11 +3,7 @@ package com.js.freeproject.domain.board.domain;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.js.freeproject.domain.boardpicture.domain.BoardPicture;
 import com.js.freeproject.domain.comment.domain.Comment;
@@ -24,14 +20,14 @@ public class Board {
 	
 	private String title;
 	private String description;
-	private Date createdate;
+	private Date createDate;
 	
-	@OneToMany(mappedBy = "board")
-	private List<BoardPicture> boardpictures;
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+	private List<BoardPicture> boardPictures;
 	
-	@OneToMany(mappedBy = "board")
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	private List<Comment> comments;
 	
-	@OneToMany(mappedBy = "board")
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	private List<File> files;
 }
