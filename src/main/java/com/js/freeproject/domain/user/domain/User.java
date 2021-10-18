@@ -1,4 +1,4 @@
-package domain.user.domain;
+package com.js.freeproject.domain.user.domain;
 
 import lombok.Getter;
 
@@ -20,5 +20,4 @@ public class User {
     private String pass;
     private String role;
     private String image;
-
 }

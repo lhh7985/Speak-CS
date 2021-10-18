@@ -1,4 +1,4 @@
-package domain.user.domain;
+package com.js.freeproject.domain.user.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
