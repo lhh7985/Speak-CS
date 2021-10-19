@@ -1,27 +1,33 @@
 package com.js.freeproject.domain.problempicture.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.js.freeproject.domain.problem.domain.Problem;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
+@RequiredArgsConstructor
 public class ProblemPicture {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String image;
-	
-	@OneToOne
-	@JoinColumn(name="problem_id")
-	private Problem problem;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String image;
+
+    @OneToOne(mappedBy = "problemPicture", fetch = FetchType.LAZY)
+    @JoinColumn(name = "problem_id")
+    private Problem problem;
+
+    public ProblemPicture(String image) {
+        this.image = image;
+    }
+
+    public ProblemPicture(String image, Problem problem) {
+        this.image = image;
+        this.problem = problem;
+    }
 }
