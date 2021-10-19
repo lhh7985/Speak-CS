@@ -14,9 +14,11 @@ import com.js.freeproject.domain.problem.domain.Problem;
 import com.js.freeproject.domain.scorehistory.domain.ScoreHistory;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
+@RequiredArgsConstructor
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +30,9 @@ public class Category {
 	private List<Problem> problems = new ArrayList<Problem>();
 	
 	@OneToMany(mappedBy = "category")
-	private List<ScoreHistory> scoreHistoryList;
+	private List<ScoreHistory> scoreHistorys = new ArrayList<>();
+
+	public Category(String name) {
+		this.name = name;
+	}
 }
