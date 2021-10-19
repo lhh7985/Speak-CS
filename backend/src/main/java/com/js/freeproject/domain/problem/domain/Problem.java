@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @Getter
-@Setter
 @Slf4j
 @RequiredArgsConstructor
 public class Problem {
