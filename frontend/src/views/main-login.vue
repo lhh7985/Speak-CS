@@ -8,8 +8,8 @@
 
 <script>
 import { reactive, onBeforeMount } from "vue";
-import leftPage from "../views/leftpage.vue";
-import rightPage from "../views/rightpage.vue";
+import leftPage from "@/views/leftpage.vue";
+import rightPage from "@/views/rightpage.vue";
 
 export default {
   name: "main",
