@@ -25,14 +25,16 @@ public class Category {
 	private Long id;
 	
 	private String name;
-	
+
+	private String description;
 	@OneToMany(mappedBy = "category")
 	private List<Problem> problems = new ArrayList<Problem>();
 	
 	@OneToMany(mappedBy = "category")
 	private List<ScoreHistory> scoreHistorys = new ArrayList<>();
 
-	public Category(String name) {
+	public Category(String name, String description) {
 		this.name = name;
+		this.description = description;
 	}
 }
