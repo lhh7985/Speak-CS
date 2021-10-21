@@ -14,10 +14,17 @@ import java.util.List;
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
     @Override
-    @EntityGraph(attributePaths = {"category"})
+    @EntityGraph(attributePaths = {"category", "answers", "problemPicture"})
     List<Problem> findAll();
 
-    @EntityGraph(attributePaths = {"category"})
-    @Query("select p from Problem p left join p.category c where c.name = :name")
-    List<Problem> findByCategory(@Param("name")String name);
+    @Query("select distinct p from Problem p " +
+            "join fetch p.category c " +
+            "join fetch p.answers a " +
+            "join fetch p.problemPicture pi " +
+            "where c.name = :name")
+    List<Problem> findByCategory(@Param("name") String name);
+
+    @EntityGraph(attributePaths = {"category", "answers", "problemPicture"})
+    @Query("select p from Problem p where p.status = :status")
+    List<Problem> findByStatus(@Param("status") ProblemStatus status);
 }

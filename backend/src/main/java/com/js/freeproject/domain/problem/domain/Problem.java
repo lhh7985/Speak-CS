@@ -9,6 +9,7 @@ import com.js.freeproject.domain.answer.domain.Answer;
 import com.js.freeproject.domain.category.domain.Category;
 import com.js.freeproject.domain.problempicture.domain.ProblemPicture;
 
+import com.js.freeproject.domain.user.domain.User;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +31,10 @@ public class Problem {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
@@ -41,21 +46,30 @@ public class Problem {
         category.getProblems().add(this);
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setProblemPicture(ProblemPicture problemPicture) {
         problemPicture = new ProblemPicture(problemPicture.getImage(), this);
         this.problemPicture = problemPicture;
     }
 
-    public void addProblemAnswer(Answer answer){
+    public void addProblemAnswer(Answer answer) {
         answer = new Answer(answer.getWord(), this);
         this.answers.add(answer);
     }
 
-    public static Problem createProblem(String description, Category category, ProblemPicture problemPicture, Answer... answers) {
-        Problem problem = new Problem(description,ProblemStatus.wait);
+    public void setStatus(ProblemStatus status){
+        this.status = status;
+    }
+
+    public static Problem createProblem(String description, Category category, User user, ProblemPicture problemPicture, Answer... answers) {
+        Problem problem = new Problem(description, ProblemStatus.wait);
         problem.setCategory(category);
+        problem.setUser(user);
         problem.setProblemPicture(problemPicture);
-        for (Answer answer: answers) {
+        for (Answer answer : answers) {
             log.info("answer = " + answer.getWord());
             problem.addProblemAnswer(answer);
         }
