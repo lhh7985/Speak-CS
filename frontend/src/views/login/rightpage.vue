@@ -1,9 +1,9 @@
 <template lang="">
-  <div></div>
+  <div>login cover 오른쪽</div>
 </template>
 <script>
 export default {
-  name: "main",
+  name: "login-cover-right",
 };
 </script>
 <style lang=""></style>
