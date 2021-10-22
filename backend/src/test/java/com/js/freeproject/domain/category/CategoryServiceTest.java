@@ -31,10 +31,10 @@ class CategoryServiceTest {
 
     @Test
     public void saveCategoryTest(){
-        Category category = new Category("운영체제");
+        Category category = new Category("운영체제","컴퓨터구조를 배워봐요");
         em.persist(category);
 
-        Category category2 = new Category("네트워크");
+        Category category2 = new Category("네트워크","이게 네트워크지");
         em.persist(category2);
 
         em.flush();
