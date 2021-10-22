@@ -2,6 +2,8 @@ package com.js.freeproject.domain.problempicture.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.js.freeproject.domain.problem.domain.Problem;
 
 import lombok.Getter;
@@ -18,7 +20,8 @@ public class ProblemPicture {
 
     private String image;
 
-    @OneToOne(mappedBy = "problemPicture", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
