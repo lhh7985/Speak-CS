@@ -43,11 +43,11 @@ public class CategoryController {
         }
     }
 
-    @PostConstruct
-    public void init(){
-        categoryService.saveCategory(new Category("운영체제","운영체제입니다."));
-        categoryService.saveCategory(new Category("네트워크","네트워크입니다."));
-        categoryService.saveCategory(new Category("스프링","스프링입니다."));
-        categoryService.saveCategory(new Category("백엔드","백엔드입니다."));
-    }
+//    @PostConstruct
+//    public void init(){
+//        categoryService.saveCategory(new Category("운영체제","운영체제입니다."));
+//        categoryService.saveCategory(new Category("네트워크","네트워크입니다."));
+//        categoryService.saveCategory(new Category("스프링","스프링입니다."));
+//        categoryService.saveCategory(new Category("백엔드","백엔드입니다."));
+//    }
 }
