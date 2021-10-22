@@ -1,10 +1,13 @@
 package com.js.freeproject.domain.problem.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.js.freeproject.domain.answer.domain.Answer;
 import com.js.freeproject.domain.category.domain.Category;
 import com.js.freeproject.domain.problempicture.domain.ProblemPicture;
@@ -38,8 +41,8 @@ public class Problem {
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private ProblemPicture problemPicture;
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
+    private List<ProblemPicture> problemPicture = new ArrayList<>();
 
     public void setCategory(Category category) {
         this.category = category;
@@ -52,7 +55,7 @@ public class Problem {
 
     public void setProblemPicture(ProblemPicture problemPicture) {
         problemPicture = new ProblemPicture(problemPicture.getImage(), this);
-        this.problemPicture = problemPicture;
+        this.problemPicture.add(problemPicture);
     }
 
     public void addProblemAnswer(Answer answer) {
