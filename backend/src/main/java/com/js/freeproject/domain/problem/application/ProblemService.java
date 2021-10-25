@@ -3,7 +3,7 @@ package com.js.freeproject.domain.problem.application;
 import com.js.freeproject.domain.answer.domain.Answer;
 import com.js.freeproject.domain.category.domain.Category;
 import com.js.freeproject.domain.category.domain.CategoryRepository;
-import com.js.freeproject.domain.problem.controller.ProblemMakeRequest;
+import com.js.freeproject.domain.problem.domain.ProblemMakeRequest;
 import com.js.freeproject.domain.problem.domain.*;
 import com.js.freeproject.domain.user.domain.User;
 import com.js.freeproject.domain.user.domain.UserRepository;

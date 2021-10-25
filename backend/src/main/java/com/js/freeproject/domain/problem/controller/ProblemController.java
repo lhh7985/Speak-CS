@@ -5,6 +5,7 @@ import com.js.freeproject.domain.category.domain.Category;
 import com.js.freeproject.domain.model.CommonResponse;
 import com.js.freeproject.domain.problem.application.ProblemService;
 import com.js.freeproject.domain.problem.domain.AnswerResponse;
+import com.js.freeproject.domain.problem.domain.ProblemMakeRequest;
 import com.js.freeproject.domain.problem.domain.ProblemResponse;
 import com.js.freeproject.domain.problem.domain.ProblemStatus;
 import io.swagger.annotations.ApiOperation;

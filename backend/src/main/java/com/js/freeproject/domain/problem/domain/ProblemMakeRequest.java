@@ -1,4 +1,4 @@
-package com.js.freeproject.domain.problem.controller;
+package com.js.freeproject.domain.problem.domain;
 
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
