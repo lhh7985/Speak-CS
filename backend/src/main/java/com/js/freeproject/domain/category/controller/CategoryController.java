@@ -2,6 +2,7 @@ package com.js.freeproject.domain.category.controller;
 
 import com.js.freeproject.domain.category.application.CategoryService;
 import com.js.freeproject.domain.category.domain.Category;
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +24,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/category")
+    @ApiOperation(value = "모든 카테고리정보 가져오기")
     public List<CategoryDto> allCategory(){
         List<Category> categorys = categoryService.findCategorys();
         List<CategoryDto> categoryDtos = categorys.stream()
@@ -42,12 +44,4 @@ public class CategoryController {
             this.description = category.getDescription();
         }
     }
-
-//    @PostConstruct
-//    public void init(){
-//        categoryService.saveCategory(new Category("운영체제","운영체제입니다."));
-//        categoryService.saveCategory(new Category("네트워크","네트워크입니다."));
-//        categoryService.saveCategory(new Category("스프링","스프링입니다."));
-//        categoryService.saveCategory(new Category("백엔드","백엔드입니다."));
-//    }
 }
