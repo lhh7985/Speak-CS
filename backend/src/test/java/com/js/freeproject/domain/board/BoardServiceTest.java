@@ -14,6 +14,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.util.List;
 
 @SpringBootTest
@@ -66,7 +67,7 @@ public class BoardServiceTest {
     }
 
     @Test
-    void updateBoardOne(){
+    void updateBoardOne() throws IOException {
         BoardRequest boardRequest = new BoardRequest();
         boardRequest.setTitle("게시판 업데이트");
         boardRequest.setDescription("게시판 업데이트");
