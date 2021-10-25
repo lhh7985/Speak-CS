@@ -10,8 +10,9 @@
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ main > login, logout.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 .book-wrap {
   display: flex;
+  justify-content: flex-end;
   width: 85%;
-  height: 90vh;
+  height: 85vh;
   margin: auto;
 }
 
@@ -19,7 +20,7 @@
 .nav-wrap {
   display: flex;
   justify-content: flex-end;
-  width: 85%;
+  width: 82%;
   margin: auto;
 }
 
@@ -34,10 +35,13 @@
   width: 28%;
   height: 100%;
   border: 1px solid black;
+  border-right: none;
+  border-radius: 20px;
 }
 
 .right-wrap {
   width: 72%;
   height: 100%;
   border: 1px solid black;
+  border-radius: 20px;
 }
