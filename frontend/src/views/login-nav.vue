@@ -18,7 +18,7 @@ export default {
     const router = useRouter();
     const MvMainLogout = () => {
       alert("로그아웃 될거에요");
-      router.push("/");
+      router.push({ name: "main-logout" });
       emit("logout");
     };
     return { MvMainLogout };

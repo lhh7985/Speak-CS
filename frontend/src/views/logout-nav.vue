@@ -12,7 +12,7 @@ export default {
     const router = useRouter();
     const MvMainLogin = () => {
       alert("로그인 될거에요");
-      router.push("/login");
+      router.push({ name: "login-cover" });
       emit("login");
     };
     return {

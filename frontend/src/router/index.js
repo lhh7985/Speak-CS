@@ -14,13 +14,13 @@ const routes = [
     ],
   },
   {
-    path: "/login",
+    path: "/home",
     name: "main-login",
     component: () => import("../views/main/login.vue"),
     children: [
       {
         //children의 맨 처음 상위 페이지는, 부모의 path를 따라가야함
-        path: "/login",
+        path: "/home",
         name: "login-cover",
         component: () => import("../views/login/cover.vue"),
       },
