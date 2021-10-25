@@ -9,7 +9,7 @@
 </template>
 <script>
 import { useRouter } from "vue-router";
-import "../styles/cover.scss";
+// import "../styles/cover.scss";
 
 export default {
   name: "logout-nav",

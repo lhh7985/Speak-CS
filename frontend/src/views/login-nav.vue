@@ -12,7 +12,7 @@
 
 <script>
 import { useRouter } from "vue-router";
-import "../styles/cover.scss";
+// import "../styles/cover.scss";
 
 export default {
   name: "login-nav",

@@ -1,4 +1,4 @@
-/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ cover.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ App.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 .all-wrap {
   display: flex;
   flex-direction: column;
@@ -26,8 +26,8 @@
 
 .menu-btn {
   margin: 0 0.2em;
-  background-color: lavender;
-  border-radius: 10px 10px 0 0;
+  background-color: lavender !important;
+  border-radius: 10px 10px 0 0 !important;
 }
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ login-cover, logout-cover.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
