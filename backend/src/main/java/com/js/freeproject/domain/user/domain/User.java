@@ -10,23 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import com.js.freeproject.domain.scorehistory.domain.ScoreHistory;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @DynamicInsert
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +38,7 @@ public class User {
     private String pass;
     
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("'USER'")
+    @ColumnDefault("'ROLE_USER'")
     private UserRole role;
     
     private String image;
@@ -52,6 +51,7 @@ public class User {
     	this.email = email;
     	this.nickName = nickName;
     	this.name = name;
+    	this.pass = pass;
     }
 	
     public void setPass(String pass) {
