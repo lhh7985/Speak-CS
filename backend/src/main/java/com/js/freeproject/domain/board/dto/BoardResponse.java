@@ -2,6 +2,8 @@ package com.js.freeproject.domain.board.dto;
 
 import com.js.freeproject.domain.board.domain.Board;
 import com.js.freeproject.domain.boardpicture.domain.BoardPicture;
+import com.js.freeproject.domain.comment.domain.Comment;
+import com.js.freeproject.domain.file.domain.BoardFile;
 import com.js.freeproject.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,13 +18,13 @@ public class BoardResponse {
     private String title;
     private String description;
     private User user;
-    private List<BoardPicture> boardPictures;
+    private List<Comment> comment;
 
     public BoardResponse(final Board board) {
         this.id = board.getId();
         this.title = board.getTitle();
         this.description = board.getDescription();
-        this.boardPictures = getBoardPictures();
+        this.comment = board.getComments();
         this.user = board.getUser();
     }
 }
