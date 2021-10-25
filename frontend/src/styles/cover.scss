@@ -7,6 +7,32 @@
   height: 100vh;
 }
 
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ logout > main.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.main-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+  height: 100%;
+  padding: 2em;
+}
+
+.main-cover div:first-child {
+  width: 40%;
+}
+
+.main-cover div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  font-weight: 700;
+  width: 60%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: lavender;
+}
+
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ main > login, logout.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 .book-wrap {
   display: flex;
