@@ -33,9 +33,6 @@ public class ProblemService {
                 .orElseThrow(() -> new IllegalStateException("유저가 존재하지 않습니다."));
         Category category = categoryRepository.findById(problemMakeRequest.getCategoryId())
                 .orElseThrow(() -> new IllegalStateException("해당 카테고리가 존재하지 않습니다."));
-//        for (String ans : problemMakeRequest.getAnswers()) {
-//            Answer answer = Answer.createAnswer(ans);
-//        }
         List<Answer> answers =
                 problemMakeRequest.getAnswers().stream().map(Answer::new).collect(toList());
         Problem newProblem = Problem.createProblem(
