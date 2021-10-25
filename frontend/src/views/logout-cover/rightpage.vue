@@ -1,5 +1,5 @@
 <template lang="">
-  <div>logout cover 오른쪽</div>
+  <div class="right-wrap">logout cover 오른쪽</div>
 </template>
 <script>
 export default {

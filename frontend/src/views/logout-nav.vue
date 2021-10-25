@@ -1,4 +1,6 @@
-<template lang="">
+<!-- App.vue -> login.vue -> logout-nav.vue -->
+
+<template>
   <div>
     <q-btn unelevated flat class="menu-btn">소개</q-btn>
     <q-btn unelevated flat class="menu-btn">회원가입</q-btn>

@@ -1,4 +1,6 @@
-<template lang="">
+<!-- App.vue -> logout.vue -> cover.vue -->
+
+<template>
   <div>
     <RightPage></RightPage>
   </div>

@@ -1,4 +1,6 @@
-<template lang="">
+<!-- App.vue -> logout.vue -->
+
+<template>
   <div>
     <LogoutNav class="nav-wrap"></LogoutNav>
     <router-view class="book-wrap"></router-view>

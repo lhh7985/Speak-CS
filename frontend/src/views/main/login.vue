@@ -1,4 +1,6 @@
-<template lang="">
+<!-- App.vue -> login.vue -->
+
+<template>
   <div>
     <LoginNav class="nav-wrap"></LoginNav>
     <router-view class="book-wrap"></router-view>

@@ -1,4 +1,6 @@
-<template lang="">
+<!-- App.vue -> login.vue -> cover.vue -->
+
+<template>
   <div>
     <LeftPage></LeftPage>
     <RightPage></RightPage>

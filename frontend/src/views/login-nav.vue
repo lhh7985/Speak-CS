@@ -1,3 +1,5 @@
+<!-- App.vue -> login.vue -> login-nav.vue -->
+
 <template>
   <div>
     <q-btn unelevated flat class="menu-btn">소개</q-btn>
