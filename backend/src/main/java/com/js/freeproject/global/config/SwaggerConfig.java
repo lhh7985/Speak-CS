@@ -1,4 +1,4 @@
-package com.js.freeproject.config;
+package com.js.freeproject.global.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
