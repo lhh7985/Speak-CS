@@ -1,15 +1,22 @@
 <template>
   <div class="left-wrap">
-    <div>
-      <div @click="mvProfile">프로필</div>
-      <div @click="mvChart">차트</div>
-      <div @click="mvBoard">나의 게시글</div>
-      <div @click="mvAlarm">알림</div>
+    <div class="mypage-left">
+      <div class="profile-wrap">
+        <img class="profile-img" src="../../assets/malang.png" />
+        <span class="user-name text-h4 text-bold">박디두</span>
+      </div>
+      <div class="mypage-menu text-h6">
+        <div @click="mvProfile">프로필</div>
+        <div @click="mvChart">차트</div>
+        <div @click="mvBoard">나의 게시글</div>
+        <div @click="mvAlarm">알림</div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { useRouter } from "vue-router";
+import "../../styles/mypage.scss";
 
 export default {
   name: "mypage-left",
