@@ -2,14 +2,14 @@
   <q-dialog>
     <q-card>
       <q-card-section>
-        <div>비밀번호찾기</div>
+        <div>비밀번호 재설정</div>
       </q-card-section>
     </q-card>
   </q-dialog>
 </template>
 <script>
 export default {
-  name: "login-findpw",
+  name: "login-updatepw",
 };
 </script>
 <style lang=""></style>

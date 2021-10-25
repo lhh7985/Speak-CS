@@ -33,38 +33,47 @@
         <q-btn
           color="primary"
           type="submit"
-          :disable="state.login_btn_disalbe"
+          :disable="state.login_btn_disable"
           label="로그인"
         />
         <q-btn
           class="q-ml-sm"
-          label="초기화"
+          label="비밀번호 찾기"
           type="reset"
           color="primary"
           flat
+          @click="state.findpwdialog = true"
         />
       </div>
     </q-form>
     <FindPwDialog
       v-model="state.findpwdialog"
-      @closefindpwdialog="closeFindPwDialog"
+      @mvupdatepw="openUpdatePwDialog"
+      @mvlogin="mvLogin"
     ></FindPwDialog>
+    <UpdatePwDialog
+      v-model="state.updatepwdialog"
+      @mvlogin="mvLogin"
+    ></UpdatePwDialog>
   </div>
 </template>
 <script>
 import { ref, reactive, watch } from "vue";
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import FindPwDialog from "./components/findpw.vue";
+import UpdatePwDialog from "./components/updatepw.vue";
 import "../../styles/cover.scss";
 
 export default {
   name: "login-right",
   components: {
     FindPwDialog,
+    UpdatePwDialog,
   },
   methods: {},
   setup() {
     const login_form = ref(null); // 로그인폼저장
+    const router = useRouter();
     const state = reactive({
       form: {
         email: "",
@@ -83,8 +92,9 @@ export default {
         ],
         pass: [(val) => (val != null && val !== "") || "필수입력 항목입니다."],
       },
-      login_btn_disalbe: true, // 버튼 활성, 비활성화
+      login_btn_disable: true, // 버튼 활성, 비활성화
       findpwdialog: false, // 모달생성, 삭제 컨트롤
+      updatepwdialog: false,
     });
     /*ㅡㅡㅡㅡㅡ 검증 ㅡㅡㅡㅡㅡ*/
     const isValidEmail = (val) => {
@@ -98,9 +108,9 @@ export default {
       () => {
         login_form.value.validate().then((success) => {
           if (success) {
-            state.login_btn_disalbe = false;
+            state.login_btn_disable = false;
           } else {
-            state.login_btn_disalbe = true;
+            state.login_btn_disable = true;
           }
         });
       }
@@ -112,23 +122,27 @@ export default {
     const onReset = () => {
       state.form.email = null;
       state.form.pass = null;
-      state.login_btn_disalbe = true;
+      state.login_btn_disable = true;
     };
     /*ㅡㅡㅡㅡㅡ 비밀번호 찾기 모달 제어 ㅡㅡㅡㅡㅡ*/
-    const closeFindPwDialog = () => {
+    const mvLogin = () => {
       state.findpwdialog = false;
+      router.push({ name: "login" });
+    };
+    const openUpdatePwDialog = () => {
+      state.findpwdialog = false;
+      state.updatepwdialog = true;
     };
 
     return {
       login_form,
       state,
-      /* 검증 */
-      isValidEmail,
       /* 제출 */
       onSubmit,
       onReset,
       /* 모달 */
-      closeFindPwDialog,
+      mvLogin,
+      openUpdatePwDialog,
     };
   },
 };
