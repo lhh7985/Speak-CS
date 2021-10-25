@@ -60,22 +60,22 @@ public class ProblemService {
         return problemRepository.findById(id);
     }
 
-    public List<ProblemDto> findByCategory(Category category) {
+    public List<ProblemResponse> findByCategory(Category category) {
         PageRequest pageRequest = PageRequest.of(0, 10);
         List<Problem> problems = problemRepository.findByCategory(category.getName(), pageRequest);
         Collections.shuffle(problems);
         int size = problems.size();
-        return problems.subList(0, size<3? size:3).stream().map(ProblemDto::new).collect(toList());
+        return problems.subList(0, size<3? size:3).stream().map(ProblemResponse::new).collect(toList());
     }
 
-    public List<ProblemDto> findByStatus(ProblemStatus problemStatus) {
+    public List<ProblemResponse> findByStatus(ProblemStatus problemStatus) {
         List<Problem> problems = problemRepository.findByStatus(problemStatus);
-        List<ProblemDto> problemDtos = problems.stream()
-                .map(ProblemDto::new).collect(toList());
-        return problemDtos;
+        List<ProblemResponse> problemResponses = problems.stream()
+                .map(ProblemResponse::new).collect(toList());
+        return problemResponses;
     }
 
-    public AnswerDto findAnswer(Long id, String myAns) {
+    public AnswerResponse findAnswer(Long id, String myAns) {
         Optional<Problem> problems = problemRepository.findById(id);
         problems.orElseThrow(() -> new IllegalStateException("문제에 답을 찾을 수 없습니다."));
         List<String> proper = new ArrayList<>();
@@ -87,8 +87,8 @@ public class ProblemService {
                 wrong.add(answer.getWord());
             }
         }
-        AnswerDto answerDto = new AnswerDto(proper, wrong);
-        return answerDto;
+        AnswerResponse answerResponse = new AnswerResponse(proper, wrong);
+        return answerResponse;
     }
 
     @Transactional
