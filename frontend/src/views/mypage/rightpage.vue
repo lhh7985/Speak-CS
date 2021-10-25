@@ -1,5 +1,7 @@
 <template>
-  <div class="right-wrap">mypage 오른쪽</div>
+  <div class="right-wrap">
+    <router-view></router-view>
+  </div>
 </template>
 <script>
 export default {

@@ -38,6 +38,18 @@ const routes = [
         path: "/home/mypage",
         name: "mypage",
         component: () => import("../views/mypage/mypage.vue"),
+        children: [
+          {
+            path: "/home/mypage",
+            name: "mypage-profile",
+            component: () => import("../views/mypage/components/profile.vue"),
+          },
+          {
+            path: "/home/mypage/chart",
+            name: "mypage-chart",
+            component: () => import("../views/mypage/components/chart.vue"),
+          },
+        ],
       },
     ],
   },

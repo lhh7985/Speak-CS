@@ -24,7 +24,7 @@ export default {
       emit("logout");
     };
     const mvMypage = () => {
-      router.push({ name: "mypage" });
+      router.push({ name: "mypage-profile" });
     };
     return {
       mvLogout,
