@@ -49,6 +49,16 @@ const routes = [
             name: "mypage-chart",
             component: () => import("../views/mypage/components/chart.vue"),
           },
+          {
+            path: "/home/mypage/board",
+            name: "mypage-board",
+            component: () => import("../views/mypage/components/board.vue"),
+          },
+          {
+            path: "/home/mypage/alarm",
+            name: "mypage-alarm",
+            component: () => import("../views/mypage/components/alarm.vue"),
+          },
         ],
       },
     ],
