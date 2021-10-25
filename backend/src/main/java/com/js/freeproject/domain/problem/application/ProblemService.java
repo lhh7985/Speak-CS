@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import static java.util.stream.Collectors.toList;
@@ -60,9 +61,11 @@ public class ProblemService {
     }
 
     public List<ProblemDto> findByCategory(Category category) {
-        PageRequest pageRequest = PageRequest.of(0, 5);
+        PageRequest pageRequest = PageRequest.of(0, 10);
         List<Problem> problems = problemRepository.findByCategory(category.getName(), pageRequest);
-        return problems.stream().map(ProblemDto::new).collect(toList());
+        Collections.shuffle(problems);
+        int size = problems.size();
+        return problems.subList(0, size<3? size:3).stream().map(ProblemDto::new).collect(toList());
     }
 
     public List<ProblemDto> findByStatus(ProblemStatus problemStatus) {
