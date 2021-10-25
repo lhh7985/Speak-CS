@@ -1,8 +1,5 @@
-import axios from "@/lib/axios";
+import * as UserActions from "./action/user-actions.js";
 
-export function requestUserLogin({ state }, payload) {
-  console.log("requestUserLogin", state, payload);
-  const url = "/auth/login";
-  const body = payload;
-  return axios.post(url, body);
-}
+export default {
+  UserActions,
+};

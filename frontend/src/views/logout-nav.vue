@@ -3,8 +3,8 @@
 <template>
   <div>
     <q-btn unelevated flat class="menu-btn">소개</q-btn>
-    <q-btn unelevated flat class="menu-btn">회원가입</q-btn>
-    <q-btn unelevated flat class="menu-btn" @click="MvMainLogin">로그인</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvRegister">회원가입</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvLogin">로그인</q-btn>
   </div>
 </template>
 <script>
@@ -13,15 +13,17 @@ import "../styles/cover.scss";
 
 export default {
   name: "logout-nav",
-  setup(props, { emit }) {
+  setup() {
     const router = useRouter();
-    const MvMainLogin = () => {
-      alert("로그인 될거에요");
-      router.push({ name: "login-cover" });
-      emit("login");
+    const mvLogin = () => {
+      router.push({ name: "login" });
+    };
+    const mvRegister = () => {
+      router.push({ name: "register" });
     };
     return {
-      MvMainLogin,
+      mvLogin,
+      mvRegister,
     };
   },
 };

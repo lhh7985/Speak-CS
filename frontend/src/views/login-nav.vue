@@ -6,9 +6,7 @@
     <q-btn unelevated flat class="menu-btn">문제풀기</q-btn>
     <q-btn unelevated flat class="menu-btn">게시판</q-btn>
     <q-btn unelevated flat class="menu-btn">마이페이지</q-btn>
-    <q-btn unelevated flat class="menu-btn" @click="MvMainLogout"
-      >로그아웃</q-btn
-    >
+    <q-btn unelevated flat class="menu-btn" @click="mvLogout">로그아웃</q-btn>
   </div>
 </template>
 
@@ -20,12 +18,12 @@ export default {
   name: "login-nav",
   setup(props, { emit }) {
     const router = useRouter();
-    const MvMainLogout = () => {
+    const mvLogout = () => {
       alert("로그아웃 될거에요");
       router.push({ name: "logout-cover" });
       emit("logout");
     };
-    return { MvMainLogout };
+    return { mvLogout };
   },
 };
 </script>
