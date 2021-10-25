@@ -9,11 +9,15 @@ import javax.persistence.ManyToOne;
 
 import com.js.freeproject.domain.board.domain.Board;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-public class File {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class BoardFile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,4 +27,21 @@ public class File {
 	@ManyToOne
 	@JoinColumn(name="board_id")
 	private Board board;
+
+	@Builder
+	public BoardFile(Long id, String name, Board board) {
+		this.id = id;
+		this.name = name;
+		this.board = board;
+	}
+
+	public BoardFile updateBoardId(final Board board){
+		this.board = board;
+		return this;
+	}
+
+	public BoardFile updateFile(final String fileName){
+		this.name = fileName;
+		return this;
+	}
 }
