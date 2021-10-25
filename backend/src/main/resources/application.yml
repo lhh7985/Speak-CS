@@ -31,3 +31,8 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+  
+jwt:
+  header: Authorization
+  secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
+  expiration: 86400
