@@ -1,11 +1,18 @@
-<template lang="">
+<!-- App.vue -> logout.vue -->
+
+<template>
   <div>
-    <router-view></router-view>
+    <LogoutNav class="nav-wrap"></LogoutNav>
+    <router-view class="book-wrap"></router-view>
   </div>
 </template>
 
 <script>
+import LogoutNav from "@/views/logout-nav.vue";
 export default {
   name: "main-logout",
+  components: {
+    LogoutNav,
+  },
 };
 </script>

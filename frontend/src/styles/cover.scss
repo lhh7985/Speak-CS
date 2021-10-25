@@ -1,0 +1,73 @@
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ App.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.all-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ logout > main.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.main-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100% !important;
+  height: 100%;
+  padding: 2em;
+}
+
+.main-cover div:first-child {
+  width: 40%;
+}
+
+.main-cover div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  font-weight: 700;
+  width: 60%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: lavender;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ main > login, logout.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.book-wrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 85%;
+  height: 85vh;
+  margin: auto;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ nav.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.nav-wrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 82%;
+  margin: auto;
+}
+
+.menu-btn {
+  margin: 0 0.2em;
+  background-color: lavender !important;
+  border-radius: 10px 10px 0 0 !important;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ login-cover, logout-cover.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.left-wrap {
+  width: 28%;
+  height: 100%;
+  border: 1px solid black;
+  border-right: none;
+  border-radius: 20px;
+}
+
+.right-wrap {
+  width: 72%;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 20px;
+}

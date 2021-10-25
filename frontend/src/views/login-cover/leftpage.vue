@@ -1,5 +1,5 @@
 <template lang="">
-  <div>Login cover 왼쪽</div>
+  <div class="left-wrap">Login cover 왼쪽</div>
 </template>
 <script>
 export default {

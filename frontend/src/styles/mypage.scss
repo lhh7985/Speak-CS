@@ -1,0 +1,43 @@
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ leftpage.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.mypage-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 2em;
+}
+
+.profile-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.profile-img {
+  width: 80%;
+  border-radius: 50%;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.user-name {
+  margin: 0.5em 0 1em;
+}
+
+.mypage-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mypage-menu div {
+  margin: 0.2em 0;
+  width: 80%;
+}
+
+.mypage-menu div:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  background-color: lavender;
+}
