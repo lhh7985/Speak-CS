@@ -1,15 +1,19 @@
 <template>
   <div>
-    <q-btn>소개</q-btn>
-    <q-btn>문제풀기</q-btn>
-    <q-btn>게시판</q-btn>
-    <q-btn>마이페이지</q-btn>
-    <q-btn @click="MvMainLogout">로그아웃</q-btn>
+    <q-btn unelevated flat class="menu-btn">소개</q-btn>
+    <q-btn unelevated flat class="menu-btn">문제풀기</q-btn>
+    <q-btn unelevated flat class="menu-btn">게시판</q-btn>
+    <q-btn unelevated flat class="menu-btn">마이페이지</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="MvMainLogout"
+      >로그아웃</q-btn
+    >
   </div>
 </template>
 
 <script>
 import { useRouter } from "vue-router";
+import "../styles/cover.scss";
+
 export default {
   name: "login-nav",
   setup(props, { emit }) {
