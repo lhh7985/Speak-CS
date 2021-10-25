@@ -5,7 +5,7 @@
     <q-btn unelevated flat class="menu-btn">소개</q-btn>
     <q-btn unelevated flat class="menu-btn">문제풀기</q-btn>
     <q-btn unelevated flat class="menu-btn">게시판</q-btn>
-    <q-btn unelevated flat class="menu-btn">마이페이지</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvMypage">마이페이지</q-btn>
     <q-btn unelevated flat class="menu-btn" @click="mvLogout">로그아웃</q-btn>
   </div>
 </template>
@@ -23,7 +23,13 @@ export default {
       router.push({ name: "logout-cover" });
       emit("logout");
     };
-    return { mvLogout };
+    const mvMypage = () => {
+      router.push({ name: "mypage" });
+    };
+    return {
+      mvLogout,
+      mvMypage,
+    };
   },
 };
 </script>

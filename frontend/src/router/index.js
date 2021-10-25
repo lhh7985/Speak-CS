@@ -34,6 +34,11 @@ const routes = [
         name: "login-cover",
         component: () => import("../views/login-cover/cover.vue"),
       },
+      {
+        path: "/home/mypage",
+        name: "mypage",
+        component: () => import("../views/mypage/mypage.vue"),
+      },
     ],
   },
 ];
