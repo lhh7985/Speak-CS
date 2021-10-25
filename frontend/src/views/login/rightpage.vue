@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="right-wrap">
     <q-form
       class="q-gutter-md"
       ref="login_form"
@@ -7,22 +7,35 @@
       @reset="onReset"
     >
       <q-input
-        filled
+        ref="email"
         v-model="state.form.email"
         :rules="state.rules.email"
+        lazy-rules
         type="email"
-        label="이메일 *"
-      />
-
+        label="이메일"
+        autofocus
+      >
+      </q-input>
       <q-input
-        filled
+        dense
         v-model="state.form.pass"
         :rules="state.rules.pass"
-        label="비밀번호 *"
-      />
-
+        lazy-rules
+        type="password"
+        label="비밀번호"
+        @keyup.enter="
+          login();
+          $event.target.blur();
+        "
+      >
+      </q-input>
       <div>
-        <q-btn label="로그인" type="submit" color="primary" />
+        <q-btn
+          color="primary"
+          type="submit"
+          :disable="state.login_btn_disalbe"
+          label="로그인"
+        />
         <q-btn
           class="q-ml-sm"
           label="초기화"
@@ -42,14 +55,16 @@
 import { ref, reactive, watch } from "vue";
 // import { useRouter } from "vue-router";
 import FindPwDialog from "./components/findpw.vue";
+import "../../styles/cover.scss";
+
 export default {
   name: "login-right",
   components: {
     FindPwDialog,
   },
+  methods: {},
   setup() {
     const login_form = ref(null); // 로그인폼저장
-
     const state = reactive({
       form: {
         email: "",
@@ -62,42 +77,42 @@ export default {
         :error="!isValid"
         return -> isValid: computed(() => model.value.length <= 3)
         */
-        email: [(val) => !val || "필수입력 항목입니다.", isValidEmail()],
-        pass: [(val) => (val !== null && val !== "") || "필수입력 항목입니다."],
+        email: [
+          (val) => (val != null && val !== "") || "필수입력 항목입니다.",
+          (val) => isValidEmail(val) || "이메일형식에 맞지 않습니다.",
+        ],
+        pass: [(val) => (val != null && val !== "") || "필수입력 항목입니다."],
       },
-      login_btn_disalbe: true,
+      login_btn_disalbe: true, // 버튼 활성, 비활성화
       findpwdialog: false, // 모달생성, 삭제 컨트롤
     });
     /*ㅡㅡㅡㅡㅡ 검증 ㅡㅡㅡㅡㅡ*/
     const isValidEmail = (val) => {
-      const emailPattern = /^$/;
-      return emailPattern.test(val);
+      // eslint-disable-next-line
+      const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(val) || "이메일 형식에 맞지 않습니다.";
     };
 
     watch(
       () => [state.form.email, state.form.pass],
       () => {
-        login_form.value.validate((valid) => {
-          if (valid) {
+        login_form.value.validate().then((success) => {
+          if (success) {
             state.login_btn_disalbe = false;
+          } else {
+            state.login_btn_disalbe = true;
           }
         });
       }
     );
     /*ㅡㅡㅡㅡㅡ 버튼 ㅡㅡㅡㅡㅡ*/
     const onSubmit = () => {
-      login_form.value.validate((valid) => {
-        if (valid) {
-          console.log(state.form);
-        } else {
-          console.log("error");
-        }
-      });
+      /* axios */
     };
     const onReset = () => {
       state.form.email = null;
       state.form.pass = null;
-      state.login_btn_disalbe = false;
+      state.login_btn_disalbe = true;
     };
     /*ㅡㅡㅡㅡㅡ 비밀번호 찾기 모달 제어 ㅡㅡㅡㅡㅡ*/
     const closeFindPwDialog = () => {
@@ -107,8 +122,12 @@ export default {
     return {
       login_form,
       state,
+      /* 검증 */
+      isValidEmail,
+      /* 제출 */
       onSubmit,
       onReset,
+      /* 모달 */
       closeFindPwDialog,
     };
   },
