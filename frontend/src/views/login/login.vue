@@ -6,10 +6,9 @@
 <script>
 import RightPage from "./rightpage.vue";
 export default {
-  name: "logout-cover",
+  name: "login",
   components: {
     RightPage,
   },
 };
 </script>
-<style lang=""></style>

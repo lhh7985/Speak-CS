@@ -1,9 +1,9 @@
 <template lang="">
-  <div>logout cover 오른쪽</div>
+  <div class="right-wrap">login cover 오른쪽</div>
 </template>
 <script>
 export default {
-  name: "logout-cover-right",
+  name: "login-cover-right",
 };
 </script>
 <style lang=""></style>
