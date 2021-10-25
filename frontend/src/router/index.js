@@ -59,6 +59,11 @@ const routes = [
             name: "mypage-alarm",
             component: () => import("../views/mypage/components/alarm.vue"),
           },
+          {
+            path: "/home/mypage/modify",
+            name: "mypage-modify",
+            component: () => import("../views/mypage/components/modify.vue"),
+          },
         ],
       },
     ],
