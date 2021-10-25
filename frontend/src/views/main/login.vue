@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <router-view></router-view>
+    <router-view class="book-wrap"></router-view>
   </div>
 </template>
 

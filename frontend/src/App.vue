@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="all-wrap">
     <LoginNav v-if="state.login" @logout="Logout"></LoginNav>
     <LogoutNav v-else @login="Login"></LogoutNav>
     <router-view></router-view>

@@ -1,0 +1,29 @@
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ cover.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.all-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ cover.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.book-wrap {
+  display: flex;
+  width: 85%;
+  height: 90vh;
+  margin: auto;
+}
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ leftpage.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.left-wrap {
+  width: 28%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ rightpage.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.right-wrap {
+  width: 72%;
+  height: 100%;
+  border: 1px solid black;
+}

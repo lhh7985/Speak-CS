@@ -7,6 +7,7 @@
 <script>
 import LeftPage from "./leftpage.vue";
 import RightPage from "./rightpage.vue";
+import "../../styles/cover.scss";
 export default {
   name: "login-cover",
   components: {

@@ -1,7 +1,8 @@
 <template lang="">
   <div>
-    <q-btn flat style="color: #ff0080" label="움직이기!" @click="MvMainLogin" />
-    <q-btn flat style="color: #ff0080" label="여긴 로그아웃이얌" />
+    <q-btn>소개</q-btn>
+    <q-btn>회원가입</q-btn>
+    <q-btn @click="MvMainLogin">로그인</q-btn>
   </div>
 </template>
 <script>
