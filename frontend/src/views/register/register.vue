@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div>
     <RightPage></RightPage>
   </div>
@@ -12,4 +12,3 @@ export default {
   },
 };
 </script>
-<style lang=""></style>

@@ -17,8 +17,8 @@ export default {
     const router = useRouter();
     const mvLogin = () => {
       // alert("로그인!");
-      // router.push({ name: "login-cover" });
-      router.push({ name: "login" });
+      router.push({ name: "login-cover" });
+      // router.push({ name: "login" });
     };
     const mvRegister = () => {
       router.push({ name: "register" });

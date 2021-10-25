@@ -1,76 +1,80 @@
-<template lang="">
-  <div>
-    <q-form
-      class="q-gutter-md"
-      ref="login_form"
-      @submit="onSubmit"
-      @reset="onReset"
-    >
-      <q-input
-        filled
-        v-model="state.form.name"
-        :rules="state.rules.name"
-        lazy-rules
-        label="성함 *"
-        autofocus
-      />
-      <q-input
-        filled
-        v-model="state.form.nickname"
-        :rules="state.rules.nickname"
-        lazy-rules
-        label="닉네임 *"
-      />
-      <q-btn primary label="중복확인"></q-btn>
-
-      <q-input
-        filled
-        v-model="state.form.pass"
-        :rules="state.rules.pass"
-        lazy-rules
-        type="password"
-        label="비밀번호 *"
-      />
-
-      <q-input
-        filled
-        v-model="state.form.passcheck"
-        :rules="state.rules.passcheck"
-        lazy-rules
-        type="password"
-        label="비밀번호 확인 *"
-      />
-      <q-input
-        filled
-        v-model="state.form.email"
-        :rules="state.rules.email"
-        lazy-rules
-        type="email"
-        label="이메일 *"
-      />
-      <q-btn primary label="이메일인증"></q-btn>
-
-      <div>
-        <q-btn
-          color="primary"
-          type="submit"
-          :disable="state.regist_btn_disable"
-          label="회원가입"
+<template>
+  <div class="right-wrap">
+    <div class="register-wrap">
+      <q-form
+        class="q-gutter-md form-wrap"
+        ref="login_form"
+        @submit="onSubmit"
+        @reset="onReset"
+      >
+        <q-input
+          filled
+          v-model="state.form.name"
+          :rules="state.rules.name"
+          lazy-rules
+          label="성함 *"
+          autofocus
         />
-        <q-btn
-          class="q-ml-sm"
-          flat
-          color="primary"
-          type="reset"
-          label="초기화"
+        <q-input
+          filled
+          v-model="state.form.nickname"
+          :rules="state.rules.nickname"
+          lazy-rules
+          label="닉네임 *"
         />
-      </div>
-    </q-form>
+        <q-btn primary label="중복확인"></q-btn>
+
+        <q-input
+          filled
+          v-model="state.form.pass"
+          :rules="state.rules.pass"
+          lazy-rules
+          type="password"
+          label="비밀번호 *"
+        />
+
+        <q-input
+          filled
+          v-model="state.form.passcheck"
+          :rules="state.rules.passcheck"
+          lazy-rules
+          type="password"
+          label="비밀번호 확인 *"
+        />
+        <q-input
+          filled
+          v-model="state.form.email"
+          :rules="state.rules.email"
+          lazy-rules
+          type="email"
+          label="이메일 *"
+        />
+        <q-btn primary label="이메일인증"></q-btn>
+
+        <div>
+          <q-btn
+            color="primary"
+            type="submit"
+            :disable="state.regist_btn_disable"
+            label="회원가입"
+          />
+          <q-btn
+            class="q-ml-sm"
+            flat
+            color="primary"
+            type="reset"
+            label="초기화"
+          />
+        </div>
+      </q-form>
+    </div>
   </div>
 </template>
 <script>
 import { ref, reactive, watch } from "vue";
 // import { useRouter } from "vue-router";
+import "../../styles/register.scss";
+
 export default {
   name: "register-right",
   setup() {
@@ -157,4 +161,3 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
