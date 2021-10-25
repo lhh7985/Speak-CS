@@ -122,9 +122,9 @@ export default {
     const isValidPassCheck = (val) => {
       if (state.form.pass != val) {
         console.log(state.form.pass, val);
-        return "입력한 비밀번호와 맞지 않습니다.";
+        return false;
       } else {
-        return;
+        return true;
       }
     };
     watch(
