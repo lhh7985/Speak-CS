@@ -1,13 +1,10 @@
 package com.js.freeproject.domain.problem.domain;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.js.freeproject.domain.answer.domain.Answer;
 import com.js.freeproject.domain.category.domain.Category;
 import com.js.freeproject.domain.problempicture.domain.ProblemPicture;
@@ -53,7 +50,7 @@ public class Problem {
         this.user = user;
     }
 
-    public void setProblemPicture(ProblemPicture problemPicture) {
+    public void setProblemPictures(ProblemPicture problemPicture) {
         problemPicture = new ProblemPicture(problemPicture.getImage(), this);
         this.problemPicture.add(problemPicture);
     }
@@ -67,13 +64,14 @@ public class Problem {
         this.status = status;
     }
 
-    public static Problem createProblem(String description, Category category, User user, ProblemPicture problemPicture, Answer... answers) {
+    public static Problem createProblem(String description, Category category, User user, List<ProblemPicture> problemPictures, List<Answer> answers) {
         Problem problem = new Problem(description, ProblemStatus.wait);
         problem.setCategory(category);
         problem.setUser(user);
-        problem.setProblemPicture(problemPicture);
+        for (ProblemPicture problemPicture: problemPictures) {
+            problem.setProblemPictures(problemPicture);
+        }
         for (Answer answer : answers) {
-            log.info("answer = " + answer.getWord());
             problem.addProblemAnswer(answer);
         }
         return problem;

@@ -6,11 +6,11 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class AnswerDto {
+public class AnswerResponse {
     private List<String> proper;
     private List<String> wrong;
 
-    public AnswerDto(List<String> proper, List<String> wrong) {
+    public AnswerResponse(List<String> proper, List<String> wrong) {
         this.proper = proper;
         this.wrong = wrong;
     }

@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ProblemDto {
+public class ProblemResponse {
     private Long id;
     private String description;
     private List<String> problemPicture;
     private String user;
 
-    public ProblemDto(Problem problem) {
+    public ProblemResponse(Problem problem) {
         this.problemPicture = new ArrayList<>();
         this.id = problem.getId();
         this.description = problem.getDescription();
