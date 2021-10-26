@@ -83,10 +83,4 @@ public class UserController {
 		
 		return ResponseEntity.ok(userResponse);
 	}
-	
-	@GetMapping("/all")
-	public ResponseEntity<List<User>> userList() {
-		List<User> users = userService.userList();
-		return ResponseEntity.ok(users);
-	}
 }

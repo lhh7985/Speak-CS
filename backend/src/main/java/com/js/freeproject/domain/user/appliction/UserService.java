@@ -38,10 +38,6 @@ public class UserService {
 		return userRepo.save(userEntity);
 	}
 	
-	public List<User> userList() {
-		return userRepo.findAll();
-	}
-	
 	public User findByUserEmail(String email) {
 		return userRepo.findByEmail(email);
 	}
