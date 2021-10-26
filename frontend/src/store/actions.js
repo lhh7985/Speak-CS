@@ -4,6 +4,7 @@ import axios from "@/lib/axios";
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 유저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 생성하기
+
 export function requsetUserRegist({ state }, payload) {
   console.log("requsetUserRegist", state, payload);
   const url = "/user";
@@ -51,7 +52,7 @@ export function requsetProblemCreate({ state }, payload) {
 // 카테고리별 문제 리스트 가져오기
 export function requestProblemList({ state }, payload) {
   console.log("requestProblemList", state, payload);
-  const url = `/problem/${payload.id}}`;
+  const url = `/problem/${payload}}`;
   return axios.get(url);
 }
 // 문제 정답 맞추기

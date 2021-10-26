@@ -64,6 +64,16 @@ const routes = [
             name: "mypage-modify",
             component: () => import("../views/mypage/components/modify.vue"),
           },
+          {
+            path: "/home/problem/category",
+            name: "problem-category",
+            component: () => import("../views/problem/category.vue"),
+          },
+          {
+            path: "/home/problem/solve",
+            name: "problem-solve",
+            component: () => import("../views/problem/solve.vue"),
+          },
         ],
       },
     ],
