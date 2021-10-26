@@ -1,5 +1,6 @@
 package com.js.freeproject.domain.user.dto;
 
+import com.js.freeproject.domain.model.CommonResponse;
 import com.js.freeproject.domain.user.domain.User;
 
 import lombok.AccessLevel;
@@ -7,29 +8,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserResponse {
+public class UserResponse extends CommonResponse {
 	private Long id;
 	private String email;
 	private String nickname;
 	private String name;
 	private String image;
-	private String token;
 	
-	public UserResponse(final User user) {
-		this.id = user.getId();
-		this.email = user.getEmail();
-		this.nickname = user.getNickName();
-		this.name = user.getName();
-		this.image = user.getImage();
-	}
-	
-	public UserResponse(final User user,final String token) {
-		this.id = user.getId();
-		this.email = user.getEmail();
-		this.nickname = user.getNickName();
-		this.name = user.getName();
-		this.image = user.getImage();
-		this.token = token;
+	public static UserResponse of(String message,final User user) {
+		UserResponse userResponse = new UserResponse();
+		
+		userResponse.message = message;
+		userResponse.id = user.getId();
+		userResponse.email = user.getEmail();
+		userResponse.nickname = user.getNickName();
+		userResponse.name = user.getName();
+		userResponse.image = user.getImage();
+		
+		return userResponse;
 	}
 }
