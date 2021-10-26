@@ -66,3 +66,10 @@ jwt:
   header: Authorization
   secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
   expiration: 86400
+  
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
