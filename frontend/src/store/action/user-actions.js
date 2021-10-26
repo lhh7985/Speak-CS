@@ -20,12 +20,12 @@ export function requsetUserInfo({ state }, payload) {
   console.log("requsetUserInfo", state, payload);
   const url = "/user/me";
   const body = payload;
-  return axios.post(url, body);
+  return axios.get(url, body);
 }
 
 export function requestUserList({ state }, payload) {
   console.log("requestUserList", state, payload);
   const url = "/user/all";
   const body = payload;
-  return axios.post(url, body);
+  return axios.get(url, body);
 }

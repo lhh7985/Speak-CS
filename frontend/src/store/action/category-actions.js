@@ -6,5 +6,5 @@ import axios from "@/lib/axios";
 export function requsetCategoryCreate({ state }, payload) {
   console.log("requsetCategoryCreate", state, payload);
   const url = "/category";
-  return axios.get(url, body);
+  return axios.get(url);
 }
