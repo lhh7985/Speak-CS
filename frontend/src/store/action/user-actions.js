@@ -2,8 +2,8 @@ import axios from "@/lib/axios";
 
 // http://localhost:8080/swagger-ui.html
 
-export function requsetUserCreate({ state }, payload) {
-  console.log("requsetUserCreate", state, payload);
+export function requsetUserRegist({ state }, payload) {
+  console.log("requsetUserRegist", state, payload);
   const url = "/user";
   const body = payload;
   return axios.post(url, body);
