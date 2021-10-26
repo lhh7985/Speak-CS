@@ -1,9 +1,9 @@
 <template lang="">
   <div>
     문제설명하는 곳입니다
-    <!-- <div>{{ category.id }}</div>
-    <div>{{ category.description }}</div>
-    <div>{{ category.name }}</div> -->
+    <div>{{ id }}</div>
+    <div>{{ description }}</div>
+    <div>{{ name }}</div>
     <q-btn flat @click="selectProblem">시작하기</q-btn>
   </div>
 </template>
@@ -14,12 +14,12 @@ import { useRouter } from "vue-router";
 export default {
   name: "problem-description",
   props: {
-    category: {
-      type: Object,
-    },
+    id: String,
+    description: String,
+    name: String,
   },
   setup(props) {
-    console.log(props.category);
+    console.log(props.id, props.description);
     const store = useStore();
     const router = useRouter();
 

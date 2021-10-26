@@ -30,10 +30,14 @@ export default {
       categories: computed(() => store.getters["root/getCategories"]),
     });
     const mvProblemDescription = (category) => {
-      // console.log(category);
+      console.log(category);
       router.push({
         name: "problem-description",
-        params: { category: category },
+        params: {
+          id: category.id,
+          description: category.description,
+          name: category.name,
+        },
       });
     };
     const mvProblemInfo = () => {

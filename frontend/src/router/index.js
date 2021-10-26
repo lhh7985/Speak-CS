@@ -69,6 +69,7 @@ const routes = [
       {
         path: "/home/problem",
         name: "problem",
+
         component: () => import("../views/problem/problem.vue"),
         children: [
           {
@@ -79,6 +80,7 @@ const routes = [
           {
             path: "/home/problem/description",
             name: "problem-description",
+            props: true,
             component: () =>
               import("../views/problem/components/description.vue"),
           },
