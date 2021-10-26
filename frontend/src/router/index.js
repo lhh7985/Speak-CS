@@ -35,6 +35,11 @@ const routes = [
         component: () => import("../views/login-cover/cover.vue"),
       },
       {
+        path: "/home/info",
+        name: "info",
+        component: () => import("../views/info/info.vue"),
+      },
+      {
         path: "/home/mypage",
         name: "mypage",
         component: () => import("../views/mypage/mypage.vue"),
@@ -94,6 +99,23 @@ const routes = [
             path: "/home/problem/result",
             name: "problem-result",
             component: () => import("../views/problem/components/result.vue"),
+          },
+        ],
+      },
+      {
+        path: "/home/board",
+        name: "board",
+        component: () => import("../views/board/board.vue"),
+        children: [
+          {
+            path: "/home/board",
+            name: "board-info",
+            component: () => import("../views/board/components/boardinfo.vue"),
+          },
+          {
+            path: "/home/board/question",
+            name: "board-question",
+            component: () => import("../views/board/components/question.vue"),
           },
         ],
       },
