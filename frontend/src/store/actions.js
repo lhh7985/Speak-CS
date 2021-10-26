@@ -34,8 +34,8 @@ export async function requestUserList({ state }, payload) {
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 모든 카테고리 정보 가져오기
-export async function requsetCategoryCreate({ state }, payload) {
-  console.log("requsetCategoryCreate", state, payload);
+export async function requsetCategoryList({ state }, payload) {
+  console.log("requsetCategoryList", state, payload);
   const url = "/category";
   return await axios.get(url);
 }
