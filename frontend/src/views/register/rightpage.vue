@@ -22,7 +22,7 @@
           lazy-rules
           label="닉네임 *"
         />
-        <q-btn primary label="중복확인"></q-btn>
+        <q-btn flat style="color: #ff0080" primary label="중복확인"></q-btn>
 
         <q-input
           filled
@@ -49,7 +49,7 @@
           type="email"
           label="이메일 *"
         />
-        <q-btn primary label="이메일인증"></q-btn>
+        <q-btn color="amber" label="이메일인증" @click="check()"></q-btn>
 
         <div>
           <q-btn
@@ -136,6 +136,9 @@ export default {
         return true;
       }
     };
+    const check = () => {
+      alert("hi");
+    };
     watch(
       () => [
         state.form.name,
@@ -194,6 +197,7 @@ export default {
       /* 제출 */
       onSubmit,
       onReset,
+      check,
     };
   },
 };
