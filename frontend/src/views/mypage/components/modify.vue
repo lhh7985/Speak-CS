@@ -2,54 +2,60 @@
   <div class="modify-wrap">
     <span class="modify-title">프로필 수정하기</span>
     <div class="form-wrap">
-      <q-form
-        class="q-gutter-md form-wrap"
-        ref="modify_form"
-        @submit="onSubmit"
-        @reset="onReset"
-      >
-        <q-input readonly filled label="성함" v-model="state.username" />
-        <div class="modify-nick">
+      <div class="modify-image">
+        <img class="profile-img" :src="state.imageurl" />
+        <label for="chooseFile" class="upload-btn">사진변경</label>
+        <input
+          type="file"
+          id="chooseFile"
+          name="chooseFile"
+          accept="image/*"
+          style="display: none"
+        />
+      </div>
+      <div class="qform">
+        <q-form
+          class="q-gutter-md form"
+          ref="modify_form"
+          @submit="onSubmit"
+          @reset="onReset"
+        >
+          <q-input readonly filled label="성함" v-model="state.username" />
+          <div class="modify-nick">
+            <q-input
+              filled
+              class="nickinput"
+              v-model="state.form.nickname"
+              :rules="state.rules.nickname"
+              lazy-rules
+              label="닉네임 *"
+            />
+            <q-btn class="nickcheck" primary label="중복확인"></q-btn>
+          </div>
+
           <q-input
             filled
-            class="nickinput"
-            v-model="state.form.nickname"
-            :rules="state.rules.nickname"
-            lazy-rules
-            label="닉네임 *"
+            v-model="state.form.pass"
+            :rules="state.rules.pass"
+            type="password"
+            label="비밀번호 *"
           />
-          <q-btn class="nickcheck" primary label="중복확인"></q-btn>
-        </div>
 
-        <q-input
-          filled
-          v-model="state.form.pass"
-          :rules="state.rules.pass"
-          type="password"
-          label="비밀번호 *"
-        />
-
-        <q-input
-          filled
-          v-model="state.form.passcheck"
-          :rules="state.rules.passcheck"
-          type="password"
-          label="비밀번호 확인 *"
-        />
-
-        <q-input readonly filled label="이메일" v-model="state.useremail" />
-
-        <div>
-          <q-btn color="primary" type="submit" label="수정하기" />
-          <q-btn
-            class="q-ml-sm"
-            flat
-            color="primary"
-            type="reset"
-            label="초기화"
+          <q-input
+            filled
+            v-model="state.form.passcheck"
+            :rules="state.rules.passcheck"
+            type="password"
+            label="비밀번호 확인 *"
           />
-        </div>
-      </q-form>
+
+          <q-input readonly filled label="이메일" v-model="state.useremail" />
+        </q-form>
+      </div>
+    </div>
+    <div class="submit-wrap">
+      <q-btn color="primary" type="submit" label="수정하기" />
+      <q-btn class="q-ml-sm" flat color="primary" type="reset" label="초기화" />
     </div>
   </div>
 </template>
@@ -67,6 +73,7 @@ export default {
     const state = reactive({
       username: "디두박",
       useremail: "xrl0603@naver.com",
+      imageurl: "@/assets/malang.png",
       form: {
         nickname: "",
         nickname_check: false,
