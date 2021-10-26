@@ -10,6 +10,7 @@ export async function requsetUserRegist({ state }, payload) {
   const body = payload;
   return await axios.post(url, body);
 }
+
 // 로그인하기
 export async function requestUserLogin({ state }, payload) {
   console.log("requestUserLogin", state, payload);
@@ -17,6 +18,7 @@ export async function requestUserLogin({ state }, payload) {
   const body = payload;
   return await axios.post(url, body);
 }
+
 // 유저정보 가져오기
 export async function requsetUserInfo({ state }, payload) {
   console.log("requsetUserInfo", state, payload);
@@ -24,6 +26,7 @@ export async function requsetUserInfo({ state }, payload) {
   const body = payload;
   return await axios.get(url, body);
 }
+
 // 유저정보 리스트 가져오기
 export async function requestUserList({ state }, payload) {
   console.log("requestUserList", state, payload);
@@ -48,12 +51,14 @@ export async function requsetProblemCreate({ state }, payload) {
   const body = payload;
   return await axios.post(url, body);
 }
+
 // 카테고리별 문제 리스트 가져오기
 export async function requestProblemList({ state }, payload) {
   console.log("requestProblemList", state, payload);
   const url = `/problem/${payload.id}}`;
   return await axios.get(url);
 }
+
 // 문제 정답 맞추기
 export async function requestProblemCheckAnswer({ state }, payload) {
   console.log("requestProblemCheckAnswer", state, payload);
@@ -61,6 +66,7 @@ export async function requestProblemCheckAnswer({ state }, payload) {
   const body = payload;
   return await axios.post(url, body);
 }
+
 // 승인 대기중인 문제 리스트 가져오기
 export async function requestProblemWait({ state }, payload) {
   console.log("requestProblemWait", state, payload);
@@ -68,6 +74,7 @@ export async function requestProblemWait({ state }, payload) {
   const body = payload;
   return await axios.get(url, body);
 }
+
 // 관리자가 문제상태 변경하기
 export async function requestProblemEvaluate({ state }, payload) {
   console.log("requestProblemEvaluate", state, payload);
@@ -83,6 +90,7 @@ export async function requsetBoardInfo({ state }, payload) {
   const url = `/board/${payload.id}`;
   return await axios.get(url);
 }
+
 // 게시판 리스트 가져오기
 export async function requestBoardList({ state }, payload) {
   console.log("requestBoardList", state, payload);
