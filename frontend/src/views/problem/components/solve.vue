@@ -1,10 +1,7 @@
 <template>
   <div>
-    <template v-for="(category, index) in state.categories" :key="index">
-      <q-btn unelevated flat @click="selectProblem(category.id)">{{
-        category.name
-      }}</q-btn>
-    </template>
+    문제리스트가 나올페이지입니다.
+    <q-btn unelevated flat @click="checkAnswer()">제출하기</q-btn>
   </div>
 </template>
 
@@ -19,14 +16,14 @@ export default {
     const store = useStore();
     const router = useRouter();
     const state = reactive({
-      categories: computed(() => store.getters["root/getCategories"]),
+      categories: computed(() => store.getters["root/getSelectedProblems"]),
     });
 
-    const selectProblem = (id) => {
+    const checkAnswer = (my_ans) => {
       store
-        .dispatch("root/requestProblemList", id)
+        .dispatch("root/requestProblemCheckAnswer", my_ans)
         .then((response) => {
-          store.commit("root/setSelctedProblems", response.data);
+          store.commit("root/setProblemResults", response);
           router.push({ name: "problem-solve" });
         })
         .catch((error) => {
@@ -36,7 +33,7 @@ export default {
 
     return {
       state,
-      selectProblem,
+      checkAnswer,
     };
   },
 };
