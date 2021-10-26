@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -91,7 +93,8 @@ public class UserServiceTest {
 		.perform(post("/user/login")
 				.content(account)
 				.contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk());
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 	
 	@Test
@@ -147,11 +150,17 @@ public class UserServiceTest {
 				.build());
 		
 		
-		String token = mvc
+		String login_res = mvc
 		.perform(post("/user/login")
 				.content(user)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andReturn().getResponse().getContentAsString();
+		
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(login_res);
+		JSONObject json = (JSONObject) obj;
+		
+		String token = (String) json.get("token");
 		
 		LogUtil.Msg("tokenInfo : ", token);
 		
