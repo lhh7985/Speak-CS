@@ -59,6 +59,7 @@
 </template>
 <script>
 import { ref, reactive, watch } from "vue";
+import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import FindPwDialog from "./components/findpw.vue";
 import UpdatePwDialog from "./components/updatepw.vue";
@@ -73,6 +74,7 @@ export default {
   methods: {},
   setup() {
     const login_form = ref(null); // 로그인폼저장
+    const store = useStore();
     const router = useRouter();
     const state = reactive({
       form: {
@@ -117,7 +119,24 @@ export default {
     );
     /*ㅡㅡㅡㅡㅡ 버튼 ㅡㅡㅡㅡㅡ*/
     const onSubmit = () => {
-      /* axios */
+      login_form.value.validate().then((success) => {
+        if (success) {
+          store
+            .dispatch("root/requestUserLogin", {
+              email: state.form.email,
+              pass: state.form.pass,
+            })
+            .then((response) => {
+              console.log(response);
+              localStorage.setItem("user_info", JSON.stringify(response.data));
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          /* Error 모달 모음 만들기 */
+        }
+      });
     };
     const onReset = () => {
       state.form.email = null;
