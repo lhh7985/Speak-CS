@@ -46,19 +46,48 @@
 .modify-wrap {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
 }
 .modify-title {
   display: block;
   font-size: 1.5em;
-  margin: 2em 0 0;
+  margin: 1.5em 0 0;
 }
 
 .form-wrap {
-  width: 90%;
-  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.modify-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+
+  .profile-img {
+    margin: 1em 0;
+  }
+  .upload-btn {
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    background-color: lavender;
+  }
+  .upload-btn:hover {
+    cursor: pointer;
+  }
+}
+
+.qform {
+  width: 60%;
+}
+.form {
+  display: flex;
+  flex-direction: column;
 }
 
 .modify-nick {
@@ -73,4 +102,8 @@
 .nickcheck {
   width: 15%;
   height: 50%;
+}
+
+.submit-wrap {
+  margin-bottom: 1.5em;
 }
