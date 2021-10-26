@@ -3,7 +3,7 @@
     <div class="register-wrap">
       <q-form
         class="q-gutter-md form-wrap"
-        ref="login_form"
+        ref="regist_form"
         @submit="onSubmit"
         @reset="onReset"
       >
@@ -72,20 +72,25 @@
 </template>
 <script>
 import { ref, reactive, watch } from "vue";
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import "../../styles/register.scss";
 
 export default {
   name: "register-right",
   setup() {
     const regist_form = ref(null);
+    const store = useStore();
+    const router = useRouter();
     const state = reactive({
       form: {
         name: "",
         nickname: "",
+        nickname_check: false,
         pass: "",
         passcheck: "",
         email: "",
+        email_check: false,
       },
       rules: {
         name: [(val) => (val !== null && val !== "") || "필수입력 항목입니다."],
@@ -132,15 +137,47 @@ export default {
       }
     };
     watch(
-      () => [state.form.pass, state.form.passcheck],
+      () => [
+        state.form.name,
+        state.form.nickname,
+        state.form.nickname_check,
+        state.form.pass,
+        state.form.passcheck,
+        state.form.email,
+        state.form.email_check,
+      ],
       () => {
-        console.log(state.form.pass, state.form.passcheck);
+        regist_form.value.validate().then((success) => {
+          if (success) {
+            state.regist_btn_disable = false;
+          } else {
+            state.regist_btn_disable = true;
+          }
+        });
       }
     );
 
     /*ㅡㅡㅡㅡㅡ 버튼 ㅡㅡㅡㅡㅡ*/
     const onSubmit = () => {
-      /* axios */
+      regist_form.value.validate().then((success) => {
+        if (success) {
+          store
+            .dispatch("root/requestUserRegist", {
+              name: state.form.name,
+              nickname: state.form.nickname,
+              pass: state.form.pass,
+              email: state.form.email,
+            })
+            .then((response) => {
+              console.log(response);
+              console.log(router);
+              // router.push({ name: "login" });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
     };
     const onReset = () => {
       state.form.name = null;
