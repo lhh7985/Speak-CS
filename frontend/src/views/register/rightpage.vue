@@ -163,6 +163,11 @@ export default {
       state.form.pass = null;
       state.form.passcheck = null;
     };
+
+    const check = () => {
+      alert("hi");
+    };
+
     return {
       regist_form,
       state,
