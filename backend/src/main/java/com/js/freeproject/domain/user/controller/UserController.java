@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequiredArgsConstructor
 @RequestMapping("/user")
 @Api(value="사용자 API")
 public class UserController {
@@ -41,7 +41,7 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	@PostMapping("/login")
+	@PostMapping("login")
 	@ApiOperation(value="사용자 로그인", notes ="아이디와 패스워드를 통해 로그인 한다.")
 	@ApiResponses({
 		@ApiResponse(code=200,message="성공",response = LoginResponse.class),
@@ -93,7 +93,7 @@ public class UserController {
 		return ResponseEntity.ok(CommonResponse.of("Success"));
 	}
 	
-	@GetMapping("/me")
+	@GetMapping("me")
 	@ApiOperation(value = "내 정보 가져오기")
 	@ApiResponses({
 		@ApiResponse(code=200,message="성공",response = UserResponse.class),
@@ -105,5 +105,27 @@ public class UserController {
 		User user = userService.findByUserEmail(accountDetailes.getUseremail());
 		
 		return ResponseEntity.ok(UserResponse.of("Success", user));
+	}
+	
+	@GetMapping("{nickName}")
+	@ApiOperation(value="닉네임 중복검사",notes="존재하는 닉네임인지 확인한다.")
+	@ApiResponses({
+		@ApiResponse(code=200,message="성공",response = CommonResponse.class),
+		@ApiResponse(code=401,message="중복된 닉네임",response = CommonResponse.class),
+		@ApiResponse(code=500,message="서버 오류",response = CommonResponse.class)
+	})
+	public ResponseEntity<?> duplicateNickName(@PathVariable String nickName) {
+		try {
+			User user = userService.findByUserNickName(nickName);
+			
+			if(user != null) {
+				log.info("{} 는 이미 사용하고 있는 닉네임입니다",nickName);
+				return ResponseEntity.status(401).body(CommonResponse.of("이미 사용하고 있는 닉네임입니다."));
+			}
+			return ResponseEntity.ok(UserResponse.of("Success", user));
+		} catch(Exception e) {
+			log.info("{} 조회 중 오류 발생",nickName);
+			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류가 발생했습니다."));
+		}	
 	}
 }
