@@ -3,7 +3,7 @@
     <span class="modify-title">프로필 수정하기</span>
     <div class="form-wrap">
       <div class="modify-image">
-        <img class="profile-img" :src="state.imageurl" />
+        <img class="modi-img" :src="state.imageurl" />
         <label for="chooseFile" class="upload-btn">사진변경</label>
         <input
           type="file"
@@ -11,6 +11,7 @@
           name="chooseFile"
           accept="image/*"
           style="display: none"
+          @change="loadf"
         />
       </div>
       <div class="qform">
@@ -73,7 +74,8 @@ export default {
     const state = reactive({
       username: "디두박",
       useremail: "xrl0603@naver.com",
-      imageurl: "@/assets/malang.png",
+      imageurl: require("../../../assets/malang.png"),
+      file: null,
       form: {
         nickname: "",
         nickname_check: false,
@@ -124,11 +126,18 @@ export default {
       state.form.pass = null;
       state.form.passcheck = null;
     };
+
+    const loadf = () => {
+      var file = document.getElementById("chooseFile");
+      console.log(file.files[0]);
+      state.imageurl = URL.createObjectURL(file.files[0]);
+    };
     return {
       modify_form,
       state,
       onSubmit,
       onReset,
+      loadf,
     };
   },
 };

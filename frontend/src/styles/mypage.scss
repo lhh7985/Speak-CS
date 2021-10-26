@@ -69,14 +69,18 @@
   align-items: center;
   width: 30%;
 
-  .profile-img {
+  .modi-img {
+    position: relative;
+    width: 80%;
     margin: 1em 0;
   }
+
   .upload-btn {
     border-radius: 5px;
     padding: 0.5em 1em;
     background-color: lavender;
   }
+
   .upload-btn:hover {
     cursor: pointer;
   }
