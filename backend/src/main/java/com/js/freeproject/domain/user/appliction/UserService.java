@@ -42,7 +42,7 @@ public class UserService {
 		return userRepo.findByEmail(email);
 	}
 	
-	public User findByUserNickName(String nickName) {
-		return userRepo.findByNickName(nickName);
+	public boolean findByUserNickName(String nickName) {
+		return userRepo.existsByNickName(nickName);
 	}
 }

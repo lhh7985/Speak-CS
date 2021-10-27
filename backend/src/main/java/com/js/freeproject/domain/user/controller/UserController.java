@@ -116,13 +116,12 @@ public class UserController {
 	})
 	public ResponseEntity<?> duplicateNickName(@PathVariable String nickName) {
 		try {
-			User user = userService.findByUserNickName(nickName);
-			
-			if(user != null) {
+			boolean duplnickname = userService.findByUserNickName(nickName);
+			if(duplnickname) {
 				log.info("{} 는 이미 사용하고 있는 닉네임입니다",nickName);
 				return ResponseEntity.status(401).body(CommonResponse.of("이미 사용하고 있는 닉네임입니다."));
 			}
-			return ResponseEntity.ok(UserResponse.of("Success", user));
+			return ResponseEntity.ok(CommonResponse.of("Success"));
 		} catch(Exception e) {
 			log.info("{} 조회 중 오류 발생",nickName);
 			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류가 발생했습니다."));
