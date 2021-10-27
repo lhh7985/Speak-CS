@@ -44,20 +44,37 @@ public class CommentService {
         return CommentResponse.ofComment(ct);
     }
 
-    public Map<String,List> getCommentOfBoard(final Long boardId){
-        List<Comment> allComments = commentRepository.findAllByBoardId(boardId);
-        List<CommentResponse> answerComment = new ArrayList<>();
-        List<CommentResponse> coComment = new ArrayList<>();
+//    public Map<String,List> getCommentOfBoard(final Long boardId){
+//        List<Comment> allComments = commentRepository.findAllByBoardId(boardId);
+//        List<CommentResponse> answerComment = new ArrayList<>();
+//        List<CommentResponse> coComment = new ArrayList<>();
+//        for(Comment comment : allComments){
+//            if(comment.getParent() != null){
+//                coComment.add(CommentResponse.ofComment(comment));
+//            }else{
+//                answerComment.add(CommentResponse.ofComment(comment));
+//            }
+//        }
+//        Map<String, List> commentMap = new HashMap<>();
+//        commentMap.put("answerComment", answerComment);
+//        commentMap.put("coComment",coComment);
+//        return commentMap;
+//    }
+
+    public Map<String,List> getCommentOfBoard(final List<Comment> allComments){
+//        List<Comment> allComments = commentRepository.findAllByBoardId(boardId);
+        List<CommentResponse> answerComment2 = new ArrayList<>();
+        List<CommentResponse> coComment2 = new ArrayList<>();
         for(Comment comment : allComments){
             if(comment.getParent() != null){
-                coComment.add(CommentResponse.ofComment(comment));
+                coComment2.add(CommentResponse.ofComment(comment));
             }else{
-                answerComment.add(CommentResponse.ofComment(comment));
+                answerComment2.add(CommentResponse.ofComment(comment));
             }
         }
         Map<String, List> commentMap = new HashMap<>();
-        commentMap.put("answerComment", answerComment);
-        commentMap.put("coComment",coComment);
+        commentMap.put("answerComment", answerComment2);
+        commentMap.put("coComment",coComment2);
         return commentMap;
     }
 
