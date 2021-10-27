@@ -6,6 +6,7 @@ import com.js.freeproject.domain.board.dto.BoardListResponse;
 import com.js.freeproject.domain.board.dto.BoardRequest;
 import com.js.freeproject.domain.board.dto.BoardResponse;
 import com.js.freeproject.domain.file.application.BoardFileService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,12 +17,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RequestMapping("/api/v1/board")
 public class BoardControlller {
 
     private final BoardService boardService;
     private final BoardFileService boardFileService;
 
+    @ApiOperation(value = "게시판 글 작성")
     @PostMapping("/{userId}")
     public ResponseEntity<?> saveQuestion(@RequestBody final BoardRequest boardRequest, @PathVariable Long userId) throws IOException {
         Board board = boardService.saveQuestion(boardRequest,userId);
@@ -29,18 +32,21 @@ public class BoardControlller {
         return ResponseEntity.ok().body(boardResponse);
     }
 
+    @ApiOperation(value = "게시판 목록 조회")
     @GetMapping
     public ResponseEntity<?> getBoardList(){
         List<BoardListResponse> boardListResponses = boardService.findAllBoard();
         return ResponseEntity.ok().body(boardListResponses);
     }
 
+    @ApiOperation(value = "게시판 선택 항목 조회")
     @GetMapping("/{boardId}")
     public ResponseEntity<?> getBoardOne(@PathVariable Long boardId){
         BoardResponse boardResponse = boardService.findById(boardId);
         return ResponseEntity.ok().body(boardResponse);
     }
 
+    @ApiOperation(value = "게시판 글 수정")
     @PutMapping("/{boardId}")
     public ResponseEntity<?> putBoard(final BoardRequest boardRequest, @PathVariable Long boardId) throws IOException {
         boardService.updateDescription(boardRequest,boardId);
