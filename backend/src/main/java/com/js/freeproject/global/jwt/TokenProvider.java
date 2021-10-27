@@ -57,21 +57,6 @@ public class TokenProvider {
 				.sign(Algorithm.HMAC512(secret.getBytes()));
 	}
     
-    public static String getToken(String email) {
-    		Date expires = TokenProvider.getTokenExpiration(expiration);
-        return JWT.create()
-                .withSubject(email)
-                .withExpiresAt(expires)
-                .sign(Algorithm.HMAC512(secret.getBytes()));
-    }
-
-    public static String getToken(Instant expires, String email) {
-        return JWT.create()
-                .withSubject(email)
-                .withExpiresAt(Date.from(expires))
-                .sign(Algorithm.HMAC512(secret.getBytes()));
-    }
-    
     public static Date getTokenExpiration(long expiration) {
     		Date now = new Date();
     		return new Date(now.getTime() + expiration);
