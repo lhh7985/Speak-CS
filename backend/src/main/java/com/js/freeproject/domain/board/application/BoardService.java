@@ -1,11 +1,12 @@
 package com.js.freeproject.domain.board.application;
 
-import com.js.freeproject.domain.amazonS3.S3Service;
+//import com.js.freeproject.domain.amazonS3.S3Service;
 import com.js.freeproject.domain.board.domain.Board;
 import com.js.freeproject.domain.board.domain.BoardRepository;
 import com.js.freeproject.domain.board.dto.BoardListResponse;
 import com.js.freeproject.domain.board.dto.BoardRequest;
 import com.js.freeproject.domain.board.dto.BoardResponse;
+import com.js.freeproject.domain.comment.application.CommentService;
 import com.js.freeproject.domain.file.application.BoardFileService;
 import com.js.freeproject.domain.file.domain.BoardFile;
 import com.js.freeproject.domain.user.domain.User;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +28,7 @@ public class BoardService {
     private final UserRepository userRepository;
 
     private final BoardFileService boardFileService;
+    private final CommentService commentService;
 
     @Transactional
     public Board saveQuestion(final BoardRequest boardRequest,final Long userId) throws IOException {
@@ -54,7 +57,11 @@ public class BoardService {
     public BoardResponse findById(final Long boardId){
         Board searchBoard = boardRepository.findById(boardId).orElseThrow(IllegalArgumentException::new);
         List<BoardFile> searchBoardFiles = boardFileService.findBoardFiles(boardId);
-        BoardResponse boardResponse = new BoardResponse(searchBoard);
+        //댓글들을 담기
+        Map<String, List> commentOfBoard = commentService.getCommentOfBoard(searchBoard.getComments());
+        //파일 있으면 가져오기
+        commentOfBoard.put("files", searchBoardFiles);
+        BoardResponse boardResponse = new BoardResponse(searchBoard,commentOfBoard);
         return boardResponse;
     }
 
