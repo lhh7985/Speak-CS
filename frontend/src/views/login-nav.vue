@@ -1,10 +1,8 @@
-<!-- App.vue -> login.vue -> login-nav.vue -->
-
 <template>
   <div>
-    <q-btn unelevated flat class="menu-btn">소개</q-btn>
-    <q-btn unelevated flat class="menu-btn">문제풀기</q-btn>
-    <q-btn unelevated flat class="menu-btn">게시판</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvInfo">소개</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvProblem">문제풀기</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvBoard">게시판</q-btn>
     <q-btn unelevated flat class="menu-btn" @click="mvMypage">마이페이지</q-btn>
     <q-btn unelevated flat class="menu-btn" @click="mvLogout">로그아웃</q-btn>
   </div>
@@ -12,12 +10,16 @@
 
 <script>
 import { useRouter } from "vue-router";
+
 // import "../styles/cover.scss";
 
 export default {
   name: "login-nav",
   setup(props, { emit }) {
     const router = useRouter();
+    const mvInfo = () => {
+      router.push({ name: "info" });
+    };
     const mvLogout = () => {
       alert("로그아웃 될거에요");
       router.push({ name: "logout-cover" });
@@ -26,11 +28,19 @@ export default {
     const mvMypage = () => {
       router.push({ name: "mypage-profile" });
     };
+    const mvProblem = () => {
+      router.push({ name: "problem" });
+    };
+    const mvBoard = () => {
+      router.push({ name: "board-info" });
+    };
     return {
+      mvInfo,
       mvLogout,
       mvMypage,
+      mvProblem,
+      mvBoard,
     };
   },
 };
 </script>
-<style lang=""></style>

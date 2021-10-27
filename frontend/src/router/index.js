@@ -35,6 +35,11 @@ const routes = [
         component: () => import("../views/login-cover/cover.vue"),
       },
       {
+        path: "/home/info",
+        name: "info",
+        component: () => import("../views/info/info.vue"),
+      },
+      {
         path: "/home/mypage",
         name: "mypage",
         component: () => import("../views/mypage/mypage.vue"),
@@ -63,6 +68,54 @@ const routes = [
             path: "/home/mypage/modify",
             name: "mypage-modify",
             component: () => import("../views/mypage/components/modify.vue"),
+          },
+        ],
+      },
+      {
+        path: "/home/problem",
+        name: "problem",
+
+        component: () => import("../views/problem/problem.vue"),
+        children: [
+          {
+            path: "/home/problem",
+            name: "problem-info",
+            component: () => import("../views/problem/components/info.vue"),
+          },
+          {
+            path: "/home/problem/description",
+            name: "problem-description",
+            props: true,
+            component: () =>
+              import("../views/problem/components/description.vue"),
+          },
+          {
+            path: "/home/problem/solve",
+            name: "problem-solve",
+            component: () => import("../views/problem/components/solve.vue"),
+            // children: [{}],
+          },
+          {
+            path: "/home/problem/result",
+            name: "problem-result",
+            component: () => import("../views/problem/components/result.vue"),
+          },
+        ],
+      },
+      {
+        path: "/home/board",
+        name: "board",
+        component: () => import("../views/board/board.vue"),
+        children: [
+          {
+            path: "/home/board",
+            name: "board-info",
+            component: () => import("../views/board/components/boardinfo.vue"),
+          },
+          {
+            path: "/home/board/question",
+            name: "board-question",
+            component: () => import("../views/board/components/question.vue"),
           },
         ],
       },

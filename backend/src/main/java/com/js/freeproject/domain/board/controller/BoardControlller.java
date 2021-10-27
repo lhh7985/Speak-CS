@@ -5,6 +5,7 @@ import com.js.freeproject.domain.board.domain.Board;
 import com.js.freeproject.domain.board.dto.BoardListResponse;
 import com.js.freeproject.domain.board.dto.BoardRequest;
 import com.js.freeproject.domain.board.dto.BoardResponse;
+import com.js.freeproject.domain.board.dto.BoardSaveResponse;
 import com.js.freeproject.domain.file.application.BoardFileService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,8 @@ public class BoardControlller {
     @PostMapping("/{userId}")
     public ResponseEntity<?> saveQuestion(@RequestBody final BoardRequest boardRequest, @PathVariable Long userId) throws IOException {
         Board board = boardService.saveQuestion(boardRequest,userId);
-        final BoardResponse boardResponse = new BoardResponse(board);
-        return ResponseEntity.ok().body(boardResponse);
+        final BoardSaveResponse boardSaveResponse = new BoardSaveResponse(board);
+        return ResponseEntity.ok().body(boardSaveResponse);
     }
 
     @ApiOperation(value = "게시판 목록 조회")

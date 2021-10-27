@@ -13,7 +13,6 @@
           :rules="state.rules.name"
           lazy-rules
           label="성함 *"
-          autofocus
         />
         <q-input
           filled
@@ -22,13 +21,12 @@
           lazy-rules
           label="닉네임 *"
         />
-        <q-btn primary label="중복확인"></q-btn>
+        <q-btn flat style="color: #ff0080" primary label="중복확인"></q-btn>
 
         <q-input
           filled
           v-model="state.form.pass"
           :rules="state.rules.pass"
-          lazy-rules
           type="password"
           label="비밀번호 *"
         />
@@ -37,7 +35,6 @@
           filled
           v-model="state.form.passcheck"
           :rules="state.rules.passcheck"
-          lazy-rules
           type="password"
           label="비밀번호 확인 *"
         />
@@ -49,15 +46,10 @@
           type="email"
           label="이메일 *"
         />
-        <q-btn primary label="이메일인증"></q-btn>
+        <q-btn color="amber" label="이메일인증" @click="check()"></q-btn>
 
         <div>
-          <q-btn
-            color="primary"
-            type="submit"
-            :disable="state.regist_btn_disable"
-            label="회원가입"
-          />
+          <q-btn color="primary" type="submit" label="회원가입" />
           <q-btn
             class="q-ml-sm"
             flat
@@ -71,7 +63,7 @@
   </div>
 </template>
 <script>
-import { ref, reactive, watch } from "vue";
+import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import "../../styles/register.scss";
@@ -93,26 +85,31 @@ export default {
         email_check: false,
       },
       rules: {
-        name: [(val) => (val !== null && val !== "") || "필수입력 항목입니다."],
+        name: [
+          (val) => val != null || "필수입력 항목입니다.",
+          (val) => val.length > 0 || "필수입력 항목입니다.",
+        ],
         nickname: [
-          (val) => (val !== null && val !== "") || "필수입력 항목입니다.",
+          (val) => val != null || "필수입력 항목입니다.",
+          (val) =>
+            (val.length >= 2 && val.length <= 16) ||
+            "2~16자리의 닉네임을 설정해주세요.",
         ],
         pass: [
-          (val) => (val !== null && val !== "") || "필수입력 항목입니다.",
+          (val) => val !== null || "필수입력 항목입니다.",
           (val) =>
             isValidPass(val) ||
             "영문, 숫자, 특수문자를 포함한 8자리 이상의 비밀번호를 생성해주세요!",
         ],
         passcheck: [
-          (val) => (val !== null && val !== "") || "필수입력 항목입니다.",
+          (val) => (val !== null && val.length > 0) || "필수입력 항목입니다.",
           (val) => isValidPassCheck(val) || "입력한 비밀번호와 맞지 않습니다.",
         ],
         email: [
-          (val) => (val !== null && val !== "") || "필수입력 항목입니다.",
+          (val) => (val !== null && val.length > 0) || "필수입력 항목입니다.",
           (val) => isValidEmail(val) || "이메일형식에 맞지 않습니다.",
         ],
       },
-      regist_btn_disable: true,
     });
     /*ㅡㅡㅡㅡㅡ 검증 ㅡㅡㅡㅡㅡ*/
     const isValidEmail = (val) => {
@@ -136,26 +133,6 @@ export default {
         return true;
       }
     };
-    watch(
-      () => [
-        state.form.name,
-        state.form.nickname,
-        state.form.nickname_check,
-        state.form.pass,
-        state.form.passcheck,
-        state.form.email,
-        state.form.email_check,
-      ],
-      () => {
-        regist_form.value.validate().then((success) => {
-          if (success) {
-            state.regist_btn_disable = false;
-          } else {
-            state.regist_btn_disable = true;
-          }
-        });
-      }
-    );
 
     /*ㅡㅡㅡㅡㅡ 버튼 ㅡㅡㅡㅡㅡ*/
     const onSubmit = () => {
@@ -185,15 +162,19 @@ export default {
       state.form.email = null;
       state.form.pass = null;
       state.form.passcheck = null;
-      state.regist_btn_disable = true;
     };
+
+    const check = () => {
+      alert("hi");
+    };
+
     return {
       regist_form,
       state,
-      /* 검증 */
       /* 제출 */
       onSubmit,
       onReset,
+      check,
     };
   },
 };

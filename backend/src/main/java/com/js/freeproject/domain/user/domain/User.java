@@ -47,11 +47,12 @@ public class User {
     private List<ScoreHistory> scorehistorys;
 
 	@Builder
-    private User(String email, String nickName, String name, String pass) {
+    private User(String email, String nickName, String name, String pass, String image) {
     	this.email = email;
     	this.nickName = nickName;
     	this.name = name;
     	this.pass = pass;
+    	this.image = image;
     }
 	
     public void setPass(String pass) {
