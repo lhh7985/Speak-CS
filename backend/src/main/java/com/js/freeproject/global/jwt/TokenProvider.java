@@ -24,13 +24,15 @@ public class TokenProvider {
 	
 	private static String secret;
 	private static long expiration;
+	private static long refresh_expiration;
 	
 	public static final String TOKEN_PREFIX= "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 	
-	public TokenProvider(@Value("${jwt.secret}")String secret,@Value("${jwt.expiration}") long expiration) {
+	public TokenProvider(@Value("${jwt.secret}")String secret,@Value("${jwt.expiration}") long expiration, @Value("${jwt.refresh_expiration}")long refresh_expiration) {
 		TokenProvider.secret = secret;
 		TokenProvider.expiration = expiration;
+		TokenProvider.refresh_expiration = refresh_expiration;
 	}
 	
 	public static JWTVerifier getVerifier() {
@@ -38,6 +40,22 @@ public class TokenProvider {
                 .require(Algorithm.HMAC512(secret.getBytes()))
                 .build();
     }
+	
+	public static String generateToken(String email) {
+		return getToken(email,expiration);
+	}
+	
+	public static String generateRefreshToken(String email) {
+		return getToken(email,refresh_expiration);
+	}
+	
+	public static String getToken(String email, long expire) {
+		return JWT.create()
+				.withSubject(email)
+				.withExpiresAt(new Date(System.currentTimeMillis() + expire))
+				.withIssuedAt(new Date(System.currentTimeMillis()))
+				.sign(Algorithm.HMAC512(secret.getBytes()));
+	}
     
     public static String getToken(String email) {
     		Date expires = TokenProvider.getTokenExpiration(expiration);
