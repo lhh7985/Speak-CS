@@ -3,9 +3,7 @@ package com.js.freeproject.domain.user.dto;
 import com.js.freeproject.domain.model.CommonResponse;
 import com.js.freeproject.domain.user.domain.User;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public class UserResponse extends CommonResponse {
