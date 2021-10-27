@@ -63,7 +63,7 @@ public class UserController {
 				return ResponseEntity.status(401).body(CommonResponse.of("비밀번호가 일치하지 않습니다."));
 			}
 			
-			String token = TokenProvider.getToken(email);
+			String token = TokenProvider.generateToken(email);
 			
 			return ResponseEntity.ok(LoginResponse.of("Success", token));
 		} catch(Exception e) {
