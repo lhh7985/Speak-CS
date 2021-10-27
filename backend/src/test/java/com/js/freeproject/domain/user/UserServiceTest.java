@@ -36,9 +36,9 @@ public class UserServiceTest {
 	void CreateUser() throws Exception {
 		LogUtil.Msg("사용자 생성","정상 생성");
 		
-		String email = "various@naver.com";
-		String name = "홍길동";
-		String nickName = "홍길동의 후예";
+		String email = "user@naver.com";
+		String name = "사용자";
+		String nickName = "사용자의 후예";
 		String pass = "qwe123";
 		
 		String user = OM.writeValueAsString(User.builder()
@@ -51,7 +51,7 @@ public class UserServiceTest {
 		mvc.perform(post("/user")
 				.content(user)
 				.contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().is(401));
+		.andExpect(status().is(200));
 	}
 	
 	@Test
@@ -93,8 +93,7 @@ public class UserServiceTest {
 		.perform(post("/user/login")
 				.content(account)
 				.contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk())
-		.andDo(print());
+		.andExpect(status().isOk());
 	}
 	
 	@Test
@@ -172,21 +171,37 @@ public class UserServiceTest {
 	
 	@Test
 	@Order(7)
-	void AdminLogin() throws Exception {
-		LogUtil.Msg("관리자 로그인","정상 로그인");
-		
-		String email = "admin";
-		String pass = "admin";
-		
-		String account = OM.writeValueAsString(User.builder()
-				.email(email)
-				.pass(pass)
-				.build());
+	void DuplicateNickname() throws Exception {
+		LogUtil.Msg("존재하는 닉네임 중복검사");
 		
 		mvc
-		.perform(post("/user/login")
-				.content(account)
-				.contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk());
+		.perform(get("/user/홍길동의 후예"))
+		.andExpect(status().is(401));
+		
+		LogUtil.Msg("존재하지 않는 닉네임 중복검사");
+		
+		mvc
+		.perform(get("/user/우루루의 후예"))
+		.andExpect(status().is(200));
 	}
+	
+//	@Test
+//	@Order(7)
+//	void AdminLogin() throws Exception {
+//		LogUtil.Msg("관리자 로그인","정상 로그인");
+//		
+//		String email = "admin";
+//		String pass = "admin";
+//		
+//		String account = OM.writeValueAsString(User.builder()
+//				.email(email)
+//				.pass(pass)
+//				.build());
+//		
+//		mvc
+//		.perform(post("/user/login")
+//				.content(account)
+//				.contentType(MediaType.APPLICATION_JSON))
+//		.andExpect(status().isOk());
+//	}
 }
