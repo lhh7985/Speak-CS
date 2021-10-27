@@ -21,9 +21,9 @@ public class CommentController {
         return ResponseEntity.ok().body(commentService.saveComment(commentRequest,boardId));
     }
 
-    @GetMapping("/{boardId}")
-    public ResponseEntity<?> getComments(@PathVariable final Long boardId){
-        Map<String, List> commentMap = commentService.getCommentOfBoard(boardId);
-        return ResponseEntity.ok().body(commentMap);
-    }
+//    @GetMapping("/{boardId}")
+//    public ResponseEntity<?> getComments(@PathVariable final Long boardId){
+//        Map<String, List> commentMap = commentService.getCommentOfBoard(boardId);
+//        return ResponseEntity.ok().body(commentMap);
+//    }
 }
