@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -17,6 +18,7 @@ public class BoardListResponse {
     private String title;
     private String description;
     private User user;
+    private LocalDateTime createdAt;
     private List<BoardFile> boardFiles;
 
     public static BoardListResponse ofBoard(final Board board){
@@ -29,5 +31,6 @@ public class BoardListResponse {
         this.description = board.getDescription();
         this.boardFiles = board.getBoardFiles();
         this.user = board.getUser();
+        this.createdAt = board.getCreateDate();
     }
 }

@@ -9,7 +9,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,13 +20,19 @@ public class BoardResponse {
     private String title;
     private String description;
     private User user;
-    private List<Comment> comment;
+    private LocalDateTime createdAt;
+    private List<Comment> answerComment;
+    private List<Comment> coComment;
+    private List<BoardFile> boardFiles;
 
-    public BoardResponse(final Board board) {
+    public BoardResponse(final Board board, final Map<String, List> map) {
         this.id = board.getId();
         this.title = board.getTitle();
         this.description = board.getDescription();
-        this.comment = board.getComments();
         this.user = board.getUser();
+        this.createdAt = board.getCreateDate();
+        this.answerComment = map.get("answerComment");
+        this.coComment = map.get("coComment");
+        this.boardFiles = map.get("files");
     }
 }
