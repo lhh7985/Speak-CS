@@ -2,13 +2,9 @@ package com.js.freeproject.global.util;
 
 import java.time.Duration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.js.freeproject.domain.user.appliction.UserService;
 
 import lombok.RequiredArgsConstructor;
 
