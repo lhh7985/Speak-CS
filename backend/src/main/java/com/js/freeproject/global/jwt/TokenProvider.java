@@ -65,34 +65,6 @@ public class TokenProvider {
     	return TokenProvider.refresh_expiration;
     }
 
-    public static void handleError(String token) {
-        JWTVerifier verifier = JWT
-                .require(Algorithm.HMAC512(secret.getBytes()))
-                .build();
-
-        try {
-            verifier.verify(token.replace(TOKEN_PREFIX, ""));
-        } catch (AlgorithmMismatchException ex) {
-            throw ex;
-        } catch (InvalidClaimException ex) {
-            throw ex;
-        } catch (SignatureGenerationException ex) {
-            throw ex;
-        } catch (SignatureVerificationException ex) {
-            throw ex;
-        } catch (TokenExpiredException ex) {
-            throw ex;
-        } catch (JWTCreationException ex) {
-            throw ex;
-        } catch (JWTDecodeException ex) {
-            throw ex;
-        } catch (JWTVerificationException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw ex;
-        }
-    }
-
     public static void handleError(JWTVerifier verifier, String token) {
         try {
             verifier.verify(token.replace(TOKEN_PREFIX, ""));
@@ -118,8 +90,8 @@ public class TokenProvider {
     }
     
     public static String getSubject(String token) {
-    	TokenProvider.handleError(token);
     	JWTVerifier verifier = TokenProvider.getVerifier();
+    	TokenProvider.handleError(verifier,token);
 		
     	return verifier.verify(token).getSubject();
     }
