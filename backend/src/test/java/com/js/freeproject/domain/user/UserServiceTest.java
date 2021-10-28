@@ -2,6 +2,7 @@ package com.js.freeproject.domain.user;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.json.simple.JSONObject;
@@ -167,16 +168,56 @@ public class UserServiceTest {
 		mvc
 		.perform(get("/user/me")
 				.header("Authorization", "Bearer " + token))
-		.andExpect(status().isOk());
+		.andExpect(status().isOk())
+		.andDo(print());
 		
-		mvc
-		.perform(get("/user/me"))
-		.andExpect(status().is(401));
+		/////////////////////////////////////////////////////////////////
+		
+		email = "admin";
+		pass = "admin";
+		
+		String admin_user = OM.writeValueAsString(User.builder()
+				.email(email)
+				.pass(pass)
+				.build());
+		
+		
+		String admin_login_res = mvc
+		.perform(post("/user/login")
+				.content(admin_user)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andReturn().getResponse().getContentAsString();
+		
+		JSONParser admin_parser = new JSONParser();
+		Object admin_obj = admin_parser.parse(admin_login_res);
+		JSONObject admin_json = (JSONObject) admin_obj;
+		
+		String admin_token = (String) admin_json.get("token");
+		
+		LogUtil.Msg("tokenInfo : ", token);
 		
 		mvc
 		.perform(get("/user/me")
-				.header("Authorization", "Bearer " + "hihi"))
-		.andExpect(status().is(401));
+				.header("Authorization", "Bearer " + admin_token))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		////////////////////////////////////////////////////////////////
+		
+		mvc
+		.perform(get("/user/me")
+				.header("Authorization", "Bearer " + token))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+//		mvc
+//		.perform(get("/user/me"))
+//		.andExpect(status().is(401));
+//		
+//		mvc
+//		.perform(get("/user/me")
+//				.header("Authorization", "Bearer " + "hihi"))
+//		.andExpect(status().is(401));
 	}
 	
 	@Test
