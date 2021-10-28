@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.js.freeproject.domain.board.application.BoardService;
+import com.js.freeproject.domain.file.application.BoardFileService;
 import com.js.freeproject.domain.model.CommonResponse;
 import com.js.freeproject.domain.user.appliction.UserService;
 import com.js.freeproject.domain.user.domain.User;
@@ -20,6 +22,7 @@ import com.js.freeproject.domain.user.dto.UserRequest;
 import com.js.freeproject.domain.user.dto.UserResponse;
 import com.js.freeproject.global.jwt.CustomUserDetails;
 import com.js.freeproject.global.jwt.TokenProvider;
+import com.js.freeproject.global.util.RedisUtil;
 import com.sun.jdi.request.DuplicateRequestException;
 
 import io.swagger.annotations.Api;
@@ -27,18 +30,18 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/user")
 @Api(value="사용자 API")
 public class UserController {
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private final UserService userService;
+	private final PasswordEncoder passwordEncoder;
+	private final RedisUtil redisUtil;
 	
 	@PostMapping("login")
 	@ApiOperation(value="사용자 로그인", notes ="아이디와 패스워드를 통해 로그인 한다.")
@@ -64,6 +67,9 @@ public class UserController {
 			}
 			
 			String token = TokenProvider.generateToken(email);
+			String refreshToken = TokenProvider.generateRefreshToken(email);
+			
+			redisUtil.setDataExpire(token, refreshToken, TokenProvider.getRefreshExpiration());
 			
 			return ResponseEntity.ok(LoginResponse.of("Success", token));
 		} catch(Exception e) {
