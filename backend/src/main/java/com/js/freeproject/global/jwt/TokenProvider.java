@@ -1,6 +1,5 @@
 package com.js.freeproject.global.jwt;
 
-import java.time.Instant;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +16,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureGenerationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 
 @Component
@@ -60,6 +60,10 @@ public class TokenProvider {
     public static Date getTokenExpiration(long expiration) {
     		Date now = new Date();
     		return new Date(now.getTime() + expiration);
+    }
+    
+    public static long getRefreshExpiration() {
+    	return TokenProvider.refresh_expiration;
     }
 
     public static void handleError(String token) {
@@ -112,5 +116,12 @@ public class TokenProvider {
         } catch (Exception ex) {
             throw ex;
         }
+    }
+    
+    public static String getSubject(String token) {
+    	TokenProvider.handleError(token);
+    	JWTVerifier verifier = TokenProvider.getVerifier();
+		
+    	return verifier.verify(token).getSubject();
     }
 }
