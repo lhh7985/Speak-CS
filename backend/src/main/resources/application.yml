@@ -50,6 +50,8 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+  redis:    port: 6379
+    host: localhost
 cloud:
   aws:
     credentials:
