@@ -21,7 +21,7 @@
           @submit="onSubmit"
           @reset="onReset"
         >
-          <q-input readonly filled label="성함" v-model="state.username" />
+          <q-input readonly filled label="성함" v-model="state.user.name" />
           <div class="modify-nick">
             <q-input
               filled
@@ -30,8 +30,14 @@
               :rules="state.rules.nickname"
               lazy-rules
               label="닉네임 *"
+              :placeholder="state.user.nickname"
             />
-            <q-btn class="nickcheck" primary label="중복확인"></q-btn>
+            <q-btn
+              class="nickcheck"
+              primary
+              label="중복확인"
+              @click="nickNameCheck"
+            ></q-btn>
           </div>
 
           <q-input
@@ -40,6 +46,7 @@
             :rules="state.rules.pass"
             type="password"
             label="비밀번호 *"
+            :placeholder="state.user.pass"
           />
 
           <q-input
@@ -50,7 +57,7 @@
             label="비밀번호 확인 *"
           />
 
-          <q-input readonly filled label="이메일" v-model="state.useremail" />
+          <q-input readonly filled label="이메일" v-model="state.user.email" />
         </q-form>
       </div>
     </div>
@@ -63,27 +70,28 @@
 <script>
 import { ref, reactive } from "vue";
 // import { useRouter } from "vue-router";
-// import { useStore } from "vuex";
+import { useStore } from "vuex";
+import { useQuasar } from "quasar";
 
 export default {
   name: "modify",
   setup() {
     const modify_form = ref(null);
-    // const store = useStore();
+    const store = useStore();
+    const quasar = useQuasar();
     // const router = useRouter();
     const state = reactive({
-      username: "디두박",
-      useremail: "xrl0603@naver.com",
+      user: store.getters["root/getUser"],
       imageurl: require("../../../assets/malang.png"),
       file: null,
       form: {
-        nickname: "",
-        nickname_check: false,
+        nickName: "",
+        nickName_check: false,
         pass: "",
         passcheck: "",
       },
       rules: {
-        nickname: [
+        nickName: [
           (val) => val != null || "필수입력 항목입니다.",
           (val) =>
             (val.length >= 2 && val.length <= 16) ||
@@ -119,10 +127,62 @@ export default {
       }
     };
 
+    const nickNameCheck = () => {
+      console.log(state.form.nickName);
+      store
+        .dispatch("root/requestUserNickNameCheck", state.form.nickName)
+        .then(
+          (response) => {
+            console.log(response);
+            state.form.nickName_success = true;
+            nickNameSuccess();
+          },
+          (error) => {
+            console.log(error.response.data);
+            nickNameError();
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    const nickNameSuccess = () => {
+      quasar
+        .dialog({
+          title: "닉네임 중복확인",
+          message: "사용가능한 닉네임입니다!",
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
+    const nickNameError = () => {
+      quasar
+        .dialog({
+          title: "닉네임 중복확인",
+          message: "중복된 닉네임입니다.",
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
+
     /*ㅡㅡㅡㅡㅡ 버튼 ㅡㅡㅡㅡㅡ*/
     const onSubmit = () => {};
     const onReset = () => {
-      state.form.nickname = null;
+      state.form.nickName = null;
       state.form.pass = null;
       state.form.passcheck = null;
     };
@@ -138,6 +198,9 @@ export default {
       onSubmit,
       onReset,
       loadf,
+      nickNameCheck,
+      nickNameSuccess,
+      nickNameError,
     };
   },
 };
