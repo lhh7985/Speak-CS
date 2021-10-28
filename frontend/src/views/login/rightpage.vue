@@ -24,7 +24,7 @@
         type="password"
         label="비밀번호"
         @keyup.enter="
-          login();
+          onSubmit;
           $event.target.blur();
         "
       >
@@ -141,7 +141,6 @@ export default {
     const onReset = () => {
       state.form.email = null;
       state.form.pass = null;
-      state.login_btn_disable = true;
     };
     /*ㅡㅡㅡㅡㅡ 비밀번호 찾기 모달 제어 ㅡㅡㅡㅡㅡ*/
     const mvLogin = () => {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-btn unelevated flat class="menu-btn" @click="mvInfo">소개</q-btn>
+    <q-btn unelevated flat class="menu-btn" @click="mvLoginInfo">소개</q-btn>
     <q-btn unelevated flat class="menu-btn" @click="mvProblem">문제풀기</q-btn>
     <q-btn unelevated flat class="menu-btn" @click="mvBoard">게시판</q-btn>
     <q-btn unelevated flat class="menu-btn" @click="mvMypage">마이페이지</q-btn>
@@ -17,8 +17,8 @@ export default {
   name: "login-nav",
   setup(props, { emit }) {
     const router = useRouter();
-    const mvInfo = () => {
-      router.push({ name: "info" });
+    const mvLoginInfo = () => {
+      router.push({ name: "login-info" });
     };
     const mvLogout = () => {
       alert("로그아웃 될거에요");
@@ -35,7 +35,7 @@ export default {
       router.push({ name: "board-info" });
     };
     return {
-      mvInfo,
+      mvLoginInfo,
       mvLogout,
       mvMypage,
       mvProblem,

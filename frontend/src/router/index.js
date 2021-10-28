@@ -12,6 +12,11 @@ const routes = [
         component: () => import("../views/logout-cover/cover.vue"),
       },
       {
+        path: "/info",
+        name: "logout-info",
+        component: () => import("../views/logout-info/info.vue"),
+      },
+      {
         path: "/login",
         name: "login",
         component: () => import("../views/login/login.vue"),
@@ -36,8 +41,8 @@ const routes = [
       },
       {
         path: "/home/info",
-        name: "info",
-        component: () => import("../views/info/info.vue"),
+        name: "login-info",
+        component: () => import("../views/login-info/info.vue"),
       },
       {
         path: "/home/mypage",
