@@ -2,7 +2,6 @@ package com.js.freeproject.domain.user;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.json.simple.JSONObject;
@@ -19,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.js.freeproject.domain.user.domain.User;
+import com.js.freeproject.domain.user.dto.LoginRequest;
 import com.js.freeproject.util.LogUtil;
 
 @SpringBootTest
@@ -84,10 +84,11 @@ public class UserServiceTest {
 		String email = "various@naver.com";
 		String pass = "qwe123";
 		
-		String account = OM.writeValueAsString(User.builder()
-				.email(email)
-				.pass(pass)
-				.build());
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail(email);
+		loginRequest.setPass(pass);
+		
+		String account = OM.writeValueAsString(loginRequest);
 		
 		mvc
 		.perform(post("/user/login")
@@ -167,6 +168,15 @@ public class UserServiceTest {
 		.perform(get("/user/me")
 				.header("Authorization", "Bearer " + token))
 		.andExpect(status().isOk());
+		
+		mvc
+		.perform(get("/user/me"))
+		.andExpect(status().is(401));
+		
+		mvc
+		.perform(get("/user/me")
+				.header("Authorization", "Bearer " + "hihi"))
+		.andExpect(status().is(401));
 	}
 	
 	@Test
