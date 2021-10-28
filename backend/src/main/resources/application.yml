@@ -65,7 +65,8 @@ cloud:
 jwt:
   header: Authorization
   secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
-  expiration: 86400
+  expiration: 6000
+  refresh_expiration: 86400
   
 #server:
 #  servlet:
