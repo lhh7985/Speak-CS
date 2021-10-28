@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.js.freeproject.domain.user.domain.User;
+import com.js.freeproject.domain.user.dto.LoginRequest;
 import com.js.freeproject.util.LogUtil;
 
 @SpringBootTest
@@ -84,10 +85,11 @@ public class UserServiceTest {
 		String email = "various@naver.com";
 		String pass = "qwe123";
 		
-		String account = OM.writeValueAsString(User.builder()
-				.email(email)
-				.pass(pass)
-				.build());
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setEmail(email);
+		loginRequest.setPass(pass);
+		
+		String account = OM.writeValueAsString(loginRequest);
 		
 		mvc
 		.perform(post("/user/login")
@@ -166,7 +168,56 @@ public class UserServiceTest {
 		mvc
 		.perform(get("/user/me")
 				.header("Authorization", "Bearer " + token))
-		.andExpect(status().isOk());
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		/////////////////////////////////////////////////////////////////
+		
+		email = "admin";
+		pass = "admin";
+		
+		String admin_user = OM.writeValueAsString(User.builder()
+				.email(email)
+				.pass(pass)
+				.build());
+		
+		
+		String admin_login_res = mvc
+		.perform(post("/user/login")
+				.content(admin_user)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andReturn().getResponse().getContentAsString();
+		
+		JSONParser admin_parser = new JSONParser();
+		Object admin_obj = admin_parser.parse(admin_login_res);
+		JSONObject admin_json = (JSONObject) admin_obj;
+		
+		String admin_token = (String) admin_json.get("token");
+		
+		LogUtil.Msg("tokenInfo : ", token);
+		
+		mvc
+		.perform(get("/user/me")
+				.header("Authorization", "Bearer " + admin_token))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		////////////////////////////////////////////////////////////////
+		
+		mvc
+		.perform(get("/user/me")
+				.header("Authorization", "Bearer " + token))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+//		mvc
+//		.perform(get("/user/me"))
+//		.andExpect(status().is(401));
+//		
+//		mvc
+//		.perform(get("/user/me")
+//				.header("Authorization", "Bearer " + "hihi"))
+//		.andExpect(status().is(401));
 	}
 	
 	@Test

@@ -1,6 +1,5 @@
 package com.js.freeproject.domain.user.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +19,7 @@ import com.js.freeproject.domain.user.dto.UserRequest;
 import com.js.freeproject.domain.user.dto.UserResponse;
 import com.js.freeproject.global.jwt.CustomUserDetails;
 import com.js.freeproject.global.jwt.TokenProvider;
+import com.js.freeproject.global.util.RedisUtil;
 import com.sun.jdi.request.DuplicateRequestException;
 
 import io.swagger.annotations.Api;
@@ -27,18 +27,18 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/user")
 @Api(value="사용자 API")
 public class UserController {
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	private final UserService userService;
+	private final PasswordEncoder passwordEncoder;
+	private final RedisUtil redisUtil;
 	
 	@PostMapping("login")
 	@ApiOperation(value="사용자 로그인", notes ="아이디와 패스워드를 통해 로그인 한다.")
@@ -63,7 +63,10 @@ public class UserController {
 				return ResponseEntity.status(401).body(CommonResponse.of("비밀번호가 일치하지 않습니다."));
 			}
 			
-			String token = TokenProvider.getToken(email);
+			String token = TokenProvider.generateToken(email);
+			String refreshToken = TokenProvider.generateRefreshToken(email);
+			
+			redisUtil.setDataExpire(token, refreshToken, TokenProvider.getRefreshExpiration());
 			
 			return ResponseEntity.ok(LoginResponse.of("Success", token));
 		} catch(Exception e) {
