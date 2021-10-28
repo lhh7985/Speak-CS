@@ -163,7 +163,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			log.info("Security Context에 {} 인증정보를 저장했습니다.", authentication.getName());
 		} else {
-			response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			//response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		}
 
 		chain.doFilter(request, response);

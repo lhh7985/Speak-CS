@@ -27,20 +27,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.csrf().disable()
+//			.authorizeRequests()
+//			.antMatchers("/user/me").authenticated()
+//			.and()
+//			.authorizeRequests()
+//			.antMatchers("/category").authenticated()
+//			.and()
+//			.authorizeRequests()
+//			.anyRequest()
+//			.permitAll()
+//			.and()
+//			.formLogin()
+//			.and()
+//			.httpBasic()
+//			.and()
+//			.cors()
+//			.and()
+//			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		http
-			.csrf().disable()
-			.authorizeRequests()
-			.antMatchers("/user/me").authenticated()
-			.antMatchers("/user/**").permitAll()
-			.anyRequest().permitAll()
-			.and()
-			.formLogin()
-			.and()
-			.httpBasic()
-			.and()
-			.cors()
-			.and()
-			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		.httpBasic().disable()
+		.cors().and()
+		.csrf().disable()
+		.authorizeRequests()
+		.antMatchers("/user/me","/category").authenticated()
+		.antMatchers("/user/**").permitAll()
+		.anyRequest().permitAll()
+		.and()
+		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	@Bean
