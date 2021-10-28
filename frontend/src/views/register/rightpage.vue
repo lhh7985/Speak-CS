@@ -16,8 +16,8 @@
         />
         <q-input
           filled
-          v-model="state.form.nickname"
-          :rules="state.rules.nickname"
+          v-model="state.form.nickName"
+          :rules="state.rules.nickName"
           lazy-rules
           label="닉네임 *"
         />
@@ -60,25 +60,38 @@
         </div>
       </q-form>
     </div>
+    <complete-dialog
+      v-model="state.regist_complete"
+      @mvlogin="mvLogin"
+    ></complete-dialog>
   </div>
 </template>
 <script>
+import "../../styles/register.scss";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import "../../styles/register.scss";
+import { useQuasar } from "quasar";
+
+import CompleteDialog from "./components/complete-dialog.vue";
 
 export default {
   name: "register-right",
+  components: {
+    CompleteDialog,
+  },
   setup() {
     const regist_form = ref(null);
     const store = useStore();
     const router = useRouter();
+    const quasar = useQuasar();
     const state = reactive({
+      emailduplicate: true,
+      regist_complete: false,
       form: {
         name: "",
-        nickname: "",
-        nickname_check: false,
+        nickName: "",
+        nickName_check: false,
         pass: "",
         passcheck: "",
         email: "",
@@ -89,7 +102,7 @@ export default {
           (val) => val != null || "필수입력 항목입니다.",
           (val) => val.length > 0 || "필수입력 항목입니다.",
         ],
-        nickname: [
+        nickName: [
           (val) => val != null || "필수입력 항목입니다.",
           (val) =>
             (val.length >= 2 && val.length <= 16) ||
@@ -138,18 +151,24 @@ export default {
     const onSubmit = () => {
       regist_form.value.validate().then((success) => {
         if (success) {
+          console.log("ㅋㅋ하 ㅋㅋ");
           store
             .dispatch("root/requestUserRegist", {
               name: state.form.name,
-              nickname: state.form.nickname,
+              nickName: state.form.nickName,
               pass: state.form.pass,
               email: state.form.email,
             })
-            .then((response) => {
-              console.log(response);
-              console.log(router);
-              // router.push({ name: "login" });
-            })
+            .then(
+              (response) => {
+                console.log(response);
+                state.regist_complete = true;
+              },
+              (error) => {
+                console.log(error.response.data);
+                emailError(error.response.data);
+              }
+            )
             .catch((error) => {
               console.log(error);
             });
@@ -158,7 +177,7 @@ export default {
     };
     const onReset = () => {
       state.form.name = null;
-      state.form.nickname = null;
+      state.form.nickName = null;
       state.form.email = null;
       state.form.pass = null;
       state.form.passcheck = null;
@@ -167,14 +186,40 @@ export default {
     const check = () => {
       alert("hi");
     };
+    /*ㅡㅡㅡㅡㅡ 다이얼로그 ㅡㅡㅡㅡㅡ*/
+    const emailError = (data) => {
+      quasar
+        .dialog({
+          title: "이메일 중복",
+          message: data.message,
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
+
+    /*ㅡㅡㅡㅡㅡ MoVe ㅡㅡㅡㅡㅡ*/
+    const mvLogin = () => {
+      router.push({ name: "login" });
+    };
 
     return {
       regist_form,
       state,
-      /* 제출 */
+      /* 버튼 */
       onSubmit,
       onReset,
       check,
+      /* 다이얼로그 */
+      emailError,
+      /* move */
+      mvLogin,
     };
   },
 };

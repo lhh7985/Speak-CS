@@ -38,8 +38,7 @@
 
 .mypage-menu div:hover {
   cursor: pointer;
-  transform: scale(1.02);
-  background-color: lavender;
+  transform: scale(1.03);
 }
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ modify.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
@@ -110,4 +109,8 @@
 
 .submit-wrap {
   margin-bottom: 1.5em;
+}
+
+.click-menu {
+  background-color: lavender;
 }
