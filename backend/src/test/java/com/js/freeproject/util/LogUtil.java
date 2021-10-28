@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogUtil {
 	public static void Msg(String msg) {
-		log.info(msg);
+		//log.info(msg);
 	}
-	
+
 	public static void Msg(String desc, String msg) {
-		log.info(desc.concat(" : ").concat(msg));
+		//log.info(desc.concat(" : ").concat(msg));
 	}
 }
