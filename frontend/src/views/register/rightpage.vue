@@ -18,10 +18,16 @@
           filled
           v-model="state.form.nickName"
           :rules="state.rules.nickName"
-          lazy-rules
           label="닉네임 *"
         />
-        <q-btn flat style="color: #ff0080" primary label="중복확인"></q-btn>
+        <q-btn
+          flat
+          style="color: #ff0080"
+          primary
+          label="중복확인"
+          :disabled="state.form.nickName_check"
+          @click="nickNameCheck"
+        ></q-btn>
 
         <q-input
           filled
@@ -68,7 +74,7 @@
 </template>
 <script>
 import "../../styles/register.scss";
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { useQuasar } from "quasar";
@@ -91,11 +97,14 @@ export default {
       form: {
         name: "",
         nickName: "",
+        nickName_yet: "",
         nickName_check: false,
+        nickName_success: false,
         pass: "",
         passcheck: "",
         email: "",
         email_check: false,
+        email_success: false,
       },
       rules: {
         name: [
@@ -107,6 +116,8 @@ export default {
           (val) =>
             (val.length >= 2 && val.length <= 16) ||
             "2~16자리의 닉네임을 설정해주세요.",
+          // (val) =>
+          //   val == state.form.nickName_yet || "닉네임 중복검사가 필요합니다!",
         ],
         pass: [
           (val) => val !== null || "필수입력 항목입니다.",
@@ -128,15 +139,12 @@ export default {
     const isValidEmail = (val) => {
       // eslint-disable-next-line
       const emailPattern = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$/;
-      return emailPattern.test(val) || "이메일 형식에 맞지 않습니다.";
+      return emailPattern.test(val);
     };
     const isValidPass = (val) => {
       const passPattern =
         /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-      return (
-        passPattern.test(val) ||
-        "영문, 숫자, 특수문자를 포함한 8자리 이상의 비밀번호를 생성해주세요!"
-      );
+      return passPattern.test(val);
     };
     const isValidPassCheck = (val) => {
       if (state.form.pass != val) {
@@ -146,12 +154,41 @@ export default {
         return true;
       }
     };
+    watch(
+      () => [state.form.nickName],
+      () => {
+        if (state.form.nickName != null && state.form.nickName != "") {
+          state.form.nickName_check = false;
+        } else {
+          state.form.nickName_check = true;
+        }
+      }
+    );
 
     /*ㅡㅡㅡㅡㅡ 버튼 ㅡㅡㅡㅡㅡ*/
+    const nickNameCheck = () => {
+      store
+        .dispatch("root/requestUserNickNameCheck", state.form.nickName)
+        .then(
+          (response) => {
+            console.log(response);
+            state.form.nickName_yet = state.form.nickName;
+            state.form.nickName_success = true;
+            nickNameSuccess();
+          },
+          (error) => {
+            console.log(error.response.data);
+            nickNameError();
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
     const onSubmit = () => {
       regist_form.value.validate().then((success) => {
         if (success) {
-          console.log("ㅋㅋ하 ㅋㅋ");
           store
             .dispatch("root/requestUserRegist", {
               name: state.form.name,
@@ -175,18 +212,56 @@ export default {
         }
       });
     };
-    const onReset = () => {
-      state.form.name = null;
-      state.form.nickName = null;
-      state.form.email = null;
-      state.form.pass = null;
-      state.form.passcheck = null;
-    };
 
     const check = () => {
       alert("hi");
     };
+
+    const onReset = () => {
+      state.form.name = null;
+      state.form.nickName = null;
+      state.form.nickName_yet = "";
+      state.form.nickName_check = false;
+      state.form.nickName_success = false;
+      state.form.pass = null;
+      state.form.passcheck = null;
+      state.form.email = null;
+      state.form.email_check = false;
+      state.form.email_success = false;
+    };
     /*ㅡㅡㅡㅡㅡ 다이얼로그 ㅡㅡㅡㅡㅡ*/
+    const nickNameSuccess = () => {
+      quasar
+        .dialog({
+          title: "닉네임 중복확인",
+          message: "사용가능한 닉네임입니다!",
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
+    const nickNameError = () => {
+      quasar
+        .dialog({
+          title: "닉네임 중복확인",
+          message: "중복된 닉네임입니다.",
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
     const emailError = (data) => {
       quasar
         .dialog({
@@ -206,7 +281,12 @@ export default {
 
     /*ㅡㅡㅡㅡㅡ MoVe ㅡㅡㅡㅡㅡ*/
     const mvLogin = () => {
-      router.push({ name: "login" });
+      router.push({
+        name: "login",
+        params: {
+          email: state.form.email,
+        },
+      });
     };
 
     return {
@@ -215,8 +295,11 @@ export default {
       /* 버튼 */
       onSubmit,
       onReset,
+      nickNameCheck,
       check,
       /* 다이얼로그 */
+      nickNameSuccess,
+      nickNameError,
       emailError,
       /* move */
       mvLogin,
