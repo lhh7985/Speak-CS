@@ -43,9 +43,6 @@ dependencies {
     
     // json
     testImplementation 'com.googlecode.json-simple:json-simple:1.1.1'
-    
-    // Redis
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 test {
