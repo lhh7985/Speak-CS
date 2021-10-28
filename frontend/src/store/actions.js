@@ -4,8 +4,8 @@ import axios from "@/lib/axios";
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 유저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 생성하기
-export async function requsetUserRegist({ state }, payload) {
-  console.log("requsetUserRegist", state, payload);
+export async function requestUserRegist({ state }, payload) {
+  console.log("requestUserRegist", state, payload);
   const url = "/user";
   const body = payload;
   return await axios.post(url, body);
