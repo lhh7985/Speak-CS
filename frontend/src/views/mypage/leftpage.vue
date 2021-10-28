@@ -3,7 +3,7 @@
     <div class="mypage-left">
       <div class="profile-wrap">
         <img class="profile-img" src="../../assets/malang.png" />
-        <span class="user-name text-h4 text-bold">박디두</span>
+        <span class="user-name text-h4 text-bold">{{ state.user.name }}</span>
       </div>
       <div class="mypage-menu text-h6">
         <div id="menuBtn1" class="menus click-menu" @click="mvProfile">
@@ -17,13 +17,25 @@
   </div>
 </template>
 <script>
+import { useStore } from "vuex";
+import { onBeforeMount, reactive } from "vue";
 import { useRouter } from "vue-router";
 import "../../styles/mypage.scss";
 
 export default {
   name: "mypage-left",
   setup() {
+    const store = useStore();
     const router = useRouter();
+
+    const state = reactive({
+      user: null,
+    });
+    onBeforeMount(() => {
+      state.user = store.getters["root/getUser"];
+      console.log(state.user);
+    });
+
     const mvProfile = () => {
       removeColor();
       addColor("menuBtn1");
@@ -56,6 +68,8 @@ export default {
       btn.classList.add("click-menu");
     };
     return {
+      state,
+      onBeforeMount,
       mvProfile,
       mvChart,
       mvBoard,

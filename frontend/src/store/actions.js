@@ -2,6 +2,7 @@ import axios from "@/lib/axios";
 
 // http://localhost:8080/swagger-ui.html
 
+// ! {state}, console삭제하면 payload제대로 안넘어감
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 유저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 생성하기
 export async function requestUserRegist({ state }, payload) {
@@ -19,26 +20,34 @@ export async function requestUserLogin({ state }, payload) {
   return await axios.post(url, body);
 }
 
+// 닉네임 중복검사
+export async function requestUserNickNameCheck({ state }, payload) {
+  console.log("requestUserNickNameCheck", state, payload);
+  const url = `/user/${payload}`;
+  return await axios.get(url);
+}
+
 // 유저정보 가져오기
 export async function requsetUserInfo({ state }, payload) {
   console.log("requsetUserInfo", state, payload);
   const url = "/user/me";
-  const body = payload;
-  return await axios.get(url, body);
+  const header = {
+    headers: {
+      Authorization: `Bearer ${payload}`,
+    },
+  };
+  return await axios.get(url, header);
 }
 
 // 유저정보 리스트 가져오기
-export async function requestUserList({ state }, payload) {
-  console.log("requestUserList", state, payload);
+export async function requestUserList() {
   const url = "/user/all";
-  const body = payload;
-  return await axios.get(url, body);
+  return await axios.get(url);
 }
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 모든 카테고리 정보 가져오기
-export async function requsetCategoryList({ state }, payload) {
-  console.log("requsetCategoryList", state, payload);
+export async function requsetCategoryList() {
   const url = "/category";
   return await axios.get(url);
 }
@@ -68,11 +77,9 @@ export async function requestProblemCheckAnswer({ state }, payload) {
 }
 
 // 승인 대기중인 문제 리스트 가져오기
-export async function requestProblemWait({ state }, payload) {
-  console.log("requestProblemWait", state, payload);
+export async function requestProblemWait() {
   const url = "/problem/wait";
-  const body = payload;
-  return await axios.get(url, body);
+  return await axios.get(url);
 }
 
 // 관리자가 문제상태 변경하기
@@ -92,8 +99,7 @@ export async function requsetBoardInfo({ state }, payload) {
 }
 
 // 게시판 리스트 가져오기
-export async function requestBoardList({ state }, payload) {
-  console.log("requestBoardList", state, payload);
+export async function requestBoardList() {
   const url = "/board";
   return await axios.get(url);
 }
