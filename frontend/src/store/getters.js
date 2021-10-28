@@ -1,7 +1,9 @@
-export function getItem(state) {
-  return state.item;
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 유저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+export function getUser(state) {
+  return state.user;
 }
 
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 export function getCategories(state) {
   return state.categories;
 }

@@ -71,7 +71,6 @@ export default {
     FindPwDialog,
     UpdatePwDialog,
   },
-  methods: {},
   setup() {
     const login_form = ref(null); // 로그인폼저장
     const store = useStore();
@@ -127,8 +126,8 @@ export default {
               pass: state.form.pass,
             })
             .then((response) => {
-              console.log(response);
-              localStorage.setItem("user_info", JSON.stringify(response.data));
+              console.log("requestUserLogin", response.data);
+              getUserInfo(response.data.token);
             })
             .catch((error) => {
               console.log(error);
@@ -138,6 +137,32 @@ export default {
         }
       });
     };
+    const getUserInfo = (jwt_token) => {
+      store
+        .dispatch("root/requsetUserInfo", jwt_token)
+        .then(
+          (response) => {
+            console.log("getUserInfo", response.data);
+            var userinfo = {
+              id: response.data.id,
+              name: response.data.name,
+              nickname: response.data.nickname,
+              email: response.data.email,
+              image: response.data.image,
+              token: jwt_token,
+            };
+            store.commit("root/setUser", userinfo);
+            router.push({ name: "login-info" });
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
     const onReset = () => {
       state.form.email = null;
       state.form.pass = null;

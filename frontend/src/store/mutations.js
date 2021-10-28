@@ -1,6 +1,9 @@
-export function setItem(state, item) {
-  state.item = item;
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 유저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+export function setUser(state, user) {
+  state.user = user;
 }
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 export function setCategories(state, categories) {
   state.categories = categories;
 }
