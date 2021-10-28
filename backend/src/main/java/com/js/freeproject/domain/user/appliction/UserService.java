@@ -14,16 +14,12 @@ public class UserService {
 	@Autowired
 	UserRepository userRepo;
 	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
 	public User createUser(UserRequest user) {
 		User finduser = userRepo.findByEmail(user.getEmail());
 		if(finduser != null) {
 			throw new DuplicateRequestException(user.getEmail());
 		}
 		
-		user.setPass(passwordEncoder.encode(user.getPass()));
 		User userEntity = User.builder()
 				.email(user.getEmail())
 				.nickName(user.getNickName())

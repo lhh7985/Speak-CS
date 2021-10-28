@@ -84,6 +84,7 @@ public class UserController {
 	})
 	public ResponseEntity<?> createUser(@RequestBody UserRequest user) {
 		try {
+			user.setPass(passwordEncoder.encode(user.getPass()));
 			userService.createUser(user);
 		} catch(DuplicateRequestException e) {
 			log.info("이미 가입된 이메일입니다.");
