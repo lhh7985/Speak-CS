@@ -2,8 +2,6 @@ package com.js.freeproject.domain.user.appliction;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.js.freeproject.domain.user.domain.User;
