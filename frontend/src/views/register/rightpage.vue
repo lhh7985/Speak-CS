@@ -194,8 +194,8 @@ export default {
     const onSubmit = () => {
       regist_form.value.validate().then((success) => {
         if (!state.form.nickName_success) {
-          nickNameSuccessError;
-        } else if (!state.form.email_check) {
+          nickNameSuccessError();
+        } else if (!state.form.email_success) {
           emailSuccessError();
         } else {
           if (success) {
