@@ -13,5 +13,9 @@ export function setSelctedProblems(state, selectedProblems) {
 }
 
 export function setProblemResults(state, problemResults) {
-  state.problemResults.add(problemResults);
+  state.problemResults.push(problemResults.data);
+}
+
+export function setProblemResultsInit(state) {
+  state.problemResults.length = 0;
 }

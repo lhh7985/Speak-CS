@@ -1,7 +1,7 @@
 <template>
   <div class="left-wrap">
     <div>
-      <q-btn flat @click="mvProblemInfo">풀이소개</q-btn>
+      <q-btn flat @click="mvProblemInfo">문제카테고리</q-btn>
     </div>
     <div>
       <q-btn

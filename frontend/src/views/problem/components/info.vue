@@ -1,5 +1,5 @@
 <template lang="">
-  <div>문제를 소개하는 페이지입니다</div>
+  <div></div>
 </template>
 <script>
 export default {
