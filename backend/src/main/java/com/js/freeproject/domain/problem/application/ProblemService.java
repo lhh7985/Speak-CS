@@ -73,17 +73,16 @@ public class ProblemService {
     }
 
     public AnswerResponse findAnswer(Long id, String myAns) {
-        Optional<Problem> problems = problemRepository.findById(id);
-        problems.orElseThrow(() -> new IllegalArgumentException("문제에 답을 찾을 수 없습니다."));
+        Problem problem = problemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("문제에 답을 찾을 수 없습니다."));
         List<String> proper = new ArrayList<>();
         List<String> wrong = new ArrayList<>();
-        extractedAnswer(myAns, problems, proper, wrong);
+        extractedAnswer(myAns, problem, proper, wrong);
         AnswerResponse answerResponse = new AnswerResponse(proper, wrong);
         return answerResponse;
     }
 
-    private void extractedAnswer(String myAns, Optional<Problem> problems, List<String> proper, List<String> wrong) {
-        for (Answer answer : problems.get().getAnswers()) {
+    private void extractedAnswer(String myAns, Problem problem, List<String> proper, List<String> wrong) {
+        for (Answer answer : problem.getAnswers()) {
             if (myAns.contains(answer.getWord())) {
                 proper.add(answer.getWord());
             } else {
