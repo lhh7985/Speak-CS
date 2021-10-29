@@ -52,7 +52,7 @@
           type="email"
           label="이메일 *"
         />
-        <q-btn color="amber" label="이메일인증" @click="check()"></q-btn>
+        <q-btn color="amber" label="이메일인증" @click="emailCheck()"></q-btn>
 
         <div>
           <q-btn color="primary" type="submit" label="회원가입" />
@@ -186,35 +186,42 @@ export default {
         });
     };
 
-    const onSubmit = () => {
-      regist_form.value.validate().then((success) => {
-        if (success) {
-          store
-            .dispatch("root/requestUserRegist", {
-              name: state.form.name,
-              nickName: state.form.nickName,
-              pass: state.form.pass,
-              email: state.form.email,
-            })
-            .then(
-              (response) => {
-                console.log(response);
-                state.regist_complete = true;
-              },
-              (error) => {
-                console.log(error.response.data);
-                emailError(error.response.data);
-              }
-            )
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      });
+    const emailCheck = () => {
+      alert("hi");
+      state.form.email_success = true;
     };
 
-    const check = () => {
-      alert("hi");
+    const onSubmit = () => {
+      regist_form.value.validate().then((success) => {
+        if (!state.form.nickName_success) {
+          nickNameSuccessError;
+        } else if (!state.form.email_check) {
+          emailSuccessError();
+        } else {
+          if (success) {
+            store
+              .dispatch("root/requestUserRegist", {
+                name: state.form.name,
+                nickName: state.form.nickName,
+                pass: state.form.pass,
+                email: state.form.email,
+              })
+              .then(
+                (response) => {
+                  console.log(response);
+                  state.regist_complete = true;
+                },
+                (error) => {
+                  console.log(error.response.data);
+                  emailError(error.response.data);
+                }
+              )
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        }
+      });
     };
 
     const onReset = () => {
@@ -278,6 +285,38 @@ export default {
           console.log("I am triggered on both OK and Cancel");
         });
     };
+    const nickNameSuccessError = () => {
+      quasar
+        .dialog({
+          title: "필수사항!",
+          message: "닉네임 중복체크가 필요합니다!",
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
+    const emailSuccessError = () => {
+      quasar
+        .dialog({
+          title: "필수사항!",
+          message: "이메일 인증이 필요합니다!",
+        })
+        .onOk(() => {
+          console.log("OK");
+        })
+        .onCancel(() => {
+          console.log("Cancel");
+        })
+        .onDismiss(() => {
+          console.log("I am triggered on both OK and Cancel");
+        });
+    };
 
     /*ㅡㅡㅡㅡㅡ MoVe ㅡㅡㅡㅡㅡ*/
     const mvLogin = () => {
@@ -296,11 +335,13 @@ export default {
       onSubmit,
       onReset,
       nickNameCheck,
-      check,
+      emailCheck,
       /* 다이얼로그 */
       nickNameSuccess,
       nickNameError,
+      nickNameSuccessError,
       emailError,
+      emailSuccessError,
       /* move */
       mvLogin,
     };
