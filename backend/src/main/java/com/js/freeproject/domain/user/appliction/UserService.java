@@ -11,6 +11,8 @@ import com.js.freeproject.domain.user.domain.UserRepository;
 import com.js.freeproject.domain.user.dto.UserRequest;
 import com.sun.jdi.request.DuplicateRequestException;
 
+import javassist.NotFoundException;
+
 @Service
 public class UserService {
 	@Autowired
@@ -41,5 +43,19 @@ public class UserService {
 	
 	public boolean findByUserNickName(String nickName) {
 		return userRepo.existsByNickName(nickName);
+	}
+	
+	@Transactional
+	public User modifyUser(UserRequest userRequest) throws NotFoundException {
+		User user = userRepo.findByEmail(userRequest.getEmail());
+		if(user==null) {
+			throw new NotFoundException(userRequest.getEmail() + "를 찾을 수 없습니다.");
+		}
+		
+		return user.builder()
+				.nickName(userRequest.getNickName())
+				.pass(userRequest.getPass())
+				.image(userRequest.getImage())
+				.build();
 	}
 }

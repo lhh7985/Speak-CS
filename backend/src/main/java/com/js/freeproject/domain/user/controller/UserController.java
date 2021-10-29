@@ -130,4 +130,22 @@ public class UserController {
 			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류가 발생했습니다."));
 		}	
 	}
+	
+	@PostMapping("modify")
+	@ApiOperation(value="사용자 정보 수정",notes="사용자 정보를 수정한다.")
+	@ApiResponses({
+		@ApiResponse(code=200,message="성공", response = CommonResponse.class),
+		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class)
+	})
+	public ResponseEntity<?> ModifyUser(@RequestBody UserRequest userRequest) {
+		try {
+			userRequest.setPass(passwordEncoder.encode(userRequest.getPass()));
+			userService.modifyUser(userRequest);
+			
+			return ResponseEntity.status(200).body(CommonResponse.of("Success"));
+		} catch(Exception e) {
+			log.info("{} 정보 수정 중 오류 발생하였습니다.",userRequest.getEmail());
+			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류가 발생했습니다."));
+		}
+	}
 }
