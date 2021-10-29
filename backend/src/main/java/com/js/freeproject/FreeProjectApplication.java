@@ -9,8 +9,7 @@ public class FreeProjectApplication {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(FreeProjectApplication.class);
-        app.addListeners(new ApplicationPidFileWriter()); // pid 파일을 생성하는 writer 등록
+        app.addListeners(new ApplicationPidFileWriter());
         app.run(args);
     }
-
 }
