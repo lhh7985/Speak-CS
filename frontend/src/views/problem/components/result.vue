@@ -9,29 +9,34 @@
       맞은 문제: {{ category.proper }}<br />
       틀린 문제: {{ category.wrong }}<br /><br />
     </teamplate>
-    <q-btn unelevated flat @click="checkProblem()">문제확인하기</q-btn>
+    <q-btn unelevated flat @click="backToInfo()">뒤로가기</q-btn>
   </div>
 </template>
 <script>
 import { useStore } from "vuex";
 import { computed, reactive } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "problem-result",
   setup() {
     const store = useStore();
+    const router = useRouter();
     const state = reactive({
       problemResults: computed(() => store.getters["root/getProblemResults"]),
       problems: computed(() => store.getters["root/getSelectedProblems"]),
     });
 
-    const checkProblem = () => {
-      console.log(state.problems);
+    const backToInfo = () => {
+      store.commit("root/setProblemResultsInit");
+      router.push({
+        name: "problem-description",
+      });
     };
 
     return {
       state,
-      checkProblem,
+      backToInfo,
     };
   },
 };

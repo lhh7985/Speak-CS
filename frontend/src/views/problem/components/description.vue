@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    문제설명하는 곳입니다
+    문제시작페이지
     <div>{{ name }}</div>
     <q-btn flat @click="selectProblem">시작하기</q-btn>
   </div>
