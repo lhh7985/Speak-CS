@@ -33,20 +33,37 @@
 
 <script>
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   name: "login-nav",
   setup(props, { emit }) {
     const router = useRouter();
+    const store = useStore();
+
     const mvLoginInfo = () => {
       removeColor();
       addColor("menuBtn1");
       router.push({ name: "login-info" });
     };
+
     const mvProblem = () => {
       removeColor();
       addColor("menuBtn2");
-      router.push({ name: "problem" });
+      store
+        .dispatch("root/requsetCategoryList")
+        .then(
+          (response) => {
+            console.log(response);
+            router.push({ name: "problem" });
+          },
+          (error) => {
+            console.log(error);
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
     };
     const mvBoard = () => {
       removeColor();

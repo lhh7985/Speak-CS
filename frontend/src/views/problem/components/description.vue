@@ -1,8 +1,6 @@
 <template lang="">
   <div>
     문제설명하는 곳입니다
-    <div>{{ id }}</div>
-    <div>{{ description }}</div>
     <div>{{ name }}</div>
     <q-btn flat @click="selectProblem">시작하기</q-btn>
   </div>
@@ -19,16 +17,20 @@ export default {
     name: String,
   },
   setup(props) {
-    console.log(props.id, props.description);
     const store = useStore();
     const router = useRouter();
 
     const selectProblem = () => {
       store
-        .dispatch("root/requestProblemList", props.category.id)
+        .dispatch("root/requestProblemList", props.id)
         .then((response) => {
+          store.commit("root/setProblemResultsInit");
           store.commit("root/setSelctedProblems", response.data);
-          router.push({ name: "problem-solve" });
+          console.log(response.data);
+          router.push({
+            name: "problem-solve",
+            query: { num: 0, id: response.data[0].id },
+          });
         })
         .catch((error) => {
           console.log(error);

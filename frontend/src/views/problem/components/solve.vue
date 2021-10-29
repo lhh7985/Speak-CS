@@ -1,7 +1,12 @@
 <template>
   <div>
-    문제리스트가 나올페이지입니다.
-    <q-btn unelevated flat @click="checkAnswer()">제출하기</q-btn>
+    <h2>{{ state.problems[$route.query.num].description }}</h2>
+    <q-btn
+      unelevated
+      flat
+      @click="checkAnswer($route.query.id, $route.query.num)"
+      >제출하기</q-btn
+    >
   </div>
 </template>
 
@@ -16,18 +21,39 @@ export default {
     const store = useStore();
     const router = useRouter();
     const state = reactive({
-      categories: computed(() => store.getters["root/getSelectedProblems"]),
+      problems: computed(() => store.getters["root/getSelectedProblems"]),
     });
 
-    const checkAnswer = (my_ans) => {
+    const checkAnswer = (id, num) => {
+      console.log(id);
+      const payload = {
+        id: id,
+        myAnswer: "스프링",
+      };
       store
-        .dispatch("root/requestProblemCheckAnswer", my_ans)
+        .dispatch("root/requestProblemCheckAnswer", payload)
         .then((response) => {
+          console.log(response);
           store.commit("root/setProblemResults", response);
-          router.push({ name: "problem-solve" });
+          num++;
+          if (num < state.problems.length) {
+            router.push({
+              name: "problem-solve",
+              query: {
+                num: num,
+                id: state.problems[num].id,
+              },
+            });
+          } else {
+            router.push({
+              name: "problem-result",
+            });
+          }
         })
+
         .catch((error) => {
           console.log(error);
+          //console.log(error.response.data.message);
         });
     };
 
