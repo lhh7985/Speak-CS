@@ -64,7 +64,7 @@ export async function requsetProblemCreate({ state }, payload) {
 // 카테고리별 문제 리스트 가져오기
 export async function requestProblemList({ state }, payload) {
   console.log("requestProblemList", state, payload);
-  const url = `/problem/${payload.id}}`;
+  const url = `/problem/${payload}`;
   return await axios.get(url);
 }
 
@@ -72,8 +72,7 @@ export async function requestProblemList({ state }, payload) {
 export async function requestProblemCheckAnswer({ state }, payload) {
   console.log("requestProblemCheckAnswer", state, payload);
   const url = "/problem/checkanswer";
-  const body = payload;
-  return await axios.post(url, body);
+  return await axios.post(url, payload);
 }
 
 // 승인 대기중인 문제 리스트 가져오기
