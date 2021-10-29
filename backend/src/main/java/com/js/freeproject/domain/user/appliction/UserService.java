@@ -12,11 +12,12 @@ import com.js.freeproject.domain.user.dto.UserRequest;
 import com.sun.jdi.request.DuplicateRequestException;
 
 import javassist.NotFoundException;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-	@Autowired
-	UserRepository userRepo;
+	private final UserRepository userRepo;
 	
 	@Transactional
 	public User createUser(UserRequest user) {
