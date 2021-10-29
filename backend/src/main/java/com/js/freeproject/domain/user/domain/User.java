@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
 
 import com.js.freeproject.domain.scorehistory.domain.ScoreHistory;
 
@@ -24,7 +23,6 @@ import lombok.ToString;
 @Entity
 @Getter
 @NoArgsConstructor
-@DynamicInsert
 @ToString
 public class User {
     @Id
