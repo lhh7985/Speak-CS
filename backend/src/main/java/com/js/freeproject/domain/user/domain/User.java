@@ -45,7 +45,7 @@ public class User {
     private List<ScoreHistory> scorehistorys;
 
 	@Builder
-    private User(String email, String nickName, String name, String pass, String image) {
+    public User(String email, String nickName, String name, String pass, String image) {
     	this.email = email;
     	this.nickName = nickName;
     	this.name = name;
