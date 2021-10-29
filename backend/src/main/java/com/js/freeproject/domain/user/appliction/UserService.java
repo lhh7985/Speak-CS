@@ -1,5 +1,7 @@
 package com.js.freeproject.domain.user.appliction;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ public class UserService {
 	@Autowired
 	UserRepository userRepo;
 	
+	@Transactional
 	public User createUser(UserRequest user) {
 		User finduser = userRepo.findByEmail(user.getEmail());
 		if(finduser != null) {
