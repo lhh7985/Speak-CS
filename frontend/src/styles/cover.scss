@@ -1,8 +1,14 @@
 :root {
-  // 하늘색버전
+  // 초록색버전
   --color-back: #f9f7f7;
-  --color-book: #c0cee7;
-  --color-inner: #dbe2ef;
+  --color-book: #a2b29f;
+  --color-inner: #ccd8c8;
+  --color-i: #e5ebe3;
+
+  // 하늘색버전
+  // --color-back: #f9f7f7;
+  // --color-book: #c0cee7;
+  // --color-inner: #dbe2ef;
 
   // 분홍색버전
   // --color-back: #dddddd;
@@ -95,6 +101,7 @@
 }
 
 .right-wrap {
+  display: flex;
   position: relative;
   width: 72%;
   height: 100%;
@@ -108,10 +115,20 @@
     width: 100%;
     height: 100%;
     // box-shadow: 18px 20px 20px -5px grey;
-    box-shadow: 1px 1.5px 1px #c0c0c0, 3.5px 3px 0 #a8a7a6, 6px 4.5px 0 #8b8a89,
-      8.5px 6px 0 #7d7b7a, 11px 7.5px 0 #686766, 13.5px 9px 3px #5f5e5d;
+    box-shadow: 0.5px 0.5px 1px #798777, 5px 1px 1px #b4bdb3,
+      6px 2px 1px #b4bdb3, 7px 3px 1px #b4bdb3, 8px 4px 1px #b4bdb3,
+      9px 5px 1px #b4bdb3, 10px 5.5px 0 #b4bdb3, 11px 6.5px 0 #b4bdb3,
+      12px 7.5px 0 #b4bdb3, 13px 8px 0 #b4bdb3, 14px 8.5px 3px #798777;
     border-radius: 20px;
-    z-index: -1;
+  }
+
+  .inner-wrap {
+    width: 96%;
+    height: 96%;
+    margin: auto;
+    background-color: var(--color-i);
+    color: #000000;
+    border-radius: 15px;
   }
 }
 

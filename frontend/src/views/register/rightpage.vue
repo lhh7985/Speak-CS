@@ -1,75 +1,81 @@
 <template>
   <div class="right-wrap">
-    <div class="register-wrap">
-      <q-form
-        class="q-gutter-md form-wrap"
-        ref="regist_form"
-        @submit="onSubmit"
-        @reset="onReset"
-      >
-        <q-input
-          filled
-          v-model="state.form.name"
-          :rules="state.rules.name"
-          lazy-rules
-          label="성함 *"
-        />
-        <q-input
-          filled
-          v-model="state.form.nickName"
-          :rules="state.rules.nickName"
-          label="닉네임 *"
-        />
-        <q-btn
-          flat
-          style="color: #ff0080"
-          primary
-          label="중복확인"
-          :disabled="state.form.nickName_check"
-          @click="nickNameCheck"
-        ></q-btn>
-
-        <q-input
-          filled
-          v-model="state.form.pass"
-          :rules="state.rules.pass"
-          type="password"
-          label="비밀번호 *"
-        />
-
-        <q-input
-          filled
-          v-model="state.form.passcheck"
-          :rules="state.rules.passcheck"
-          type="password"
-          label="비밀번호 확인 *"
-        />
-        <q-input
-          filled
-          v-model="state.form.email"
-          :rules="state.rules.email"
-          lazy-rules
-          type="email"
-          label="이메일 *"
-        />
-        <q-btn color="amber" label="이메일인증" @click="emailCheck()"></q-btn>
-
-        <div>
-          <q-btn color="primary" type="submit" label="회원가입" />
-          <q-btn
-            class="q-ml-sm"
-            flat
-            color="primary"
-            type="reset"
-            label="초기화"
+    <div class="inner-wrap">
+      <div class="register-wrap">
+        <q-form
+          class="q-gutter-md form-wrap"
+          ref="regist_form"
+          @submit="onSubmit"
+          @reset="onReset"
+        >
+          <q-input
+            filled
+            v-model="state.form.name"
+            :rules="state.rules.name"
+            lazy-rules
+            label="성함 *"
           />
-        </div>
-      </q-form>
+          <q-input
+            filled
+            v-model="state.form.nickName"
+            :rules="state.rules.nickName"
+            label="닉네임 *"
+          />
+          <q-btn
+            color="amber"
+            label="중복확인"
+            :disabled="state.form.nickName_check"
+            @click="nickNameCheck"
+            class="register-btns"
+          ></q-btn>
+
+          <q-input
+            filled
+            v-model="state.form.pass"
+            :rules="state.rules.pass"
+            type="password"
+            label="비밀번호 *"
+          />
+
+          <q-input
+            filled
+            v-model="state.form.passcheck"
+            :rules="state.rules.passcheck"
+            type="password"
+            label="비밀번호 확인 *"
+          />
+          <q-input
+            filled
+            v-model="state.form.email"
+            :rules="state.rules.email"
+            lazy-rules
+            type="email"
+            label="이메일 *"
+          />
+          <q-btn
+            color="amber"
+            label="이메일인증"
+            @click="emailCheck()"
+            class="register-btns"
+          ></q-btn>
+
+          <div class="submit-btns">
+            <q-btn color="primary" type="submit" label="회원가입" />
+            <q-btn
+              class="q-ml-sm"
+              flat
+              color="primary"
+              type="reset"
+              label="초기화"
+            />
+          </div>
+        </q-form>
+      </div>
+      <complete-dialog
+        v-model="state.regist_complete"
+        @mvlogin="mvLogin"
+      ></complete-dialog>
     </div>
-    <complete-dialog
-      v-model="state.regist_complete"
-      @mvlogin="mvLogin"
-    ></complete-dialog>
   </div>
 </template>
 <script>
