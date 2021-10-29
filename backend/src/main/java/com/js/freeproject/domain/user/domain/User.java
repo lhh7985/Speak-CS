@@ -56,4 +56,13 @@ public class User {
     public void setPass(String pass) {
 		this.pass = pass;
 	}
+    
+    public User updateUser(final User user) {
+    	this.email = user.getEmail();
+    	this.image = user.getImage();
+    	this.nickName = user.getNickName();
+    	this.name = user.getName();
+    	this.pass = user.getPass();
+    	return this;
+    }
 }

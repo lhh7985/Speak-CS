@@ -1,11 +1,14 @@
 package com.js.freeproject.domain.user.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -131,7 +134,7 @@ public class UserController {
 		}	
 	}
 	
-	@PostMapping("modify")
+	@PutMapping("modify")
 	@ApiOperation(value="사용자 정보 수정",notes="사용자 정보를 수정한다.")
 	@ApiResponses({
 		@ApiResponse(code=200,message="성공", response = CommonResponse.class),
@@ -147,5 +150,11 @@ public class UserController {
 			log.info("{} 정보 수정 중 오류 발생하였습니다.",userRequest.getEmail());
 			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류가 발생했습니다."));
 		}
+	}
+	
+	@GetMapping("all")
+	public ResponseEntity<?> GetAllUser() {
+		List<User> userlist = userService.findAll();
+		return ResponseEntity.status(200).body(userlist);
 	}
 }

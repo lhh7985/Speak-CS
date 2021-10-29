@@ -1,5 +1,7 @@
 package com.js.freeproject.domain.user.appliction;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -50,11 +52,12 @@ public class UserService {
 		if(user==null) {
 			throw new NotFoundException(userRequest.getEmail() + "를 찾을 수 없습니다.");
 		}
+		user.updateUser(userRequest.toEntity());
 		
-		return user.builder()
-				.nickName(userRequest.getNickName())
-				.pass(userRequest.getPass())
-				.image(userRequest.getImage())
-				.build();
+		return user;
+	}
+	
+	public List<User> findAll() {
+		return userRepo.findAll();
 	}
 }
