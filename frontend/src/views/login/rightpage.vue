@@ -1,51 +1,53 @@
 <template lang="">
   <div class="right-wrap">
-    <q-form
-      class="q-gutter-md"
-      ref="login_form"
-      @submit="onSubmit"
-      @reset="onReset"
-    >
-      <q-input
-        ref="email"
-        v-model="state.form.email"
-        :rules="state.rules.email"
-        lazy-rules
-        type="email"
-        label="이메일"
-        autofocus
+    <div class="q-gutter-md" style="max-width: 400px">
+      <q-form
+        class="q-gutter-md"
+        ref="login_form"
+        @submit="onSubmit"
+        @reset="onReset"
       >
-      </q-input>
-      <q-input
-        dense
-        v-model="state.form.pass"
-        :rules="state.rules.pass"
-        lazy-rules
-        type="password"
-        label="비밀번호"
-        @keyup.enter="
-          onSubmit;
-          $event.target.blur();
-        "
-      >
-      </q-input>
-      <div>
-        <q-btn
-          color="primary"
-          type="submit"
-          :disable="state.login_btn_disable"
-          label="로그인"
-        />
-        <q-btn
-          class="q-ml-sm"
-          label="비밀번호 찾기"
-          type="reset"
-          color="primary"
-          flat
-          @click="state.findpwdialog = true"
-        />
-      </div>
-    </q-form>
+        <q-input
+          ref="email"
+          v-model="state.form.email"
+          :rules="state.rules.email"
+          lazy-rules
+          type="email"
+          label="이메일"
+          autofocus
+        >
+        </q-input>
+        <q-input
+          dense
+          v-model="state.form.pass"
+          :rules="state.rules.pass"
+          lazy-rules
+          type="password"
+          label="비밀번호"
+          @keyup.enter="
+            onSubmit;
+            $event.target.blur();
+          "
+        >
+        </q-input>
+        <div>
+          <q-btn
+            color="primary"
+            type="submit"
+            :disable="state.login_btn_disable"
+            label="로그인"
+          />
+          <q-btn
+            class="q-ml-sm"
+            label="비밀번호 찾기"
+            type="reset"
+            color="primary"
+            flat
+            @click="state.findpwdialog = true"
+          />
+        </div>
+      </q-form>
+    </div>
     <FindPwDialog
       v-model="state.findpwdialog"
       @mvupdatepw="openUpdatePwDialog"
@@ -130,7 +132,7 @@ export default {
               getUserInfo(response.data.token);
             })
             .catch((error) => {
-              console.log(error);
+              alert(error.response.data.message);
             });
         } else {
           /* Error 모달 모음 만들기 */
