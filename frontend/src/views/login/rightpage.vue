@@ -1,60 +1,62 @@
 <template lang="">
   <div class="right-wrap">
-    <q-form
-      class="q-gutter-md"
-      ref="login_form"
-      @submit="onSubmit"
-      @reset="onReset"
-    >
-      <q-input
-        ref="email"
-        v-model="state.form.email"
-        :rules="state.rules.email"
-        lazy-rules
-        type="email"
-        label="이메일"
-        autofocus
+    <div class="inner-wrap login-wrap">
+      <q-form
+        class="q-gutter-md login-form"
+        ref="login_form"
+        @submit="onSubmit"
+        @reset="onReset"
       >
-      </q-input>
-      <q-input
-        dense
-        v-model="state.form.pass"
-        :rules="state.rules.pass"
-        lazy-rules
-        type="password"
-        label="비밀번호"
-        @keyup.enter="
-          onSubmit;
-          $event.target.blur();
-        "
-      >
-      </q-input>
-      <div>
-        <q-btn
-          color="primary"
-          type="submit"
-          :disable="state.login_btn_disable"
-          label="로그인"
-        />
-        <q-btn
-          class="q-ml-sm"
-          label="비밀번호 찾기"
-          type="reset"
-          color="primary"
-          flat
-          @click="state.findpwdialog = true"
-        />
-      </div>
-    </q-form>
-    <FindPwDialog
-      v-model="state.findpwdialog"
-      @mvupdatepw="openUpdatePwDialog"
-      @mvlogin="mvLogin"
-    ></FindPwDialog>
-    <UpdatePwDialog
-      v-model="state.updatepwdialog"
-      @mvlogin="mvLogin"
-    ></UpdatePwDialog>
+        <q-input
+          ref="email"
+          v-model="state.form.email"
+          :rules="state.rules.email"
+          lazy-rules
+          type="email"
+          label="이메일"
+          autofocus
+        >
+        </q-input>
+        <q-input
+          dense
+          v-model="state.form.pass"
+          :rules="state.rules.pass"
+          lazy-rules
+          type="password"
+          label="비밀번호"
+          @keyup.enter="
+            onSubmit;
+            $event.target.blur();
+          "
+        >
+        </q-input>
+        <div>
+          <q-btn
+            color="primary"
+            type="submit"
+            :disable="state.login_btn_disable"
+            label="로그인"
+          />
+          <q-btn
+            class="q-ml-sm"
+            label="비밀번호 찾기"
+            type="reset"
+            color="primary"
+            flat
+            @click="state.findpwdialog = true"
+          />
+        </div>
+      </q-form>
+      <FindPwDialog
+        v-model="state.findpwdialog"
+        @mvupdatepw="openUpdatePwDialog"
+        @mvlogin="mvLogin"
+      ></FindPwDialog>
+      <UpdatePwDialog
+        v-model="state.updatepwdialog"
+        @mvlogin="mvLogin"
+      ></UpdatePwDialog>
+    </div>
   </div>
 </template>
 <script>
@@ -63,7 +65,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import FindPwDialog from "./components/findpw.vue";
 import UpdatePwDialog from "./components/updatepw.vue";
-import "../../styles/cover.scss";
+import "../../styles/register.scss";
 
 export default {
   name: "login-right",
