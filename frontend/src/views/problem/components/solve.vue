@@ -14,7 +14,6 @@
 import { useStore } from "vuex";
 import { computed, reactive } from "vue";
 import { useRouter } from "vue-router";
-
 export default {
   name: "login-nav",
   setup() {
@@ -23,7 +22,6 @@ export default {
     const state = reactive({
       problems: computed(() => store.getters["root/getSelectedProblems"]),
     });
-
     const checkAnswer = (id, num) => {
       console.log(id);
       const payload = {
@@ -50,13 +48,10 @@ export default {
             });
           }
         })
-
         .catch((error) => {
           console.log(error);
-          //console.log(error.response.data.message);
         });
     };
-
     return {
       state,
       checkAnswer,

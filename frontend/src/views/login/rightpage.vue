@@ -132,7 +132,7 @@ export default {
               getUserInfo(response.data.token);
             })
             .catch((error) => {
-              console.log(error);
+              alert(error.response.data.message);
             });
         } else {
           /* Error 모달 모음 만들기 */
