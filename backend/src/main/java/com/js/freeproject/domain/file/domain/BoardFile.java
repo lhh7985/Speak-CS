@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.js.freeproject.domain.board.domain.Board;
 
 import lombok.AccessLevel;
@@ -25,6 +26,7 @@ public class BoardFile {
 	private String name;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="board_id")
 	private Board board;
 
