@@ -6,13 +6,7 @@
       <div class="cstitle">CS의 정석</div>
     </div>
     <div class="voice">
-      <q-btn
-        class="speech-to-text"
-        flat
-        style="color: #fc3f2d"
-        @click="startSpeechToTxt"
-        >Speech to text</q-btn
-      >
+      <div class="speech-to-text" @click="startSpeechToTxt">Speech to text</div>
       <p>{{ transcription_ }}</p>
     </div>
   </div>
@@ -54,4 +48,12 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.speech-to-text {
+  border: 1px solid black;
+  z-index: 10;
+}
+.speech-to-text:hover {
+  cursor: pointer;
+}
+</style>
