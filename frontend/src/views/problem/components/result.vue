@@ -30,7 +30,7 @@ export default {
     const backToInfo = () => {
       store.commit("root/setProblemResultsInit");
       router.push({
-        name: "problem-description",
+        name: "problem",
       });
     };
 
