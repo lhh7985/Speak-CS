@@ -1,5 +1,5 @@
-export function getItem(state) {
-  return state.item;
+export function getUser(state) {
+  return state.user;
 }
 
 export function getCategories(state) {
