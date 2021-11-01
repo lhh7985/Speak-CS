@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.js.freeproject.domain.boardpicture.domain.BoardPicture;
 import com.js.freeproject.domain.comment.domain.Comment;
 
@@ -38,7 +39,8 @@ public class Board {
 	
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<Comment>();
-	
+
+	@JsonManagedReference
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
 	private List<BoardFile> boardFiles = new ArrayList<BoardFile>();
 
