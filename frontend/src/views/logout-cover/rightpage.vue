@@ -1,8 +1,9 @@
 <template lang="">
   <div class="right-wrap">
+    <div class="shadow"></div>
     <div class="main-cover">
       <div>개발자를 위한 CS 역량 강화</div>
-      <div>CS의 정석</div>
+      <div class="cstitle">CS의 정석</div>
     </div>
   </div>
 </template>
