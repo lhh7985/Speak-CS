@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = {"*"}, maxAge = 6000)
-@RequestMapping("/api/v1/board")
+@RequestMapping("/board")
 public class BoardControlller {
 
     private final BoardService boardService;
@@ -27,7 +27,7 @@ public class BoardControlller {
 
     @ApiOperation(value = "게시판 글 작성")
     @PostMapping("/{userId}")
-    public ResponseEntity<?> saveQuestion(@RequestBody final BoardRequest boardRequest, @PathVariable Long userId) throws IOException {
+    public ResponseEntity<?> saveQuestion(final BoardRequest boardRequest, @PathVariable Long userId) throws IOException {
         Board board = boardService.saveQuestion(boardRequest,userId);
         final BoardSaveResponse boardSaveResponse = new BoardSaveResponse(board);
         return ResponseEntity.ok().body(boardSaveResponse);
