@@ -1,8 +1,8 @@
 <template lang="">
   <div class="right-wrap">
-    <div class="q-gutter-md" style="max-width: 400px">
+    <div class="inner-wrap login-wrap">
       <q-form
-        class="q-gutter-md"
+        class="q-gutter-md login-form"
         ref="login_form"
         @submit="onSubmit"
         @reset="onReset"
@@ -47,16 +47,16 @@
           />
         </div>
       </q-form>
+      <FindPwDialog
+        v-model="state.findpwdialog"
+        @mvupdatepw="openUpdatePwDialog"
+        @mvlogin="mvLogin"
+      ></FindPwDialog>
+      <UpdatePwDialog
+        v-model="state.updatepwdialog"
+        @mvlogin="mvLogin"
+      ></UpdatePwDialog>
     </div>
-    <FindPwDialog
-      v-model="state.findpwdialog"
-      @mvupdatepw="openUpdatePwDialog"
-      @mvlogin="mvLogin"
-    ></FindPwDialog>
-    <UpdatePwDialog
-      v-model="state.updatepwdialog"
-      @mvlogin="mvLogin"
-    ></UpdatePwDialog>
   </div>
 </template>
 <script>
@@ -65,7 +65,7 @@ import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import FindPwDialog from "./components/findpw.vue";
 import UpdatePwDialog from "./components/updatepw.vue";
-import "../../styles/cover.scss";
+import "../../styles/register.scss";
 
 export default {
   name: "login-right",

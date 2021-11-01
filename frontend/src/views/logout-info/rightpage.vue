@@ -1,6 +1,8 @@
 <template>
   <div class="right-wrap">
-    <div>소개넣기</div>
+    <div class="inner-wrap">
+      <div>소개넣기</div>
+    </div>
   </div>
 </template>
 <script>
