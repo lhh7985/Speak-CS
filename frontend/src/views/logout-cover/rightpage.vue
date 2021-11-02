@@ -6,7 +6,14 @@
       <div class="cstitle">CS의 정석</div>
     </div>
     <div class="voice">
-      <div class="speech-to-text" @click="startSpeechToTxt">Speech to text</div>
+      <q-btn
+        unelevated
+        flat
+        id="menuBtn1"
+        class="speech-to-text"
+        @click="startSpeechToTxt"
+        >Speech to text</q-btn
+      >
       <p>{{ transcription_ }}</p>
     </div>
   </div>

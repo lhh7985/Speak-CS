@@ -10,8 +10,8 @@
         unelevated
         flat
         @click="mvProblemDescription(category)"
-        >{{ category.name }}</q-btn
-      >
+        >{{ category.name }} <br
+      /></q-btn>
     </div>
   </div>
 </template>

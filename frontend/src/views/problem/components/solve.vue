@@ -4,7 +4,17 @@
     <q-btn
       unelevated
       flat
-      @click="checkAnswer($route.query.id, $route.query.num)"
+      id="menuBtn1"
+      class="speech-to-text"
+      @click="startSpeechToTxt"
+      >Speech to text</q-btn
+    >
+    <p>{{ lastTranscription }}</p>
+
+    <q-btn
+      unelevated
+      flat
+      @click="checkAnswer($route.query.id, $route.query.num, lastTranscription)"
       >제출하기</q-btn
     >
   </div>
@@ -13,55 +23,89 @@
 <script>
 import { useStore } from "vuex";
 import { computed, reactive } from "vue";
-import { useRouter } from "vue-router";
 
 export default {
   name: "login-nav",
+  data() {
+    return {
+      runtimeTranscription_: "",
+      transcription_: [],
+      lastTranscription: "",
+      lang_: "ko-KR",
+    };
+  },
   setup() {
     const store = useStore();
-    const router = useRouter();
     const state = reactive({
       problems: computed(() => store.getters["root/getSelectedProblems"]),
     });
 
-    const checkAnswer = (id, num) => {
-      console.log(id);
-      const payload = {
-        id: id,
-        myAnswer: "스프링",
-      };
-      store
-        .dispatch("root/requestProblemCheckAnswer", payload)
-        .then((response) => {
-          console.log(response);
-          store.commit("root/setProblemResults", response);
-          num++;
-          if (num < state.problems.length) {
-            router.push({
-              name: "problem-solve",
-              query: {
-                num: num,
-                id: state.problems[num].id,
-              },
-            });
-          } else {
-            router.push({
-              name: "problem-result",
-            });
-          }
-        })
-
-        .catch((error) => {
-          console.log(error);
-          //console.log(error.response.data.message);
-        });
-    };
-
     return {
       state,
-      checkAnswer,
     };
+  },
+  methods: {
+    startSpeechToTxt() {
+      console.log("start text");
+      // initialisation of voicereco
+      const recognition = new window.SpeechRecognition();
+      recognition.lang = this.lang_;
+      recognition.interimResults = true;
+
+      // event current voice reco word
+      recognition.addEventListener("result", (event) => {
+        var text = Array.from(event.results)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
+          .join("");
+        this.runtimeTranscription_ = text;
+      });
+      // end of transcription
+      recognition.addEventListener("end", () => {
+        this.transcription_.push(this.runtimeTranscription_);
+        this.lastTranscription = this.runtimeTranscription_;
+        this.runtimeTranscription_ = "";
+        recognition.stop();
+      });
+      recognition.start();
+    },
+    checkAnswer(id, num) {
+      const payload = {
+        id: id,
+        myAnswer: this.lastTranscription,
+      };
+      (this.lastTranscription = ""),
+        this.$store
+          .dispatch("root/requestProblemCheckAnswer", payload)
+          .then((response) => {
+            console.log(response);
+            this.$store.commit("root/setProblemResults", response);
+            num++;
+            if (num < this.state.problems.length) {
+              console.log(num);
+              this.$router.push({
+                name: "problem-solve",
+                query: {
+                  num: num,
+                  id: this.state.problems[num].id,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: "problem-result",
+              });
+            }
+          });
+    },
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.speech-to-text {
+  border: 1px solid black;
+  z-index: 10;
+}
+.speech-to-text:hover {
+  cursor: pointer;
+}
+</style>
