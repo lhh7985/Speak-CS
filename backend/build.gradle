@@ -46,6 +46,9 @@ dependencies {
     
     // Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    
+    // smtp to send mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 test {

@@ -1,5 +1,9 @@
 package com.js.freeproject.domain.user.dto;
 
+
+
+import com.js.freeproject.domain.user.domain.User;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +18,14 @@ public class UserRequest {
     private String name;
     private String pass;
     private String image;
+    
+    public User toEntity() {
+    	return User.builder()
+    			.email(email)
+    			.nickName(nickName)
+    			.name(name)
+    			.pass(pass)
+    			.image(image)
+    			.build();
+    }
 }
