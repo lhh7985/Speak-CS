@@ -7,8 +7,24 @@
 }
 
 .form-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 60%;
   height: 70%;
+
+  .horizontal {
+    display: flex;
+    justify-content: space-between;
+
+    .horizontal-l {
+      width: 85% !important;
+    }
+
+    .horizontal-r {
+      width: 13%;
+    }
+  }
 
   .submit-btns {
     margin-top: 20px;
