@@ -53,6 +53,17 @@ spring:
   redis:
     port: 6379
     host: localhost
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: yukariko7880@gmail.com
+    password: sju71004007!!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 cloud:
   aws:
     credentials:
@@ -64,16 +75,9 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
-  
+      
 jwt:
   header: Authorization
   secret: dyAeHubOOc8KaOfYB6XEQoEj1QzRlVgtjNL8PYs1A1tymZvvqkcEU7L1imkKHeDa
   expiration: 6000
   refresh_expiration: 86400
-  
-#server:
-#  servlet:
-#    encoding:
-#      charset: UTF-8
-#      enabled: true
-#      force: true
