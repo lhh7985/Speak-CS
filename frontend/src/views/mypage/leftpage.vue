@@ -1,17 +1,19 @@
 <template>
   <div class="left-wrap">
-    <div class="mypage-left">
-      <div class="profile-wrap">
-        <img class="profile-img" src="../../assets/malang.png" />
-        <span class="user-name text-h4 text-bold">{{ state.user.name }}</span>
-      </div>
-      <div class="mypage-menu text-h6">
-        <div id="leftBtn1" class="myleft click-myleft" @click="mvProfile">
-          프로필
+    <div class="open-left-wrap">
+      <div class="mypage-left">
+        <div class="profile-wrap">
+          <img class="profile-img" src="../../assets/malang.png" />
+          <span class="user-name text-h4 text-bold">{{ state.user.name }}</span>
         </div>
-        <div id="leftBtn2" class="myleft" @click="mvChart">차트</div>
-        <div id="leftBtn3" class="myleft" @click="mvBoard">나의 게시글</div>
-        <div id="leftBtn4" class="myleft" @click="mvAlarm">알림</div>
+        <div class="mypage-menu text-h6">
+          <div id="leftBtn1" class="myleft click-myleft" @click="mvProfile">
+            프로필
+          </div>
+          <div id="leftBtn2" class="myleft" @click="mvChart">차트</div>
+          <div id="leftBtn3" class="myleft" @click="mvBoard">나의 게시글</div>
+          <div id="leftBtn4" class="myleft" @click="mvAlarm">알림</div>
+        </div>
       </div>
     </div>
   </div>
