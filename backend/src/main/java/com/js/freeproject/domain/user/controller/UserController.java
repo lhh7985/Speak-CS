@@ -1,6 +1,11 @@
 package com.js.freeproject.domain.user.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.js.freeproject.domain.mail.application.MailService;
 import com.js.freeproject.domain.model.CommonResponse;
 import com.js.freeproject.domain.user.appliction.UserService;
 import com.js.freeproject.domain.user.domain.User;
@@ -25,6 +31,7 @@ import com.js.freeproject.global.jwt.TokenProvider;
 import com.js.freeproject.global.util.RedisUtil;
 import com.sun.jdi.request.DuplicateRequestException;
 
+import io.lettuce.core.RedisCommandExecutionException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -42,6 +49,7 @@ public class UserController {
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final RedisUtil redisUtil;
+	private final MailService mailService;
 	
 	@PostMapping("login")
 	@ApiOperation(value="사용자 로그인", notes ="아이디와 패스워드를 통해 로그인 한다.")
@@ -156,5 +164,53 @@ public class UserController {
 	public ResponseEntity<?> GetAllUser() {
 		List<User> userlist = userService.findAll();
 		return ResponseEntity.status(200).body(userlist);
+	}
+	
+	@PostMapping("findpass")
+	@ApiOperation(value="사용자 비밀번호 찾기(이메일 발송)",notes="랜덤문자열 메일로 발송")
+	@ApiResponses({
+		@ApiResponse(code=200,message="성공", response = CommonResponse.class),
+		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class),
+		@ApiResponse(code=501,message="메일 전송 오류",response=CommonResponse.class)
+	})
+	public ResponseEntity<?> FindPassword(@RequestBody Map<String,String> map) {
+		try {
+			userService.findpassword(map.get("email"));
+		} catch (MessagingException e) {
+			log.info("{} 사용자에게 메일을 보내는 중 오류가 발생하였습니다.",map.get("email"));
+			return ResponseEntity.status(501).body(CommonResponse.of("메일 오류"));
+		} catch(Exception e) {
+			log.info("{} 비밀번호 찾는 도중 오류가 발생하였습니다.",map.get("email"));
+			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류"));
+		}
+		
+		return ResponseEntity.status(200).body(CommonResponse.of("Success"));
+	}
+	
+	@PostMapping("fixpass")
+	@ApiOperation(value="사용자 비밀번호 찾기(비밀번호 변경)",notes="비밀번호 변경")
+	@ApiResponses({
+		@ApiResponse(code=200,message="성공", response = CommonResponse.class),
+		@ApiResponse(code=403,message="사용자 없음",response=CommonResponse.class),
+		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class),
+		@ApiResponse(code=501,message="토큰 만료",response=CommonResponse.class),
+		@ApiResponse(code=502,message="키 값 없음",response=CommonResponse.class)
+		
+	})
+	public ResponseEntity<?> FixPassword(@RequestBody Map<String, String> map, HttpServletResponse res) {
+		try {
+			User user = userService.fixpass(map.get("key"),passwordEncoder.encode(map.get("pass")));
+			if(user==null) {
+				return ResponseEntity.status(403).body(CommonResponse.of("사용자 없음"));
+			}
+			return ResponseEntity.status(200).body(CommonResponse.of("Success"));
+		} catch (RedisCommandExecutionException e) {
+			return ResponseEntity.status(501).body(CommonResponse.of("토큰 만료"));
+		} catch(NullPointerException e) {
+			return ResponseEntity.status(502).body(CommonResponse.of("키 값 없음")); 
+		}
+		
+		
+		
 	}
 }
