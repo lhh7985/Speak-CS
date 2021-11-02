@@ -145,7 +145,7 @@ public class UserController {
 		@ApiResponse(code=200,message="성공", response = CommonResponse.class),
 		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class)
 	})
-	public ResponseEntity<?> ModifyUser(@RequestBody UserRequest userRequest) {
+	public ResponseEntity<?> modifyUser(@RequestBody UserRequest userRequest) {
 		try {
 			userRequest.setPass(passwordEncoder.encode(userRequest.getPass()));
 			userService.modifyUser(userRequest);
@@ -158,7 +158,7 @@ public class UserController {
 	}
 	
 	@GetMapping("all")
-	public ResponseEntity<?> GetAllUser() {
+	public ResponseEntity<?> getAllUser() {
 		List<User> userlist = userService.findAll();
 		return ResponseEntity.status(200).body(userlist);
 	}
@@ -170,7 +170,7 @@ public class UserController {
 		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class),
 		@ApiResponse(code=501,message="메일 전송 오류",response=CommonResponse.class)
 	})
-	public ResponseEntity<?> FindPassword(@RequestBody Map<String,String> map) {
+	public ResponseEntity<?> findPassword(@RequestBody Map<String,String> map) {
 		try {
 			userService.findpassword(map.get("email"));
 		} catch (MessagingException e) {
@@ -194,7 +194,7 @@ public class UserController {
 		@ApiResponse(code=502,message="키 값 없음",response=CommonResponse.class)
 		
 	})
-	public ResponseEntity<?> FixPassword(@RequestBody Map<String, String> map, HttpServletResponse res) {
+	public ResponseEntity<?> fixPassword(@RequestBody Map<String, String> map, HttpServletResponse res) {
 		try {
 			User user = userService.fixpass(map.get("key"),passwordEncoder.encode(map.get("pass")));
 			if(user==null) {
