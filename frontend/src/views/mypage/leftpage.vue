@@ -6,12 +6,12 @@
         <span class="user-name text-h4 text-bold">{{ state.user.name }}</span>
       </div>
       <div class="mypage-menu text-h6">
-        <div id="menuBtn1" class="menus click-menu" @click="mvProfile">
+        <div id="leftBtn1" class="myleft click-myleft" @click="mvProfile">
           프로필
         </div>
-        <div id="menuBtn2" class="menus" @click="mvChart">차트</div>
-        <div id="menuBtn3" class="menus" @click="mvBoard">나의 게시글</div>
-        <div id="menuBtn4" class="menus" @click="mvAlarm">알림</div>
+        <div id="leftBtn2" class="myleft" @click="mvChart">차트</div>
+        <div id="leftBtn3" class="myleft" @click="mvBoard">나의 게시글</div>
+        <div id="leftBtn4" class="myleft" @click="mvAlarm">알림</div>
       </div>
     </div>
   </div>
@@ -37,35 +37,37 @@ export default {
     });
 
     const mvProfile = () => {
-      removeColor();
-      addColor("menuBtn1");
+      removeBolder();
+      addBolder("leftBtn1");
       router.push({ name: "mypage-profile" });
     };
     const mvChart = () => {
-      removeColor();
-      addColor("menuBtn2");
+      removeBolder();
+      addBolder("leftBtn2");
       router.push({ name: "mypage-chart" });
     };
     const mvBoard = () => {
-      removeColor();
-      addColor("menuBtn3");
+      removeBolder();
+      addBolder("leftBtn3");
       router.push({ name: "mypage-board" });
     };
     const mvAlarm = () => {
-      removeColor();
-      addColor("menuBtn4");
+      removeBolder();
+      addBolder("leftBtn4");
       router.push({ name: "mypage-alarm" });
     };
 
-    const removeColor = () => {
-      const menus = document.getElementsByClassName("menus");
-      for (var i = 0; i < menus.length; i++) {
-        menus[i].classList.remove("click-menu");
+    const removeBolder = () => {
+      const myleft = document.getElementsByClassName("myleft");
+      for (var i = 0; i < myleft.length; i++) {
+        console.log(i);
+        myleft[i].classList.remove("click-myleft");
       }
     };
-    const addColor = (id) => {
+    const addBolder = (id) => {
+      console.log(id);
       const btn = document.getElementById(id);
-      btn.classList.add("click-menu");
+      btn.classList.add("click-myleft");
     };
     return {
       state,
