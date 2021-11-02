@@ -3,8 +3,8 @@ package com.js.freeproject.domain.mail.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.js.freeproject.domain.mail.application.MailService;
@@ -29,9 +29,9 @@ public class MailController {
 		@ApiResponse(code=200,message = "이메일 정상 발송",response = CommonResponse.class),
 		@ApiResponse(code=500,message = "서버 오류",response = CommonResponse.class)
 	})
-	public ResponseEntity<?> sendMail(@RequestParam String mail, @RequestParam String type) {
+	public ResponseEntity<?> sendMail(@RequestBody String mail) {
 		try {
-			mailService.sendMail(mail,type);
+			mailService.sendMail(mail,"mail");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
