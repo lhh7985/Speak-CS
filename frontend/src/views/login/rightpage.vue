@@ -14,7 +14,6 @@
           lazy-rules
           type="email"
           label="이메일"
-          autofocus
         >
         </q-input>
         <q-input
@@ -43,19 +42,23 @@
             type="reset"
             color="primary"
             flat
-            @click="state.findpwdialog = true"
+            @click="state.dialog.findpw = true"
           />
         </div>
       </q-form>
-      <FindPwDialog
-        v-model="state.findpwdialog"
-        @mvupdatepw="openUpdatePwDialog"
+      <find-pw-dialog
+        v-model="state.dialog.findpw"
+        @openemailcheck="openEmailCheckDialog"
+      ></find-pw-dialog>
+      <email-check-dialog
+        v-model="state.dialog.emailcheck"
+        :email="state.emailcheck"
+        @openupdatepw="openUpdatePwDialog"
+      ></email-check-dialog>
+      <update-pw-dialog
+        v-model="state.dialog.updatepw"
         @mvlogin="mvLogin"
-      ></FindPwDialog>
-      <UpdatePwDialog
-        v-model="state.updatepwdialog"
-        @mvlogin="mvLogin"
-      ></UpdatePwDialog>
+      ></update-pw-dialog>
     </div>
   </div>
 </template>
@@ -64,6 +67,7 @@ import { ref, reactive, watch } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import FindPwDialog from "./components/findpw.vue";
+import EmailCheckDialog from "./components/emailcheck.vue";
 import UpdatePwDialog from "./components/updatepw.vue";
 import "../../styles/register.scss";
 
@@ -71,6 +75,7 @@ export default {
   name: "login-right",
   components: {
     FindPwDialog,
+    EmailCheckDialog,
     UpdatePwDialog,
   },
   setup() {
@@ -96,8 +101,12 @@ export default {
         pass: [(val) => (val != null && val !== "") || "필수입력 항목입니다."],
       },
       login_btn_disable: true, // 버튼 활성, 비활성화
-      findpwdialog: false, // 모달생성, 삭제 컨트롤
-      updatepwdialog: false,
+      dialog: {
+        findpw: false,
+        updatepw: false,
+        emailcheck: false,
+      },
+      emailcheck: "",
     });
     /*ㅡㅡㅡㅡㅡ 검증 ㅡㅡㅡㅡㅡ*/
     const isValidEmail = (val) => {
@@ -170,13 +179,18 @@ export default {
       state.form.pass = null;
     };
     /*ㅡㅡㅡㅡㅡ 비밀번호 찾기 모달 제어 ㅡㅡㅡㅡㅡ*/
-    const mvLogin = () => {
-      state.findpwdialog = false;
-      router.push({ name: "login" });
+    const openEmailCheckDialog = (email) => {
+      state.dialog.findpw = false;
+      state.emailcheck = email;
+      state.dialog.emailcheck = true;
     };
     const openUpdatePwDialog = () => {
-      state.findpwdialog = false;
-      state.updatepwdialog = true;
+      state.dialog.emailcheck = false;
+      state.dialog.updatepw = true;
+    };
+    const mvLogin = () => {
+      state.dialog.updatepw = false;
+      router.push({ name: "login" });
     };
 
     return {
@@ -186,8 +200,9 @@ export default {
       onSubmit,
       onReset,
       /* 모달 */
-      mvLogin,
+      openEmailCheckDialog,
       openUpdatePwDialog,
+      mvLogin,
     };
   },
 };

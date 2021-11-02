@@ -9,28 +9,29 @@
           @reset="onReset"
         >
           <q-input
-            filled
             v-model="state.form.name"
             :rules="state.rules.name"
             lazy-rules
             label="성함 *"
           />
-          <q-input
-            filled
-            v-model="state.form.nickName"
-            :rules="state.rules.nickName"
-            label="닉네임 *"
-          />
-          <q-btn
-            color="amber"
-            label="중복확인"
-            :disabled="state.form.nickName_check"
-            @click="nickNameCheck"
-            class="register-btns"
-          ></q-btn>
+          <div class="horizontal">
+            <q-input
+              class="horizontal-l"
+              v-model="state.form.nickName"
+              :rules="state.rules.nickName"
+              label="닉네임 *"
+            />
+            <q-btn
+              outline
+              color="primary"
+              label="중복확인"
+              :disabled="state.form.nickName_check"
+              @click="nickNameCheck"
+              class="register-btns horizontal-r"
+            ></q-btn>
+          </div>
 
           <q-input
-            filled
             v-model="state.form.pass"
             :rules="state.rules.pass"
             type="password"
@@ -38,27 +39,28 @@
           />
 
           <q-input
-            filled
             v-model="state.form.passcheck"
             :rules="state.rules.passcheck"
             type="password"
             label="비밀번호 확인 *"
           />
-          <q-input
-            filled
-            v-model="state.form.email"
-            :rules="state.rules.email"
-            lazy-rules
-            type="email"
-            label="이메일 *"
-          />
-          <q-btn
-            color="amber"
-            label="이메일인증"
-            @click="emailCheck()"
-            class="register-btns"
-          ></q-btn>
-
+          <div class="horizontal">
+            <q-input
+              class="horizontal-l"
+              v-model="state.form.email"
+              :rules="state.rules.email"
+              lazy-rules
+              type="email"
+              label="이메일 *"
+            />
+            <q-btn
+              outline
+              color="primary"
+              label="중복확인"
+              @click="emailCheck()"
+              class="register-btns horizontal-r"
+            ></q-btn>
+          </div>
           <div class="submit-btns">
             <q-btn color="primary" type="submit" label="회원가입" />
             <q-btn

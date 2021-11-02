@@ -1,6 +1,8 @@
 <template>
   <div class="left-wrap">
-    <div>cs의 정석</div>
+    <div class="open-left-wrap">
+      <div>cs의 정석</div>
+    </div>
   </div>
 </template>
 <script>

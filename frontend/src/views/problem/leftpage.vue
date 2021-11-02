@@ -1,17 +1,19 @@
 <template>
   <div class="left-wrap">
-    <div>
-      <q-btn flat @click="mvProblemInfo">문제카테고리</q-btn>
-    </div>
-    <div>
-      <q-btn
-        v-for="(category, index) in state.categories"
-        :key="index"
-        unelevated
-        flat
-        @click="mvProblemDescription(category)"
-        >{{ category.name }}</q-btn
-      >
+    <div class="open-left-wrap">
+      <div>
+        <q-btn flat @click="mvProblemInfo">문제카테고리</q-btn>
+      </div>
+      <div>
+        <q-btn
+          v-for="(category, index) in state.categories"
+          :key="index"
+          unelevated
+          flat
+          @click="mvProblemDescription(category)"
+          >{{ category.name }}</q-btn
+        >
+      </div>
     </div>
   </div>
 </template>
