@@ -1,6 +1,5 @@
 package com.js.freeproject.domain.user.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +48,6 @@ public class UserController {
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 	private final RedisUtil redisUtil;
-	private final MailService mailService;
 	
 	@PostMapping("login")
 	@ApiOperation(value="사용자 로그인", notes ="아이디와 패스워드를 통해 로그인 한다.")
@@ -209,8 +207,5 @@ public class UserController {
 		} catch(NullPointerException e) {
 			return ResponseEntity.status(502).body(CommonResponse.of("키 값 없음")); 
 		}
-		
-		
-		
 	}
 }
