@@ -1,4 +1,4 @@
-package com.js.freeproject.domain.user.appliction;
+package com.js.freeproject.domain.user.application;
 
 import java.util.List;
 import java.util.Random;

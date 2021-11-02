@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.js.freeproject.domain.mail.application.MailService;
 import com.js.freeproject.domain.model.CommonResponse;
-import com.js.freeproject.domain.user.appliction.UserService;
+import com.js.freeproject.domain.user.application.UserService;
 import com.js.freeproject.domain.user.domain.User;
 import com.js.freeproject.domain.user.dto.LoginRequest;
 import com.js.freeproject.domain.user.dto.LoginResponse;

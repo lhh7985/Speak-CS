@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.js.freeproject.domain.user.appliction.UserService;
+import com.js.freeproject.domain.user.application.UserService;
 import com.js.freeproject.domain.user.domain.User;
 import com.js.freeproject.global.util.RedisUtil;
 
