@@ -19,17 +19,12 @@
           <label class="label" for="desc">문제</label>
           <input id="desc" v-model="state.problem.description" />
         </div>
-        <div id="box">
-          <div>
-            <label class="label" for="answerinput">정답</label>
+        <div class="answer-wrap">
+          <label class="label" for="answerinput">정답</label>
+          <div id="box">
             <input id="answerinput" class="answer" />
-            <input
-              class="addBtn"
-              type="button"
-              value="추가"
-              @click="addInput"
-            />
           </div>
+          <input class="addBtn" type="button" value="추가" @click="addInput" />
         </div>
       </form>
       <button class="makeBtn" @click="makeProblem">생성하기</button>
@@ -60,7 +55,7 @@ export default {
       console.log("Add");
       const box = document.getElementById("box");
       const newDiv = document.createElement("div");
-      newDiv.innerHTML = "<input  class='answer'/>";
+      newDiv.innerHTML = "<input  class='answer addinput'/>";
 
       box.appendChild(newDiv);
     };

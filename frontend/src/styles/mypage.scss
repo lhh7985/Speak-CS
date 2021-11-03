@@ -168,11 +168,23 @@
     margin: 2em;
   }
 
-  .addBtn {
-    margin-left: 1em;
-  }
+  .answer-wrap {
+    display: flex;
 
+    .addBtn {
+      margin-left: 1em;
+      height: 2em;
+    }
+
+    .label {
+      margin: 0 2em;
+    }
+
+    .addinput {
+      margin-top: 0.3em;
+    }
+  }
   .makeBtn {
-    margin: 1em 0;
+    margin: 1.5em 0;
   }
 }
