@@ -41,11 +41,9 @@ public class ScoreHistoryController {
 		
 		User user = userService.findByUserEmail(accountDetailes.getUseremail());
 		
-		List<ScoreHistory> list = scoreHistoryService.getScore(user);
+		List<ScoreHistory> scorehistorys = scoreHistoryService.getScore(user);
 		
-		System.out.println(list.toString());
-		
-		return ResponseEntity.status(200).body(CommonResponse.of("Success"));
+		return ResponseEntity.status(200).body(scorehistorys);
 	}
 	
 	@GetMapping("{category_id}")
@@ -61,10 +59,8 @@ public class ScoreHistoryController {
 		Category category = new Category();
 		category.setId(category_id);
 		
-		List<ScoreHistory> list = scoreHistoryService.getScoreCategory(user, category);
+		List<ScoreHistory> scorehistorys = scoreHistoryService.getScoreCategory(user, category);
 		
-		System.out.println(list.toString());
-		
-		return ResponseEntity.status(200).body(CommonResponse.of("Success"));
+		return ResponseEntity.status(200).body(scorehistorys);
 	}
 }
