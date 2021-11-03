@@ -74,7 +74,7 @@ public class UserController {
 			String token = TokenProvider.generateToken(email);
 			String refreshToken = TokenProvider.generateRefreshToken(email);
 			
-			redisUtil.setDataExpire(token, refreshToken, TokenProvider.getRefreshExpiration());
+			redisUtil.setDataExpire(token, refreshToken, TokenProvider.getRefreshExpiration()/100);
 			
 			return ResponseEntity.ok(LoginResponse.of("Success", token));
 		} catch(Exception e) {
