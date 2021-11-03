@@ -172,7 +172,8 @@ public class UserController {
 	})
 	public ResponseEntity<?> findPassword(@RequestBody Map<String,String> map) {
 		try {
-			userService.findpassword(map.get("email"));
+			String key = userService.findpassword(map.get("email"));
+			return ResponseEntity.status(200).body(CommonResponse.of(key));
 		} catch (MessagingException e) {
 			log.info("{} 사용자에게 메일을 보내는 중 오류가 발생하였습니다.",map.get("email"));
 			return ResponseEntity.status(501).body(CommonResponse.of("메일 오류"));
@@ -180,8 +181,6 @@ public class UserController {
 			log.info("{} 비밀번호 찾는 도중 오류가 발생하였습니다.",map.get("email"));
 			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류"));
 		}
-		
-		return ResponseEntity.status(200).body(CommonResponse.of("Success"));
 	}
 	
 	@PostMapping("fixpass")
@@ -194,7 +193,7 @@ public class UserController {
 		@ApiResponse(code=502,message="키 값 없음",response=CommonResponse.class)
 		
 	})
-	public ResponseEntity<?> fixPassword(@RequestBody Map<String, String> map, HttpServletResponse res) {
+	public ResponseEntity<?> fixPassword(@RequestBody Map<String, String> map) {
 		try {
 			User user = userService.fixpass(map.get("key"),passwordEncoder.encode(map.get("pass")));
 			if(user==null) {
