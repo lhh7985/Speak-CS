@@ -199,7 +199,6 @@ export default {
         .dispatch("root/requsetCategoryList")
         .then((response) => {
           store.commit("root/setCategories", response.data);
-          router.push({ name: "problem-info" });
         })
         .catch((error) => {
           console.log(error);

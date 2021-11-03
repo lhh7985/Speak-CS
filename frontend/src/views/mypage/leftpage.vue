@@ -69,12 +69,10 @@ export default {
     const removeBolder = () => {
       const myleft = document.getElementsByClassName("myleft");
       for (var i = 0; i < myleft.length; i++) {
-        console.log(i);
         myleft[i].classList.remove("click-myleft");
       }
     };
     const addBolder = (id) => {
-      console.log(id);
       const btn = document.getElementById(id);
       btn.classList.add("click-myleft");
     };
