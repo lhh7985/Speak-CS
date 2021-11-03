@@ -1,6 +1,5 @@
 <template lang="">
   <div>
-    문제시작페이지
     <div>{{ name }}</div>
     <q-btn flat @click="selectProblem">시작하기</q-btn>
   </div>
@@ -26,7 +25,6 @@ export default {
         .then((response) => {
           store.commit("root/setProblemResultsInit");
           store.commit("root/setSelctedProblems", response.data);
-          console.log(response.data);
           router.push({
             name: "problem-solve",
             query: { num: 0, id: response.data[0].id },
