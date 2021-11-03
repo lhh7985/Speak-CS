@@ -69,7 +69,7 @@ public class UserService {
 		return userRepo.findAll();
 	}
 	
-	public void findpassword(String email) throws MessagingException  {
+	public String findpassword(String email) throws MessagingException  {
 		int leftLimit = 48; // numeral '0'
 		int rightLimit = 122; // letter 'z'
 		int targetStringLength = 10;
@@ -94,6 +94,8 @@ public class UserService {
 		mailUtil.SendMail(mail);
 		
 		redisUtil.setDataExpire(key, email, 500);
+		
+		return key;
 	}
 	
 	public User fixpass(String key, String pass) {
