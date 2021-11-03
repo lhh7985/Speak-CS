@@ -1,21 +1,27 @@
 <template>
   <div>
-    <h2>{{ state.problems[$route.query.num].description }}</h2>
+    <h4>
+      <b>{{ state.problems[$route.query.num].description }}</b>
+    </h4>
     <q-btn
       unelevated
       flat
       id="menuBtn1"
+      icon="mic_outline"
       class="speech-to-text"
+      color="red"
+      size="40px"
       @click="startSpeechToTxt"
-      >Speech to text</q-btn
-    >
+    ></q-btn>
+
     <p>{{ lastTranscription }}</p>
+    <!-- <img class="profile-img" src="@/assets/malang.png" /> -->
 
     <q-btn
       unelevated
       flat
       @click="checkAnswer($route.query.id, $route.query.num, lastTranscription)"
-      >제출하기</q-btn
+      ><b>제출하기</b></q-btn
     >
   </div>
 </template>
@@ -32,6 +38,7 @@ export default {
       transcription_: [],
       lastTranscription: "",
       lang_: "ko-KR",
+      img: "mic_outline",
     };
   },
   setup() {
@@ -44,10 +51,15 @@ export default {
       state,
     };
   },
+  watch: {
+    recordFlag: function () {
+      this.img = "mic_off_outline";
+    },
+  },
   methods: {
     startSpeechToTxt() {
-      console.log("start text");
       // initialisation of voicereco
+      this.recordFlag = false;
       const recognition = new window.SpeechRecognition();
       recognition.lang = this.lang_;
       recognition.interimResults = true;
@@ -62,6 +74,7 @@ export default {
       });
       // end of transcription
       recognition.addEventListener("end", () => {
+        this.recordFlag = true;
         this.transcription_.push(this.runtimeTranscription_);
         this.lastTranscription = this.runtimeTranscription_;
         this.runtimeTranscription_ = "";
@@ -78,11 +91,9 @@ export default {
         this.$store
           .dispatch("root/requestProblemCheckAnswer", payload)
           .then((response) => {
-            console.log(response);
             this.$store.commit("root/setProblemResults", response);
             num++;
             if (num < this.state.problems.length) {
-              console.log(num);
               this.$router.push({
                 name: "problem-solve",
                 query: {

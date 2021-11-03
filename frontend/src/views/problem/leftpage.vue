@@ -10,8 +10,8 @@
         unelevated
         flat
         @click="mvProblemDescription(category)"
-        >{{ category.name }} <br
-      /></q-btn>
+        ><div style="display: block">{{ category.name }}</div>
+      </q-btn>
     </div>
   </div>
 </template>
@@ -30,7 +30,6 @@ export default {
       categories: computed(() => store.getters["root/getCategories"]),
     });
     const mvProblemDescription = (category) => {
-      console.log(category);
       router.push({
         name: "problem-description",
         params: {

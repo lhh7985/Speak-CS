@@ -54,8 +54,7 @@ export async function requsetCategoryList() {
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 문제만들기
-export async function requsetProblemCreate({ state }, payload) {
-  console.log("requsetProblemCreate", state, payload);
+export async function requsetProblemCreate(payload) {
   const url = "/problem/make";
   const body = payload;
   return await axios.post(url, body);

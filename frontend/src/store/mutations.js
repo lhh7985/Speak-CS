@@ -14,8 +14,13 @@ export function setSelctedProblems(state, selectedProblems) {
 
 export function setProblemResults(state, problemResults) {
   state.problemResults.push(problemResults.data);
+  const newData = [];
+  newData.push(problemResults.data.proper.length);
+  newData.push(problemResults.data.wrong.length);
+  state.series.push(newData);
 }
 
 export function setProblemResultsInit(state) {
   state.problemResults.length = 0;
+  state.series.length = 0;
 }
