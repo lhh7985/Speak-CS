@@ -139,3 +139,40 @@
   transform: scale(1.05);
   font-weight: 700;
 }
+
+/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ prob.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+.makeProb-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .makeProb-title {
+    margin: 1em 0;
+    font-size: 2em;
+  }
+
+  .makeProb-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .makeProb-form > div {
+    margin: 0.5em 0;
+  }
+
+  .label {
+    margin: 2em;
+  }
+
+  .addBtn {
+    margin-left: 1em;
+  }
+
+  .makeBtn {
+    margin: 1em 0;
+  }
+}
