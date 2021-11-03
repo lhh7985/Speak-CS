@@ -139,6 +139,7 @@ export default {
             .then((response) => {
               console.log("requestUserLogin", response.data);
               getUserInfo(response.data.token);
+              saveProblemCategory();
             })
             .catch((error) => {
               alert(error.response.data.message);
@@ -191,6 +192,18 @@ export default {
     const mvLogin = () => {
       state.dialog.updatepw = false;
       router.push({ name: "login" });
+    };
+
+    const saveProblemCategory = () => {
+      store
+        .dispatch("root/requsetCategoryList")
+        .then((response) => {
+          store.commit("root/setCategories", response.data);
+          router.push({ name: "problem-info" });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
 
     return {
