@@ -52,6 +52,15 @@ public class ProblemController {
         return ResponseEntity.status(HttpStatus.OK).body(problems);
     }
 
+    @GetMapping("category/{id}")
+    @ApiOperation(value = "해당 카테고리 문제 개수 가져오기")
+    public ResponseEntity categoryProblemNum(@PathVariable("id") Long id) {
+        Category category = categoryService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("관련 카테고리가 없습니다."));
+        long problems = problemService.findByCategorySize(category);
+        return ResponseEntity.status(HttpStatus.OK).body(problems);
+    }
+
     @GetMapping("/wait")
     @ApiOperation(value = "승인대기상태 문제가지고오기")
     public ResponseEntity waitProblems(){

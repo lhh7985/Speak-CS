@@ -65,6 +65,13 @@ public class ProblemService {
         return problems.subList(0, size<3? size:3).stream().map(ProblemResponse::new).collect(toList());
     }
 
+    public Long findByCategorySize(Category category) {
+        PageRequest pageRequest = PageRequest.of(0, 1000);
+        List<Problem> problems = problemRepository.findByCategory(category.getName(), pageRequest);
+        long size = problems.size();
+        return size;
+    }
+
     public List<ProblemResponse> findByStatus(ProblemStatus problemStatus) {
         List<Problem> problems = problemRepository.findByStatus(problemStatus);
         List<ProblemResponse> problemResponses = problems.stream()
