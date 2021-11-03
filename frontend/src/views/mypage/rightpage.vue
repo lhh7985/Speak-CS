@@ -1,6 +1,8 @@
 <template>
   <div class="right-wrap">
-    <router-view></router-view>
+    <div class="open-right-wrap">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>

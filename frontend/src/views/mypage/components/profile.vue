@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="profile-right-wrap">
     프로필
-    <q-btn @click="mvModify">프로필 수정</q-btn>
+    <q-btn flat @click="mvModify" class="modify-btn">프로필 수정</q-btn>
   </div>
 </template>
 <script>

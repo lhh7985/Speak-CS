@@ -93,11 +93,24 @@
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ login-cover, logout-cover.vue ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 .left-wrap {
+  display: flex;
+  justify-content: flex-end;
   width: 28%;
   height: 100%;
-  border: 1px solid black;
+  background-color: var(--color-book);
   border-right: none;
   border-radius: 20px;
+
+  .open-left-wrap {
+    width: 95%;
+    height: 96%;
+    margin: auto 0;
+    background-color: var(--color-i);
+    color: #000000;
+    margin-right: 0;
+    border-radius: 15px 25px 25px 15px;
+    border-right: 1px dotted var(--color-book);
+  }
 }
 
 .right-wrap {
@@ -129,6 +142,15 @@
     background-color: var(--color-i);
     color: #000000;
     border-radius: 15px;
+  }
+
+  .open-right-wrap {
+    width: 98%;
+    height: 96%;
+    margin: auto 0;
+    background-color: var(--color-i);
+    color: #000000;
+    border-radius: 25px 15px 15px 25px;
   }
 }
 
