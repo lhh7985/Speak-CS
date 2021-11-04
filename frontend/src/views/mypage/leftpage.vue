@@ -7,12 +7,13 @@
           <span class="user-name text-h4 text-bold">{{ state.user.name }}</span>
         </div>
         <div class="mypage-menu text-h6">
-          <div id="leftBtn1" class="myleft click-myleft" @click="mvProfile">
-            프로필
+          <div id="leftBtn1" class="myleft click-myleft" @click="mvChart">
+            차트
           </div>
-          <div id="leftBtn2" class="myleft" @click="mvChart">차트</div>
+          <div id="leftBtn2" class="myleft" @click="mvModify">프로필 수정</div>
           <div id="leftBtn3" class="myleft" @click="mvBoard">나의 게시글</div>
-          <div id="leftBtn4" class="myleft" @click="mvAlarm">알림</div>
+          <div id="leftBtn4" class="myleft" @click="mvProb">문제 작성</div>
+          <div id="leftBtn5" class="myleft" @click="mvAlarm">알림</div>
         </div>
       </div>
     </div>
@@ -38,45 +39,50 @@ export default {
       console.log(state.user);
     });
 
-    const mvProfile = () => {
-      removeBolder();
-      addBolder("leftBtn1");
-      router.push({ name: "mypage-profile" });
-    };
     const mvChart = () => {
       removeBolder();
-      addBolder("leftBtn2");
+      addBolder("leftBtn1");
       router.push({ name: "mypage-chart" });
+    };
+    const mvModify = () => {
+      removeBolder();
+      addBolder("leftBtn2");
+      router.push({ name: "mypage-modify" });
     };
     const mvBoard = () => {
       removeBolder();
       addBolder("leftBtn3");
       router.push({ name: "mypage-board" });
     };
-    const mvAlarm = () => {
+    const mvProb = () => {
       removeBolder();
       addBolder("leftBtn4");
+      router.push({ name: "mypage-prob" });
+    };
+
+    const mvAlarm = () => {
+      removeBolder();
+      addBolder("leftBtn5");
       router.push({ name: "mypage-alarm" });
     };
 
     const removeBolder = () => {
       const myleft = document.getElementsByClassName("myleft");
       for (var i = 0; i < myleft.length; i++) {
-        console.log(i);
         myleft[i].classList.remove("click-myleft");
       }
     };
     const addBolder = (id) => {
-      console.log(id);
       const btn = document.getElementById(id);
       btn.classList.add("click-myleft");
     };
     return {
       state,
       onBeforeMount,
-      mvProfile,
       mvChart,
+      mvModify,
       mvBoard,
+      mvProb,
       mvAlarm,
     };
   },

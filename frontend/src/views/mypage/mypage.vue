@@ -9,7 +9,7 @@
 <script>
 import LeftPage from "./leftpage.vue";
 import RightPage from "./rightpage.vue";
-// import "../../styles/cover.scss";
+import "../../styles/mypage.scss";
 
 export default {
   name: "mypage",

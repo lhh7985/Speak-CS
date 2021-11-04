@@ -51,11 +51,6 @@ const routes = [
         children: [
           {
             path: "/home/mypage",
-            name: "mypage-profile",
-            component: () => import("../views/mypage/components/profile.vue"),
-          },
-          {
-            path: "/home/mypage/chart",
             name: "mypage-chart",
             component: () => import("../views/mypage/components/chart.vue"),
           },
@@ -73,6 +68,11 @@ const routes = [
             path: "/home/mypage/modify",
             name: "mypage-modify",
             component: () => import("../views/mypage/components/modify.vue"),
+          },
+          {
+            path: "/home/mypage/prob",
+            name: "mypage-prob",
+            component: () => import("../views/mypage/components/prob.vue"),
           },
         ],
       },

@@ -39,6 +39,22 @@ export async function requsetUserInfo({ state }, payload) {
   return await axios.get(url, header);
 }
 
+// 사용자 비밀번호 찾기(이메일 발송)
+export async function requestUserSendEmail({ state }, payload) {
+  console.log("requestUserSendEmail", state, payload);
+  const url = "/user/findpass";
+  const body = payload;
+  return await axios.post(url, body);
+}
+
+// 사용자 비밀번호 찾기(비밀번호 변경)
+export async function requestUserFixPw({ state }, payload) {
+  console.log("requestUserFixPw", state, payload);
+  const url = "/user/fixpass";
+  const body = payload;
+  return await axios.post(url, body);
+}
+
 // 유저정보 리스트 가져오기
 export async function requestUserList() {
   const url = "/user/all";
@@ -54,9 +70,15 @@ export async function requsetCategoryList() {
 
 /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 // 문제만들기
-export async function requsetProblemCreate(payload) {
+export async function requsetProblemCreate({ state }, payload) {
+<<<<<<< Updated upstream
+  console.log(state, payload.userId);
+=======
+  console.log("requsetProblemCreate", state, payload);
+>>>>>>> Stashed changes
   const url = "/problem/make";
   const body = payload;
+  console.log(body);
   return await axios.post(url, body);
 }
 
