@@ -23,4 +23,12 @@ public class ScoreHistoryService {
 	public List<ScoreHistory> getScoreCategory(User user,Category category) {
 		return scoreHistoryRepo.findByCategoryAndUser(category, user);
 	}
+	
+	public void saveScore(User user,Long cateogry_id, Integer score) {
+		Category category = new Category();
+		category.setId(cateogry_id);
+		ScoreHistory scoreHistory = ScoreHistory.builder().score(score).user(user).category(category).build();
+		
+		scoreHistoryRepo.save(scoreHistory);
+	}
 }
