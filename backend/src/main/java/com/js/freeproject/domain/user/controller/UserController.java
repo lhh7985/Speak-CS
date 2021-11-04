@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.js.freeproject.domain.mail.application.MailService;
 import com.js.freeproject.domain.model.CommonResponse;
-import com.js.freeproject.domain.user.appliction.UserService;
+import com.js.freeproject.domain.user.application.UserService;
 import com.js.freeproject.domain.user.domain.User;
 import com.js.freeproject.domain.user.dto.LoginRequest;
 import com.js.freeproject.domain.user.dto.LoginResponse;
@@ -42,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = {"*"}, maxAge = 6000)
 @RequestMapping("/user")
 @Api(value="사용자 API")
 public class UserController {
@@ -75,7 +76,7 @@ public class UserController {
 			String token = TokenProvider.generateToken(email);
 			String refreshToken = TokenProvider.generateRefreshToken(email);
 			
-			redisUtil.setDataExpire(token, refreshToken, TokenProvider.getRefreshExpiration());
+			redisUtil.setDataExpire(token, refreshToken, TokenProvider.getRefreshExpiration()/100);
 			
 			return ResponseEntity.ok(LoginResponse.of("Success", token));
 		} catch(Exception e) {
@@ -146,7 +147,7 @@ public class UserController {
 		@ApiResponse(code=200,message="성공", response = CommonResponse.class),
 		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class)
 	})
-	public ResponseEntity<?> ModifyUser(@RequestBody UserRequest userRequest) {
+	public ResponseEntity<?> modifyUser(@RequestBody UserRequest userRequest) {
 		try {
 			userRequest.setPass(passwordEncoder.encode(userRequest.getPass()));
 			userService.modifyUser(userRequest);
@@ -159,7 +160,7 @@ public class UserController {
 	}
 	
 	@GetMapping("all")
-	public ResponseEntity<?> GetAllUser() {
+	public ResponseEntity<?> getAllUser() {
 		List<User> userlist = userService.findAll();
 		return ResponseEntity.status(200).body(userlist);
 	}
@@ -171,9 +172,10 @@ public class UserController {
 		@ApiResponse(code=500,message="서버 오류",response=CommonResponse.class),
 		@ApiResponse(code=501,message="메일 전송 오류",response=CommonResponse.class)
 	})
-	public ResponseEntity<?> FindPassword(@RequestBody Map<String,String> map) {
+	public ResponseEntity<?> findPassword(@RequestBody Map<String,String> map) {
 		try {
-			userService.findpassword(map.get("email"));
+			String key = userService.findpassword(map.get("email"));
+			return ResponseEntity.status(200).body(CommonResponse.of(key));
 		} catch (MessagingException e) {
 			log.info("{} 사용자에게 메일을 보내는 중 오류가 발생하였습니다.",map.get("email"));
 			return ResponseEntity.status(501).body(CommonResponse.of("메일 오류"));
@@ -181,8 +183,6 @@ public class UserController {
 			log.info("{} 비밀번호 찾는 도중 오류가 발생하였습니다.",map.get("email"));
 			return ResponseEntity.status(500).body(CommonResponse.of("서버 오류"));
 		}
-		
-		return ResponseEntity.status(200).body(CommonResponse.of("Success"));
 	}
 	
 	@PostMapping("fixpass")
@@ -195,7 +195,7 @@ public class UserController {
 		@ApiResponse(code=502,message="키 값 없음",response=CommonResponse.class)
 		
 	})
-	public ResponseEntity<?> FixPassword(@RequestBody Map<String, String> map, HttpServletResponse res) {
+	public ResponseEntity<?> fixPassword(@RequestBody Map<String, String> map) {
 		try {
 			User user = userService.fixpass(map.get("key"),passwordEncoder.encode(map.get("pass")));
 			if(user==null) {
