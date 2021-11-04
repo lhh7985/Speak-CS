@@ -1,50 +1,77 @@
 <template lang="">
-  <q-dialog>
-    <q-card>
-      <q-card-section class="findpw-title">
-        <div class="row justify-center items-center">
-          <div class="self-center">비밀번호찾기</div>
+  <q-dialog class="bookstyle-dialog">
+    <div class="book">
+      <div class="left-card-top row justify-end">
+        <div class="left-card-top-left"></div>
+        <div class="left-card-top-right"></div>
+      </div>
+      <div class="left-card-back">
+        <div class="left-card">
+          <div class="findpw-card-title">비밀번호찾기</div>
+          <div class="findpw-card-info">
+            본인의<br />
+            이메일을<br />
+            적어주세요
+          </div>
+        </div>
+      </div>
+      <div class="left-card-bottom-back row justify-end">
+        <div class="left-card-bottom row">
+          <div class="left-card-bottom-left"></div>
+          <div class="left-card-bottom-right"></div>
+        </div>
+      </div>
+    </div>
+    <div class="book">
+      <div class="right-card-top row">
+        <div class="right-card-top-left"></div>
+        <div class="right-card-top-right"></div>
+      </div>
+      <div class="right-card-back">
+        <div class="right-card column">
           <q-btn
-            class="findpw-btn-close self-end"
+            class="findpw-card-close-btn self-end"
             v-close-popup
             flat
             round
             dense
             icon="close"
           />
+          <div class="items-end">
+            <q-input
+              class="findpw-card-email"
+              dense
+              ref="email"
+              v-model="state.email"
+              :rules="state.rules.email"
+              lazy-rules
+              type="email"
+              label="이메일"
+            />
+            <q-btn
+              class="findpw-card-btn"
+              outline
+              label="인증요청"
+              @click="emailAuthentication"
+            ></q-btn>
+          </div>
         </div>
-      </q-card-section>
-      <q-card-section class="align-center">
-        <div>본인 이메일 아이디를 적어주세요</div>
-      </q-card-section>
-
-      <q-card-actions>
-        <div class="row justify-center items-center">
-          <q-input
-            ref="email"
-            v-model="state.email"
-            :rules="state.rules.email"
-            lazy-rules
-            type="email"
-            label="이메일"
-          >
-          </q-input>
+      </div>
+      <div class="right-card-bottom-back row">
+        <div class="right-card-bottom row">
+          <div class="right-card-bottom-left"></div>
+          <div class="right-card-bottom-right"></div>
         </div>
-      </q-card-actions>
-      <q-btn
-        class="primary"
-        outline
-        style="color: goldenrod"
-        label="인증요청"
-        @click="requsetAuth"
-      ></q-btn>
-    </q-card>
+      </div>
+    </div>
   </q-dialog>
 </template>
 <script>
+import "@/styles/bookdialog.scss";
 import "@/styles/findpw.scss";
 import { ref, reactive } from "vue";
 import { useStore } from "vuex";
+
 export default {
   name: "login-findpw",
   setup(props, { emit }) {
@@ -70,10 +97,12 @@ export default {
       email.value.validate().then((success) => {
         if (success) {
           store
-            .dispatch("root/")
+            .dispatch("root/requestUserSendEmail", {
+              email: state.email,
+            })
             .then(
-              (response) => {
-                console.log(response);
+              () => {
+                requsetAuth();
               },
               (error) => {
                 console.log(error);

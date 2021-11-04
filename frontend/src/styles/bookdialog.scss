@@ -1,0 +1,126 @@
+//전체크기는 300 x 400
+:root {
+  --width: 220px;
+  --height: 280px;
+  --width-card: 94%;
+  --width-card-edge: 47%;
+  --height-card-edge: 25px;
+  --color-book: #a2b29f;
+  --color-inner: #ccd8c8;
+}
+.book {
+  display: flex !important;
+  flex-direction: column !important;
+  box-shadow: none !important;
+}
+.left-card-top {
+  width: var(--width);
+  height: var(--height-card-edge);
+}
+.left-card-top-left {
+  width: var(--width-card-edge);
+  height: 100%;
+  background-color: var(--color-inner);
+  border-top-left-radius: 100% !important;
+}
+.left-card-top-right {
+  width: var(--width-card-edge);
+  height: 100%;
+  background-color: var(--color-inner);
+  border-top-right-radius: 100% !important;
+}
+
+.left-card-back {
+  display: flex;
+  justify-content: flex-end;
+  width: var(--width);
+  height: var(--height);
+  background-color: var(--color-book);
+  border-top-left-radius: 15px;
+}
+.left-card {
+  width: var(--width-card);
+  height: 100%;
+  padding: 2em 1em 1em 1em;
+  background-color: var(--color-inner);
+  border-right: var(--color-book) 1px solid;
+}
+
+.left-card-bottom-back {
+  width: var(--width);
+  height: var(--height-card-edge);
+  background-color: var(--color-book);
+}
+.left-card-bottom {
+  width: var(--width-card);
+  height: 100%;
+  background-color: var(--color-inner);
+  border-right: var(--color-book) 1px solid;
+}
+.left-card-bottom-left {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+  border-top-left-radius: 100% !important;
+}
+.left-card-bottom-right {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+  border-top-right-radius: 100% !important;
+}
+/* right */
+.right-card-top {
+  width: var(--width);
+  height: var(--height-card-edge);
+}
+.right-card-top-left {
+  width: var(--width-card-edge);
+  height: 100%;
+  background-color: var(--color-inner);
+  border-top-left-radius: 100% !important;
+}
+.right-card-top-right {
+  width: var(--width-card-edge);
+  height: 100%;
+  background-color: var(--color-inner);
+  border-top-right-radius: 100% !important;
+}
+
+.right-card-back {
+  display: flex;
+  justify-content: flex-start;
+  width: var(--width);
+  height: var(--height);
+  background-color: var(--color-book);
+  border-top-right-radius: 15px;
+}
+.right-card {
+  width: var(--width-card);
+  height: 100%;
+  padding: 0 1em 1em 1em;
+  background-color: var(--color-inner);
+}
+
+.right-card-bottom-back {
+  width: var(--width);
+  height: var(--height-card-edge);
+  background-color: var(--color-book);
+}
+.right-card-bottom {
+  width: var(--width-card);
+  height: 100%;
+  background-color: var(--color-inner);
+}
+.right-card-bottom-left {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+  border-top-left-radius: 100% !important;
+}
+.right-card-bottom-right {
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+  border-top-right-radius: 100% !important;
+}
