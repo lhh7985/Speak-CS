@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import com.js.freeproject.domain.category.domain.Category;
 import com.js.freeproject.domain.user.domain.User;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -34,4 +35,12 @@ public class ScoreHistory {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="category_id")
 	private Category category;
+	
+	@Builder
+	public ScoreHistory(User user, Category category, Integer score, Date createdata) {
+		this.user = user;
+		this.category = category;
+		this.score = score;
+		this.createdate = new Date();
+	}
 }
