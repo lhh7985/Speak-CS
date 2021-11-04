@@ -5,17 +5,6 @@
       <div>개발자를 위한 CS 역량 강화</div>
       <div class="cstitle">CS의 정석</div>
     </div>
-    <div class="voice">
-      <q-btn
-        unelevated
-        flat
-        id="menuBtn1"
-        class="speech-to-text"
-        @click="startSpeechToTxt"
-        >Speech to text</q-btn
-      >
-      <p>{{ transcription_ }}</p>
-    </div>
   </div>
 </template>
 <script>
@@ -57,7 +46,6 @@ export default {
 </script>
 <style>
 .speech-to-text {
-  border: 1px solid black;
   z-index: 10;
 }
 .speech-to-text:hover {

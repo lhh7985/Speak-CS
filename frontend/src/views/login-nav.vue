@@ -76,9 +76,11 @@ export default {
       router.push({ name: "mypage-chart" });
     };
     const mvLogout = () => {
-      alert("로그아웃 될거에요");
-      router.push({ name: "logout-cover" });
-      emit("logout");
+      let flag = confirm("로그아웃 될거에요");
+      if (flag) {
+        router.push({ name: "logout-cover" });
+        emit("logout");
+      }
     };
     const removeColor = () => {
       const menus = document.getElementsByClassName("menus");
