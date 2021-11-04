@@ -35,8 +35,8 @@ public class MailUtil {
 		content.append("<body>");
 		content.append("<div>");
 		if(type.equals("pass")) {
-			content.append("비밀번호 찾기 전송");
-			content.append("<a href='http://localhost:8080/user/fixpass?key="+key + "'>비밀번호 찾기 링크</a>");
+			content.append("<h1>").append("SCPC를 이용해주셔서 감사합니다.").append("</h1>");
+			content.append("임시 비밀번호는 ").append("<span style='font-size:20px'>").append(key).append("</span>").append(" 입니다.");
 		} else if(type.equals("mail")) {
 			content.append("메일 인증 전송");
 			content.append("<a href='http://localhost'>메일 인증 링크</a>");
